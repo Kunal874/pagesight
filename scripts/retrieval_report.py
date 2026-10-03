@@ -97,9 +97,9 @@ def top3(run: dict, subset: str, qid: str, gold: dict[str, int]) -> str:
 
 
 def examples(runs: dict, lines: list[str]) -> None:
-    """3 queries where both text systems miss the top 3 and visual exact is right at rank 1,
-    then 1 where visual misses the top 10 and BM25 is right at rank 1. First match by query id,
-    preferring one chart and one table query."""
+    """3 queries where both text systems miss the top 3 and visual exact is right at rank 1 (by
+    query id: the first hr chart, the first finance_en table and the first hr table query, falling
+    back to any), then the first where visual misses the top 10 and BM25 is right at rank 1."""
     found = {"text failed, visual right": [], "visual failed, BM25 right": []}
     for subset in SUBSETS:
         pages = {p.id: p for p in load_pages(subset)}
@@ -116,16 +116,19 @@ def examples(runs: dict, lines: list[str]) -> None:
                 found["visual failed, BM25 right"].append((subset, q, pages))
     wins, fails = found["text failed, visual right"], found["visual failed, BM25 right"]
     chosen = []
-    for kind in ("Chart", "Table", None):  # None = any content type
+    wanted = [("hr", "Chart"), ("finance_en", "Table"), ("hr", "Table")]
+    for subset, kind in wanted + [(None, None)] * 3:  # None = any, to fill up to 3
         pick = next(
             (
                 w
                 for w in wins
-                if w not in chosen and (kind is None or kind in w[1].content_types)
+                if w not in chosen
+                and subset in (None, w[0])
+                and (kind is None or kind in w[1].content_types)
             ),
             None,
         )
-        if pick:
+        if pick and len(chosen) < 3:
             chosen.append(pick)
     picks = [("Text failed, visual right", w) for w in chosen]
     picks += [("Visual failed, BM25 right", w) for w in fails[:1]]
