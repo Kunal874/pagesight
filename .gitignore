@@ -1,0 +1,29 @@
+# Large files — never committed
+data/
+models/
+indexes/
+*.safetensors
+*.pt
+*.bin
+*.npy
+*.parquet
+
+# Python / tool caches
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Secrets
+.env
+.env.*
+
+# Local working files (DECISIONS.md D-004)
+CLAUDE.md
+AGENTS.md
+PROGRESS.md
+docs/INTERVIEW_NOTES.md
+visual-rag-build-prompt.md
+.claude/
+.remember/

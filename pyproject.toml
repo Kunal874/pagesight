@@ -1,0 +1,36 @@
+[project]
+name = "pagesight"
+version = "0.1.0"
+description = "Find the right PDF page by looking at page images, answer with a small VLM, and cite the page."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Kunal Chandrakar", email = "kunalchandrakar2005@gmail.com" }]
+requires-python = "==3.11.*"
+dependencies = [
+    "torch==2.13.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.22,<0.13.0"]
+build-backend = "uv_build"
+
+# PyPI only has CPU builds of torch for Windows; CUDA builds come from PyTorch's own index (D-009).
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff.lint]
+extend-select = ["I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
