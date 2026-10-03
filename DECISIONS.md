@@ -186,3 +186,25 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Named Docker volume, on C: — an exception to D-008 for the Qdrant index only
 - **Why:** Qdrant's supported setup: its install docs say Docker/WSL on Windows with mounts "is known to have file system problems causing data loss". Moving Docker's disk image would move 16.6 GB of other projects' data and cut D: free space to ~34 GB. The index is derived data (~2.3 GB, estimate), rebuildable from the cached vectors on D: (rebuild time measured in Task 4.4).
 - **Consequences:** Volume `pagesight_qdrant_storage`; `docker compose down -v` deletes the index (rebuild with the indexing script). Index size is read from Qdrant's collection stats, not from Windows folders.
+
+## D-027 · First stage of two-stage search · 2026-10-04 · Group 5
+- **Question:** Which cheap first stage picks the N candidate pages that exact MaxSim then reranks? The brief proposed mean pooling.
+- **Measured (results/pooling_probe.md, dev):** share of the exact top-10 kept in the first stage's top 100 — mean pooling 75–79% (hr) / 52–59% (finance_en), nDCG@10 −0.05 / −0.14 vs exact; window pooling (means of 16 consecutive vectors) 84% / 77%; binary scan 100% with a float query, 99.3% / 99.7% with a 1-bit query, nDCG@10 equal to exact.
+- **Options:** binary scan · mean pooling · window pooling (16)
+- **Choice:** Binary scan: MaxSim over the 1-bit copy of every patch vector, then exact float MaxSim on the top N (Qdrant's rescore + oversampling)
+- **Why:** The only option that keeps the exact ranking at a small N. It is already indexed (D-025) and built into Qdrant, so no re-index.
+- **Consequences:** Stage 1 reads the 69 MB binary copy; the float originals are read only for the N rescored pages. Mean-pooled two-stage (prefetch on "pooled", rerank on "patches") stays as a comparison row, so the six test systems are: BM25, dense, visual brute force, visual two-stage (mean-pooled), visual two-stage (binary), hybrid.
+
+## D-028 · Candidate count N · 2026-10-04 · Group 5
+- **Question:** How is N, the number of pages reranked with exact MaxSim, chosen?
+- **Options:** tune on dev · fixed N = 100
+- **Choice:** Tune on dev with a rule fixed before tuning: the smallest N in {25, 50, 100, 200} that keeps ≥ 99% of the exact top-10 on dev in both subsets. Qdrant's query encoding for the binary scan (default 1-bit, or 8-bit scalar) gets its own smallest N by the same rule; the pair with the lower dev p50 latency wins.
+- **Why:** "Kept" measures exactly what the first stage must preserve and is less noisy than nDCG on 188 queries; a rule written down first stops us from picking the luckiest of many dev numbers.
+- **Consequences:** The mean-pooled comparison row uses the same N, so both first stages give stage 2 the same work. N and the encoding are locked in DECISIONS.md before the single test run (D-013).
+
+## D-029 · Fusion for hybrid search · 2026-10-04 · Group 5
+- **Question:** How are the visual and BM25 rankings merged?
+- **Options:** RRF with k=60 · weighted score fusion
+- **Choice:** Reciprocal Rank Fusion with k=60 over each system's top 100 pages: score(page) = Σ 1/(60 + rank)
+- **Why:** It uses ranks only, so BM25 and MaxSim score scales never need matching, and it has no weight to tune on 188 dev queries.
+- **Consequences:** The visual input is the locked two-stage (binary) system. Nothing about fusion is tuned in 5.3; hybrid runs once on dev for the record, then once on test.
