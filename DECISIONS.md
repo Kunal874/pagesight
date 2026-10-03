@@ -71,3 +71,10 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** uv_build
 - **Why:** uv's own backend — zero config, same toolchain as D-003.
 - **Consequences:** Build-time requirement only; `uv sync` installs pagesight in editable mode.
+
+## D-011 · Python install location · 2026-10-03 · Group 0
+- **Question:** Where does uv install Python versions? (Raised by a failed install, not by the planned question list.)
+- **Options:** uv default (`%APPDATA%\uv\python`) · `D:\uv-python`
+- **Choice:** `D:\uv-python`, via `UV_PYTHON_INSTALL_DIR`
+- **Why:** Commands here run from an MSIX-packaged desktop app, and Windows redirects such apps' AppData writes into private storage. uv's default install there failed (its folder link pointed at a path that did not exist) and would have been invisible to normal terminals. D: is not redirected and matches D-008.
+- **Consequences:** `.venv` is based on `D:\uv-python\cpython-3.11…`, so it works from any terminal. Rule: tool state (Python installs, caches, models) stays off AppData. HF_HOME, UV_CACHE_DIR and UV_PYTHON_INSTALL_DIR are set as user environment variables and in the local tool settings.
