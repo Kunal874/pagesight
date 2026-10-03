@@ -149,3 +149,10 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Both: `vidore/colSmol-256M` (LoRA adapter, 39 MB, on `vidore/ColSmolVLM-Instruct-256M-base`, 456 MB) and `vidore/colSmol-500M` (70 MB adapter on `vidore/ColSmolVLM-Instruct-500M-base`, 921 MB); all MIT, not gated (Hugging Face API, 2026-10-03)
 - **Why:** 256M is the model behind the published numbers (sanity check); 500M is likely stronger, which matters because BM25 on our dev split (hr 0.484, finance_en 0.488) already exceeds the published 256M scores (0.460, 0.477).
 - **Consequences:** 1.49 GB download, approved with this choice. Each model embeds all 4,052 pages (D-016): time a small batch first, ask before any run over 30 minutes. colpali-engine 0.3.18, with torchvision pinned to the cu130 index (D-009).
+
+## D-022 · ColSmol batch size · 2026-10-03 · Group 3
+- **Question:** Which batch size for embedding pages? Settled by measurement (results/colsmol_probe.md), not asked.
+- **Measured:** 32 pages, batch 1 / 2 / 4 / 8 — 256M: 2.7 / 2.5 / 2.6 / 2.5 pages/s at 0.89 / 1.33 / 2.22 / 3.98 GB peak VRAM; 500M: 2.3 / 2.2 / 2.2 / 2.1 pages/s at 1.34 / 1.78 / 2.67 / 4.44 GB.
+- **Choice:** batch size 1 for both models
+- **Why:** Throughput does not grow with batch size, so the bottleneck is not the GPU (likely CPU-side image preprocessing; not profiled), while memory grows 4–5×. Batch 1 is as fast as any and leaves the most VRAM free.
+- **Consequences:** Embedding all 4,052 pages takes about 26 min (256M) and 29 min (500M). Pages give 875 (hr, A4) or 1,139 (finance_en, letter) vectors each.

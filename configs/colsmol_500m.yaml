@@ -1,0 +1,6 @@
+# ColSmol-500M visual retrieval on page images (D-021); batch size from results/colsmol_probe.md (D-022)
+retriever: colsmol
+subsets: [hr, finance_en]
+options:
+  model: vidore/colSmol-500M
+  batch_size: 1
