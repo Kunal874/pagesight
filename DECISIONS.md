@@ -128,3 +128,17 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Local folder `explanation of project/`, one file per completed group
 - **Why:** Personal learning notes, like docs/INTERVIEW_NOTES.md (D-004). Defaulted without a question; Kunal can ask to commit them.
 - **Consequences:** Written at the end of every group (rule in the session instructions); listed in .gitignore.
+
+## D-019 · Text baselines · 2026-10-03 · Group 2
+- **Question:** Which text baselines do we build? BM25 is always included; which dense (meaning-based) model joins it?
+- **Options:** + Qwen3-Embedding-0.6B · + granite-embedding-small-english-r2 · + bge-small-en-v1.5 · BM25 only (sizes, licences and context lengths read from the Hugging Face API on 2026-10-03)
+- **Choice:** BM25 (bm25s) + `Qwen/Qwen3-Embedding-0.6B`
+- **Why:** Same size class as ColSmol (596M vs 256–500M parameters), so text vs visual is a fair comparison. It reads whole pages (32,768-token limit; median page text is 3,127–3,809 characters). Apache-2.0, no custom code.
+- **Consequences:** 1.19 GB weight download, approved with this choice. Dependencies bm25s and sentence-transformers (approved list). Both baselines run over the dataset's OCR markdown (D-014), per subset (D-015).
+
+## D-020 · Recall definition · 2026-10-03 · Group 2
+- **Question:** How is Recall@k defined, given about 5 gold pages per query?
+- **Options:** standard recall + hit rate · standard recall only · hit rate only
+- **Choice:** Standard Recall@k (share of a query's gold pages in the top k) plus Hit@k (at least one gold page in the top k)
+- **Why:** Standard recall stays comparable with benchmark tooling; Hit@k predicts the answer step, which reads only the top 1–3 pages.
+- **Consequences:** Any grade (1 or 2) counts as relevant for recall, hit rate and MRR; nDCG@10 uses the grade itself as the gain (trec_eval convention). Reported: nDCG@10, Recall@1/5/10, Hit@1/3/5/10, MRR@10.
