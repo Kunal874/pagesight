@@ -39,6 +39,14 @@ def retriever_class(name: str):
         from pagesight.retrieval.colsmol import ColSmolRetriever
 
         return ColSmolRetriever
+    if name == "two_stage":
+        from pagesight.search.two_stage import TwoStageRetriever
+
+        return TwoStageRetriever
+    if name == "hybrid":
+        from pagesight.search.hybrid import HybridRetriever
+
+        return HybridRetriever
     raise ValueError(f"unknown retriever {name!r}")
 
 
