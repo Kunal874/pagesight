@@ -98,6 +98,12 @@ at the bottom. "Unverified" = no official source confirms it. "Estimate" = our o
 | --- | --- | --- | --- |
 | 2,212,960,256 B = 2.21 GB | 1,106,480,128 B = 1.11 GB | 553,240,064 B = 0.55 GB | 69,155,008 B = 69 MB |
 
+- Measured after indexing (results/qdrant_index.json, bytes allocated once settled): float32 originals 2.21 GB,
+  binary copy 69 MB, whole collections 2.39 GB (hr 0.57 GB, finance_en 1.83 GB; most of the rest is the WAL, the
+  write-ahead log). Two traps: right after a collection turns green, segments the optimizer replaced are still on disk
+  for a few seconds (hr read 2.38 GB, then 0.57 GB); and the apparent size (`du -b`) counts space Qdrant reserves in
+  advance (a 64-page probe: 1.03 GB apparent, 68 MB allocated).
+
 [releases]: https://github.com/qdrant/qdrant/releases
 [pypi]: https://pypi.org/pypi/qdrant-client/1.19.1/json
 [upgrades]: https://qdrant.tech/documentation/upgrades/
