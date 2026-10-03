@@ -10,22 +10,36 @@ from pagesight.config import ROOT
 from pagesight.data.vidore import Page
 from pagesight.retrieval.maxsim import maxsim, pad
 
-# Adapter revisions pinned for reproducibility; base models are named in D-021.
+# LoRA adapter -> (adapter revision, base model, base revision), pinned for reproducibility (D-021)
 MODELS = {
-    "vidore/colSmol-256M": "c79b633e17e060cc109b11aa2bf92a1517d3bd6f",
-    "vidore/colSmol-500M": "0aaa9726104ce485884c7b8faa8a58a72d5fdbe7",
+    "vidore/colSmol-256M": (
+        "c79b633e17e060cc109b11aa2bf92a1517d3bd6f",
+        "vidore/ColSmolVLM-Instruct-256M-base",
+        "99ca96f1f6b95b3a69e6abef74a2416cb738fed0",
+    ),
+    "vidore/colSmol-500M": (
+        "0aaa9726104ce485884c7b8faa8a58a72d5fdbe7",
+        "vidore/ColSmolVLM-Instruct-500M-base",
+        "650243e9bf299a5a082841ed2907da8b0b9ce553",
+    ),
 }
 CACHE = ROOT / "indexes" / "colsmol"
 
 
 def load_model(name: str):
     from colpali_engine.models import ColIdefics3, ColIdefics3Processor
+    from huggingface_hub import snapshot_download
 
-    revision = MODELS[name]
+    adapter_revision, base, base_revision = MODELS[name]
+    # from_pretrained(adapter, revision=...) reuses that revision for the base repo and fails,
+    # so each repo is fetched at its own pinned revision and loaded from its local snapshot.
+    adapter_dir = snapshot_download(name, revision=adapter_revision)
+    base_dir = snapshot_download(base, revision=base_revision)
     model = ColIdefics3.from_pretrained(
-        name, revision=revision, dtype=torch.bfloat16, device_map="cuda"
-    ).eval()
-    return model, ColIdefics3Processor.from_pretrained(name, revision=revision)
+        base_dir, dtype=torch.bfloat16, device_map="cuda"
+    )
+    model.load_adapter(adapter_dir)
+    return model.eval(), ColIdefics3Processor.from_pretrained(adapter_dir)
 
 
 @torch.inference_mode()
