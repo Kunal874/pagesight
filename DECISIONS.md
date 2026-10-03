@@ -99,3 +99,17 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** The dataset's `markdown` field
 - **Why:** Zero extra work, and it is a strong baseline: the OCR text keeps tables as text rows, so a visual win has to be real.
 - **Consequences:** The text baselines are OCR-text baselines, not naive PDF-text extraction; results and README must say so. Pages with empty markdown (hr: 12 of 1,110; finance_en: not yet counted) can only be found visually. PyMuPDF text extraction is still built for user-uploaded PDFs (Task 1.6).
+
+## D-015 · Retrieval scope in evaluation · 2026-10-03 · Group 1
+- **Question:** During evaluation, which pages does a query search?
+- **Options:** its own subset only · both subsets combined
+- **Choice:** Its own subset only — the ViDoRe protocol
+- **Why:** Each subset is a separate retrieval task in the benchmark, so our numbers stay comparable to the published ones.
+- **Consequences:** Retrieval and metrics run per subset. The demo index may still combine subsets.
+
+## D-016 · Go/no-go test set and smoke slice · 2026-10-03 · Group 1
+- **Question:** What does the Group 3 go/no-go test run on? Measured: dev queries have 5.3 gold pages on average, so the brief's ~200-page slice fits only 28 of the 188 dev queries.
+- **Options:** full dev set + smoke slice · ~2,100-page slice (full hr + 1,035 finance pages) · ~200-page slice
+- **Choice:** All 188 dev queries on each subset's full corpus (4,052 pages), plus a ~200-page smoke slice for quick pipeline checks
+- **Why:** The benchmark setting makes the published ColSmol numbers a real sanity check, and every dev query counts in the gate. Slicing would save little: the dev queries' gold pages already cover 33% of hr's 1,110 pages.
+- **Consequences:** Changes the brief's task 3.1 ("embed the dev-slice pages"): Group 3 embeds all 4,052 pages per tested model (time measured on a small batch first; ask if over 30 minutes), and Group 4 reuses those embeddings. The smoke slice (configs/dev_slice.json) is for pipeline checks only, never for reported numbers.

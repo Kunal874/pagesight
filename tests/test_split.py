@@ -2,9 +2,46 @@ import json
 
 import pytest
 
-from pagesight.data.split import load_split, save_split, split_queries
+from pagesight.data.split import build_slice, load_split, save_split, split_queries
+from pagesight.data.vidore import Query
 
 IDS = {"a": [f"a-q{i}" for i in range(10)], "b": [f"b-q{i}" for i in range(20)]}
+
+# 40 pages; query i has 3 gold pages of its own (s-3i .. s-3i+2), so no gold is shared.
+PAGES = [f"s-{i}" for i in range(40)]
+SLICE_QUERIES = [
+    Query(
+        id=f"s-q{i}",
+        text="?",
+        gold={f"s-{3 * i + k}": 1 for k in range(3)},
+        answer="",
+        generator="human",
+        content_types=[],
+    )
+    for i in range(10)
+]
+
+
+def test_build_slice_keeps_every_gold_page_of_chosen_queries():
+    # 20 pages -> gold budget 10 -> exactly 3 disjoint 3-page queries fit.
+    sliced = build_slice(SLICE_QUERIES, PAGES, n_pages=20, seed=0)
+    chosen = [q for q in SLICE_QUERIES if q.id in sliced["queries"]]
+
+    assert len(chosen) == 3
+    assert all(page in sliced["pages"] for q in chosen for page in q.gold)
+
+
+def test_build_slice_fills_with_distinct_distractors_to_size():
+    sliced = build_slice(SLICE_QUERIES, PAGES, n_pages=20, seed=0)
+
+    assert len(sliced["pages"]) == len(set(sliced["pages"])) == 20
+
+
+def test_build_slice_ignores_input_order():
+    forward = build_slice(SLICE_QUERIES, PAGES, n_pages=20, seed=0)
+    backward = build_slice(SLICE_QUERIES[::-1], PAGES[::-1], n_pages=20, seed=0)
+
+    assert forward == backward
 
 
 def test_split_queries_partitions_each_subset_30_70():

@@ -5,6 +5,7 @@ import random
 from pathlib import Path
 
 from pagesight.config import SPLIT_FILE
+from pagesight.data.vidore import Query
 
 
 def split_queries(
@@ -34,3 +35,20 @@ def load_split(path: Path = SPLIT_FILE) -> dict:
     if overlap := set(split["dev"]) & set(split["test"]):
         raise ValueError(f"dev and test share query ids: {sorted(overlap)[:5]}")
     return split
+
+
+def build_slice(
+    queries: list[Query], page_ids: list[str], n_pages: int, seed: int
+) -> dict[str, list[str]]:
+    """Smoke slice of one subset (D-016): queries whose gold pages fit in half of
+    n_pages, all of those gold pages, and random distractor pages up to n_pages."""
+    rng = random.Random(seed)
+    order = sorted(queries, key=lambda q: q.id)  # the input order must not matter
+    rng.shuffle(order)
+    chosen, gold = [], set()
+    for q in order:
+        if len(gold.union(q.gold)) <= n_pages // 2:
+            chosen.append(q.id)
+            gold.update(q.gold)
+    distractors = rng.sample(sorted(set(page_ids) - gold), n_pages - len(gold))
+    return {"queries": sorted(chosen), "pages": sorted(gold | set(distractors))}
