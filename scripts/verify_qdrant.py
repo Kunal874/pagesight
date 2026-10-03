@@ -11,7 +11,7 @@ import time
 import torch
 from qdrant_client import models
 
-from pagesight.config import SLICE_FILE
+from pagesight.config import SLICE_FILE, SUBSETS
 from pagesight.data.vidore import load_pages, load_queries
 from pagesight.eval.runner import RESULTS, git_state
 from pagesight.index.qdrant_store import connect
@@ -29,8 +29,9 @@ def main() -> None:
     client = connect()
     slices = json.loads(SLICE_FILE.read_text(encoding="utf-8"))
     result = {"model": MODEL, "k": K, "tolerance": TOL, "git": git_state()}
-    for subset, chosen in slices.items():
-        queries = [q for q in load_queries(subset) if q.id in set(chosen["queries"])]
+    for subset in SUBSETS:
+        wanted = set(slices[subset]["queries"])
+        queries = [q for q in load_queries(subset) if q.id in wanted]
         # brute force over the cached page vectors, float32 on the GPU (Group 3)
         brute = ColSmolRetriever(load_pages(subset), MODEL, batch_size=1)
         index_of = {pid: i for i, pid in enumerate(brute.ids)}
