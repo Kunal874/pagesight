@@ -1,0 +1,3 @@
+# BM25 keyword search over the dataset's OCR markdown (D-014, D-019)
+retriever: bm25
+subsets: [hr, finance_en]
