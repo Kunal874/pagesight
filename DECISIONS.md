@@ -121,3 +121,10 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** 200 dpi
 - **Why:** It reproduces the benchmark's page images exactly, so uploaded pages look to the retriever like the pages it was evaluated on. 173 ms per page is about 9 s for a 50-page upload.
 - **Consequences:** `PDF_DPI = 200` in config.py; letter pages render at 1700 × 2200, A4 pages at 1654 × 2339.
+
+## D-018 · Plain-language explanations · 2026-10-03 · Group 1
+- **Question:** Kunal asked for one very simple explanation file per completed group, in a separate folder. Is it committed?
+- **Options:** local folder (gitignored) · committed folder
+- **Choice:** Local folder `explanation of project/`, one file per completed group
+- **Why:** Personal learning notes, like docs/INTERVIEW_NOTES.md (D-004). Defaulted without a question; Kunal can ask to commit them.
+- **Consequences:** Written at the end of every group (rule in the session instructions); listed in .gitignore.
