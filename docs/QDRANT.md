@@ -103,6 +103,12 @@ at the bottom. "Unverified" = no official source confirms it. "Estimate" = our o
   write-ahead log). Two traps: right after a collection turns green, segments the optimizer replaced are still on disk
   for a few seconds (hr read 2.38 GB, then 0.57 GB); and the apparent size (`du -b`) counts space Qdrant reserves in
   advance (a 64-page probe: 1.03 GB apparent, 68 MB allocated).
+- Measured (results/two_stage_tuning.md, dev): Qdrant 1.19.1 scans our binary multivectors more slowly than the float
+  originals — p50 86 / 281 ms (binary only, hr / finance_en) vs 43 / 139 ms (exact float scan); 8-bit query encoding
+  is slower still. Binary saves memory (69 MB vs 2.21 GB), not time, at this scale (D-031).
+- Seen once (2026-10-04): a gRPC query failed with "Exception deserializing response!" (protobuf "Wire format was
+  corrupt") while the server logged nothing; 1,317 repeated gRPC calls and 439 REST calls then all succeeded (about
+  1 failure in 7,500 gRPC calls that day). Cause unknown; re-running worked. If it recurs: retry, or query over REST.
 
 [releases]: https://github.com/qdrant/qdrant/releases
 [pypi]: https://pypi.org/pypi/qdrant-client/1.19.1/json
