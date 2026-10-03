@@ -35,6 +35,10 @@ def retriever_class(name: str):
         from pagesight.retrieval.dense import DenseRetriever
 
         return DenseRetriever
+    if name == "colsmol":
+        from pagesight.retrieval.colsmol import ColSmolRetriever
+
+        return ColSmolRetriever
     raise ValueError(f"unknown retriever {name!r}")
 
 
@@ -87,11 +91,13 @@ def git_state() -> dict:
     }
 
 
-def evaluate_subset(retriever_cls, pages: list[Page], queries: list[Query]) -> dict:
+def evaluate_subset(
+    retriever_cls, pages: list[Page], queries: list[Query], options: dict
+) -> dict:
     if torch.cuda.is_available():
         torch.cuda.reset_peak_memory_stats()
     start = time.perf_counter()
-    retriever = retriever_cls(pages)
+    retriever = retriever_cls(pages, **options)
     index_seconds = time.perf_counter() - start
     per_query, latencies, rankings = [], [], {}
     for q in queries:
@@ -102,6 +108,9 @@ def evaluate_subset(retriever_cls, pages: list[Page], queries: list[Query]) -> d
     summary = summarize(per_query, latencies)
     summary["n_pages"] = len(pages)
     summary["index_seconds"] = round(index_seconds, 2)  # includes model loading
+    summary.update(
+        getattr(retriever, "stats", {})
+    )  # e.g. ColSmol embedding time per page
     summary["peak_vram_gb"] = (
         round(torch.cuda.max_memory_allocated() / 2**30, 2)
         if torch.cuda.is_available()
@@ -192,7 +201,9 @@ def main(argv: list[str] | None = None) -> None:
             split_ids,
             slices,
         )
-        result["subsets"][subset] = evaluate_subset(retriever_cls, pages, queries)
+        result["subsets"][subset] = evaluate_subset(
+            retriever_cls, pages, queries, config.get("options", {})
+        )
         s = result["subsets"][subset]
         print(
             f"{subset}: nDCG@10 {s['metrics']['ndcg@10']['mean']:.3f} "
