@@ -1,0 +1,36 @@
+{
+ "model": "vidore/colSmol-500M",
+ "binary": true,
+ "batch_size": 16,
+ "qdrant": "1.19.1",
+ "git": {
+  "commit": "7a49c42",
+  "dirty": false
+ },
+ "subsets": {
+  "hr": {
+   "pages": 1110,
+   "vectors": 971196,
+   "pages_added": 1110,
+   "upload_seconds": 27.5,
+   "optimize_seconds": 1.0,
+   "disk_bytes": {
+    "total": 565686272,
+    "patches_float32": 497479680,
+    "patches_binary": 15667200
+   }
+  },
+  "finance_en": {
+   "pages": 2942,
+   "vectors": 3350938,
+   "pages_added": 2942,
+   "upload_seconds": 197.9,
+   "optimize_seconds": 22.8,
+   "disk_bytes": {
+    "total": 1828401152,
+    "patches_float32": 1715929088,
+    "patches_binary": 53743616
+   }
+  }
+ }
+}

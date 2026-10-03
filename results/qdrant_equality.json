@@ -1,0 +1,23 @@
+{
+ "model": "vidore/colSmol-500M",
+ "k": 10,
+ "tolerance": 0.001,
+ "git": {
+  "commit": "e46b84a",
+  "dirty": false
+ },
+ "hr": {
+  "queries": 8,
+  "identical_rankings": 8,
+  "max_score_diff": 5.7220458984375e-06,
+  "passed": true,
+  "qdrant_p50_ms": 74.2
+ },
+ "finance_en": {
+  "queries": 15,
+  "identical_rankings": 15,
+  "max_score_diff": 5.7220458984375e-06,
+  "passed": true,
+  "qdrant_p50_ms": 198.6
+ }
+}
