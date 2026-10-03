@@ -1,0 +1,17 @@
+name: pagesight
+
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.19.1
+    # Localhost only: Qdrant has no authentication by default (D-024).
+    ports:
+      - "127.0.0.1:6333:6333" # REST + dashboard
+      - "127.0.0.1:6334:6334" # gRPC (used for uploads)
+    environment:
+      QDRANT__TELEMETRY_DISABLED: "true"
+    # Named volume, not a Windows bind mount: Qdrant warns that mounts on Docker/WSL cause data loss (D-026).
+    volumes:
+      - qdrant_storage:/qdrant/storage
+
+volumes:
+  qdrant_storage:
