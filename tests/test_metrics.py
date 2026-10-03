@@ -3,6 +3,7 @@ import math
 import pytest
 
 from pagesight.eval.metrics import (
+    bootstrap_ci,
     hit_at_k,
     mrr_at_k,
     ndcg_at_k,
@@ -64,3 +65,21 @@ def test_query_metrics_computes_each_metric_at_its_own_cutoff():
         0.5,
     )
     assert m["ndcg@10"] == pytest.approx(ndcg_at_k(RANKING, GOLD, k=10))
+
+
+def test_bootstrap_ci_of_constant_values_is_that_value():
+    assert bootstrap_ci([0.7] * 20) == pytest.approx((0.7, 0.7))
+
+
+def test_bootstrap_ci_matches_the_normal_95_percent_interval():
+    # 100 values, half 0 and half 1: mean 0.5, standard error 0.05 -> 95% CI about 0.40..0.60
+    # (a 90% interval would be about 0.42..0.58, a 99% one about 0.37..0.63).
+    low, high = bootstrap_ci([0.0, 1.0] * 50)
+    assert 0.385 <= low <= 0.415
+    assert 0.585 <= high <= 0.615
+
+
+def test_bootstrap_ci_is_reproducible_with_a_seed():
+    values = [0.0, 0.3, 1.0, 0.5, 0.8] * 10
+    assert bootstrap_ci(values, seed=1) == bootstrap_ci(values, seed=1)
+    assert bootstrap_ci(values, seed=1) != bootstrap_ci(values, seed=2)

@@ -7,6 +7,10 @@ itself as the gain with a log2(rank + 1) discount, like trec_eval.
 
 import math
 
+import numpy as np
+
+from pagesight.config import SEED
+
 
 def ndcg_at_k(ranking: list[str], gold: dict[str, int], k: int) -> float:
     dcg = sum(gold.get(p, 0) / math.log2(r + 1) for r, p in enumerate(ranking[:k], 1))
@@ -25,6 +29,17 @@ def hit_at_k(ranking: list[str], gold: dict[str, int], k: int) -> float:
 
 def mrr_at_k(ranking: list[str], gold: dict[str, int], k: int) -> float:
     return next((1 / r for r, p in enumerate(ranking[:k], 1) if p in gold), 0.0)
+
+
+def bootstrap_ci(
+    values: list[float], n_resamples: int = 1000, seed: int = SEED, level: float = 0.95
+) -> tuple[float, float]:
+    """Percentile bootstrap interval for the mean of per-query values: the queries are
+    resampled with replacement n_resamples times."""
+    v = np.asarray(values, dtype=float)
+    rows = np.random.default_rng(seed).integers(0, len(v), size=(n_resamples, len(v)))
+    low, high = np.quantile(v[rows].mean(axis=1), [(1 - level) / 2, (1 + level) / 2])
+    return float(low), float(high)
 
 
 def query_metrics(ranking: list[str], gold: dict[str, int]) -> dict[str, float]:

@@ -689,6 +689,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "datasets" },
+    { name = "numpy" },
     { name = "pymupdf" },
     { name = "torch" },
 ]
@@ -702,6 +703,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "datasets", specifier = ">=5.0.1" },
+    { name = "numpy", specifier = ">=2.4.6" },
     { name = "pymupdf", specifier = ">=1.28.2" },
     { name = "torch", specifier = "==2.13.0", index = "https://download.pytorch.org/whl/cu130" },
 ]
