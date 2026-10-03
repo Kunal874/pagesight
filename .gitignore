@@ -1,7 +1,7 @@
-# Large files — never committed
-data/
-models/
-indexes/
+# Large files — never committed (leading "/" = repo root only; "data/" would also hide src/pagesight/data/)
+/data/
+/models/
+/indexes/
 *.safetensors
 *.pt
 *.bin
