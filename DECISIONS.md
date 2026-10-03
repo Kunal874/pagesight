@@ -156,3 +156,11 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** batch size 1 for both models
 - **Why:** Throughput does not grow with batch size, so the bottleneck is not the GPU (likely CPU-side image preprocessing; not profiled), while memory grows 4–5×. Batch 1 is as fast as any and leaves the most VRAM free.
 - **Consequences:** Embedding all 4,052 pages takes about 26 min (256M) and 29 min (500M). Pages give 875 (hr, A4) or 1,139 (finance_en, letter) vectors each.
+
+## D-023 · Go/no-go gate · 2026-10-04 · Group 3
+- **Question:** Does visual retrieval pass the gate (beats BM25 on nDCG@10 AND fits in VRAM), and which model goes forward?
+- **Evidence (results/go_no_go.md; dev split, 188 queries):** nDCG@10 — ColSmol-256M hr 0.507, finance_en 0.529; ColSmol-500M hr 0.528, finance_en 0.560; BM25 0.484 / 0.488; dense 0.448 / 0.552. 500M minus BM25 (paired 95% interval): hr +0.044 (−0.016 to +0.103), finance_en +0.072 (+0.010 to +0.131); 500M minus dense: hr +0.080 (+0.014 to +0.152), finance_en +0.008 (−0.066 to +0.072). Peak VRAM 4.10 of 6.9 GB.
+- **Options:** GO with ColSmol-500M · GO with both models · NO-GO
+- **Choice:** GO with ColSmol-500M
+- **Why:** Both models meet the brief's rule; only 500M has clear wins (vs BM25 on finance_en, vs dense on hr), and it never scores below either text baseline.
+- **Consequences:** Groups 4–5 use ColSmol-500M; its page vectors are already cached under indexes/colsmol/. ColSmol-256M results stay as the published-number sanity check. The trade-off is reported: about 190–250 ms per query vs 0.3 ms for BM25, and about 40 minutes to embed the corpus.
