@@ -142,3 +142,10 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Standard Recall@k (share of a query's gold pages in the top k) plus Hit@k (at least one gold page in the top k)
 - **Why:** Standard recall stays comparable with benchmark tooling; Hit@k predicts the answer step, which reads only the top 1–3 pages.
 - **Consequences:** Any grade (1 or 2) counts as relevant for recall, hit rate and MRR; nDCG@10 uses the grade itself as the gain (trec_eval convention). Reported: nDCG@10, Recall@1/5/10, Hit@1/3/5/10, MRR@10.
+
+## D-021 · ColSmol models for the go/no-go test · 2026-10-03 · Group 3
+- **Question:** Which ColSmol model(s) does the Group 3 go/no-go test use?
+- **Options:** both 256M and 500M · only 500M · only 256M
+- **Choice:** Both: `vidore/colSmol-256M` (LoRA adapter, 39 MB, on `vidore/ColSmolVLM-Instruct-256M-base`, 456 MB) and `vidore/colSmol-500M` (70 MB adapter on `vidore/ColSmolVLM-Instruct-500M-base`, 921 MB); all MIT, not gated (Hugging Face API, 2026-10-03)
+- **Why:** 256M is the model behind the published numbers (sanity check); 500M is likely stronger, which matters because BM25 on our dev split (hr 0.484, finance_en 0.488) already exceeds the published 256M scores (0.460, 0.477).
+- **Consequences:** 1.49 GB download, approved with this choice. Each model embeds all 4,052 pages (D-016): time a small batch first, ask before any run over 30 minutes. colpali-engine 0.3.18, with torchvision pinned to the cu130 index (D-009).

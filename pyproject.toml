@@ -8,12 +8,14 @@ authors = [{ name = "Kunal Chandrakar", email = "kunalchandrakar2005@gmail.com" 
 requires-python = "==3.11.*"
 dependencies = [
     "bm25s>=0.3.12",
+    "colpali-engine>=0.3.18",
     "datasets>=5.0.1",
     "numpy>=2.4.6",
     "pymupdf>=1.28.2",
     "pyyaml>=6.0.3",
     "sentence-transformers>=6.1.0",
     "torch==2.13.0",
+    "torchvision>=0.28.0",
 ]
 
 [build-system]
@@ -23,6 +25,7 @@ build-backend = "uv_build"
 # PyPI only has CPU builds of torch for Windows; CUDA builds come from PyTorch's own index (D-009).
 [tool.uv.sources]
 torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }  # must match torch's CUDA build (colpali-engine needs it)
 
 [[tool.uv.index]]
 name = "pytorch-cu130"
