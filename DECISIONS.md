@@ -78,3 +78,24 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** `D:\uv-python`, via `UV_PYTHON_INSTALL_DIR`
 - **Why:** Commands here run from an MSIX-packaged desktop app, and Windows redirects such apps' AppData writes into private storage. uv's default install there failed (its folder link pointed at a path that did not exist) and would have been invisible to normal terminals. D: is not redirected and matches D-008.
 - **Consequences:** `.venv` is based on `D:\uv-python\cpython-3.11…`, so it works from any terminal. Rule: tool state (Python installs, caches, models) stays off AppData. HF_HOME, UV_CACHE_DIR and UV_PYTHON_INSTALL_DIR are set as user environment variables and in the local tool settings.
+
+## D-012 · ViDoRe V3 subsets · 2026-10-03 · Group 1
+- **Question:** Which public, English-document ViDoRe V3 subsets do we use?
+- **Options:** hr + finance_en · hr + computer_science · hr + pharmaceuticals · hr only (candidates and numbers in docs/DATA.md)
+- **Choice:** `vidore/vidore_v3_hr` + `vidore/vidore_v3_finance_en`
+- **Why:** hr is chart-heavy and finance_en (bank 10-K reports) is table-heavy, so together they test both halves of the claim that text extraction loses charts and tables. 4,052 pages and 627 English queries fit the laptop. Licences are clean: CC BY 4.0 annotations; source documents CC BY 4.0 (hr) and SEC public domain (finance_en). pharmaceuticals was dropped over an unverified licence on 825 book pages, industrial is the largest (5,244 pages), computer_science is the easiest and mostly text.
+- **Consequences:** 1.71 GB parquet download (finance_en alone 1.27 GB, approved with this choice). Published ColSmol-256M nDCG@10 on English queries (hr 0.460, finance_en 0.477) is a ballpark sanity check for Group 3, not a like-for-like target (our test split is 70% of the queries).
+
+## D-013 · Dev/test split · 2026-10-03 · Group 1
+- **Question:** How are queries split into dev (tuning) and test (final numbers)?
+- **Options:** 30/70 stratified · 50/50 · 20/80
+- **Choice:** 30% dev / 70% test, stratified by subset, fixed seed
+- **Why:** About 188 dev queries are enough to tune the candidate count and fusion settings; about 439 test queries keep confidence intervals tight.
+- **Consequences:** Only English query rows are used, selected with `language == "english"` (the benchmark stores 6 language copies as separate rows). Human-written and synthetic queries are both kept, as in the benchmark; `query_generator` stays in the data for slicing results. Tuning uses dev only; test runs once per locked config.
+
+## D-014 · Page text for text baselines · 2026-10-03 · Group 1
+- **Question:** Which page text feeds the text baselines?
+- **Options:** dataset-provided `markdown` · markdown + plain PyMuPDF text from the original PDFs · own OCR (not needed: text is provided)
+- **Choice:** The dataset's `markdown` field
+- **Why:** Zero extra work, and it is a strong baseline: the OCR text keeps tables as text rows, so a visual win has to be real.
+- **Consequences:** The text baselines are OCR-text baselines, not naive PDF-text extraction; results and README must say so. Pages with empty markdown (hr: 12 of 1,110; finance_en: not yet counted) can only be found visually. PyMuPDF text extraction is still built for user-uploaded PDFs (Task 1.6).
