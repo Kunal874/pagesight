@@ -109,10 +109,19 @@ def wait_until_green(client: QdrantClient, name: str) -> None:
         time.sleep(1)
 
 
+def allocated_bytes(paths: str) -> int:
+    # Measured inside the container: the index is in a named volume, not a Windows folder (D-026).
+    cmd = ["docker", "compose", "exec", "-T", "qdrant", "sh", "-c"]
+    cmd.append(f"du -scB1 {paths} | tail -1")
+    out = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
+    return int(out.stdout.split()[0])
+
+
 def disk_bytes(name: str) -> dict[str, int]:
-    """Bytes allocated on disk, measured inside the container (the index is in a named volume,
-    D-026). Not the apparent size: Qdrant preallocates sparse files (a 64-page probe showed
-    1.03 GB apparent, 68 MB allocated)."""
+    """Bytes allocated on disk, not the apparent size: Qdrant preallocates sparse files (64-page
+    probe: 1.03 GB apparent, 68 MB allocated). Read until two readings 5 s apart agree, because
+    segments replaced by the optimizer are deleted a few seconds after the collection turns green
+    (finance_en: 2.09 GB right after green, 1.83 GB once settled)."""
     root = f"/qdrant/storage/collections/{name}"
     patches = f"{root}/*/segments/*/vector_storage-patches"
     parts = {
@@ -120,12 +129,10 @@ def disk_bytes(name: str) -> dict[str, int]:
         "patches_float32": f"{patches}/vectors {patches}/offsets",
         "patches_binary": f"{patches}/quantized*",
     }
-    sizes = {}
-    for part, paths in parts.items():
-        cmd = ["docker", "compose", "exec", "-T", "qdrant", "sh", "-c"]
-        cmd.append(f"du -scB1 {paths} | tail -1")
-        out = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, check=True)
-        sizes[part] = int(out.stdout.split()[0])
+    previous = None
+    while (sizes := {k: allocated_bytes(v) for k, v in parts.items()}) != previous:
+        previous = sizes
+        time.sleep(5)
     return sizes
 
 
