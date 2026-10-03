@@ -1,8 +1,9 @@
-"""Two-stage visual search in Qdrant (D-027): a cheap first stage picks max(N, k) candidate pages,
-exact float MaxSim reranks them.
+"""Visual search in Qdrant. A first stage picks max(N, k) candidate pages, exact float MaxSim reranks
+them (D-027, D-030):
+- "none": no first stage, exact float MaxSim on every page — the main visual system (D-031)
 - "binary": MaxSim on the 1-bit copy of every patch vector, then Qdrant rescoring with the float
   originals (rescore=False keeps the binary scores: the compressed-only variant, D-025)
-- "mean": one mean-pooled vector per page (comparison row)
+- "mean": one mean-pooled vector per page
 """
 
 import torch
@@ -22,13 +23,22 @@ def two_stage(
     query: torch.Tensor,
     k: int,
     first_stage: str,
-    n: int,
+    n: int = 0,
     rescore: bool = True,
     query_filter: models.Filter | None = None,
 ) -> list[int]:
     """Point ids of the top k pages for a (tokens, 128) query."""
     vectors = query.tolist()
-    if first_stage == "binary":
+    if first_stage == "none":
+        hits = client.query_points(
+            subset,
+            vectors,
+            using="patches",
+            limit=k,
+            query_filter=query_filter,
+            search_params=EXACT,
+        ).points
+    elif first_stage == "binary":
         quantization = models.QuantizationSearchParams(
             rescore=rescore, oversampling=max(n, k) / k
         )
@@ -70,7 +80,7 @@ class TwoStageRetriever:
         pages: list[Page],
         model: str,
         first_stage: str,
-        n_candidates: int,
+        n_candidates: int = 0,
         rescore: bool = True,
     ):
         self.subset = pages[0].id.rsplit("-", 1)[0]

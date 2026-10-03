@@ -48,7 +48,12 @@ def test_binary_first_stage_returns_the_exact_order_in_local_mode(client):
     assert two_stage(client, "toy", QUERY, k=3, first_stage="binary", n=2) == [1, 2, 3]
 
 
-@pytest.mark.parametrize("first_stage", ["mean", "binary"])
+def test_no_first_stage_scans_every_page_with_exact_maxsim(client):
+    # the pooled vectors alone would rank page 2 first
+    assert two_stage(client, "toy", QUERY, k=3, first_stage="none") == [1, 2, 3]
+
+
+@pytest.mark.parametrize("first_stage", ["mean", "binary", "none"])
 def test_filter_limits_both_stages_to_the_given_pages(client, first_stage):
     allowed = models.Filter(must=[models.HasIdCondition(has_id=[2, 3])])
     hits = two_stage(client, "toy", QUERY, 3, first_stage, n=3, query_filter=allowed)

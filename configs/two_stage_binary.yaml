@@ -1,0 +1,8 @@
+# Two-stage ablation (D-027, D-030): MaxSim on the 1-bit copy (default query encoding, set on the
+# collections) picks N = 25 pages, exact float MaxSim reranks them
+retriever: two_stage
+subsets: [hr, finance_en]
+options:
+  model: vidore/colSmol-500M
+  first_stage: binary
+  n_candidates: 25

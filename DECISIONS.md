@@ -208,3 +208,17 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Reciprocal Rank Fusion with k=60 over each system's top 100 pages: score(page) = Σ 1/(60 + rank)
 - **Why:** It uses ranks only, so BM25 and MaxSim score scales never need matching, and it has no weight to tune on 188 dev queries.
 - **Consequences:** The visual input is the locked two-stage (binary) system. Nothing about fusion is tuned in 5.3; hybrid runs once on dev for the record, then once on test.
+
+## D-030 · Locked two-stage settings · 2026-10-04 · Group 5
+- **Question:** Which N and binary query encoding does the D-028 rule pick? Settled by the pre-registered rule, not asked.
+- **Measured (results/two_stage_tuning.md, dev, Qdrant server):** smallest N keeping ≥ 99% of the exact top-10 in both subsets — default 1-bit query: N = 25 (kept 0.995 / 0.995, p50 90 / 253 ms); 8-bit query: N = 25 (0.999 / 0.999, p50 182 / 651 ms).
+- **Choice:** Binary first stage, default 1-bit query encoding, N = 25 (applied to both collections). The mean-pooled comparison row also uses N = 25.
+- **Consequences:** Locked for the single test run. Both two-stage variants are reported as measured ablations (D-031).
+
+## D-031 · Main visual system · 2026-10-04 · Group 5
+- **Question:** The binary two-stage search matches exact quality but is slower than a plain exact scan. Which visual system is the headline row and the hybrid's input? Supersedes D-027's choice of binary two-stage for that role and D-029's "visual input".
+- **Measured (results/two_stage_tuning.md, dev, Qdrant call only, p50 hr / finance_en):** exact float scan 43 / 139 ms, nDCG@10 0.528 / 0.560; binary two-stage N = 25: 90 / 253 ms, 0.528 / 0.559; binary without rescoring 86 / 281 ms, 0.469 / 0.505; mean-pooled two-stage N = 25: 8 / 7 ms, 0.329 / 0.303.
+- **Options:** exact float scan · keep binary two-stage · investigate the slow binary scan first
+- **Choice:** Qdrant's exact float scan (single stage, exact MaxSim on every page)
+- **Why:** It ranks exactly like brute force and is the fastest exact option measured. At 4,052 pages a first stage either loses quality (mean pooling) or is not faster (binary: Qdrant 1.19.1 scores binary multivectors more slowly than float; cause not investigated). Binary's measured benefit is memory: 69 MB instead of 2.21 GB.
+- **Consequences:** Seven systems run once on test: BM25, dense, visual brute force (GPU), visual exact (Qdrant), two-stage mean (N = 25), two-stage binary (N = 25), hybrid = RRF(visual exact, BM25) with k = 60 over the top 100 of each.

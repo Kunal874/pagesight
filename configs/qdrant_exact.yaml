@@ -1,0 +1,6 @@
+# Main visual system (D-031): Qdrant exact float MaxSim on every page, ColSmol-500M query on the GPU
+retriever: two_stage
+subsets: [hr, finance_en]
+options:
+  model: vidore/colSmol-500M
+  first_stage: none

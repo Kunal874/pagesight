@@ -1,0 +1,8 @@
+# Two-stage ablation (D-027, D-030): the mean-pooled vector picks N = 25 pages (same N as binary),
+# exact float MaxSim reranks them
+retriever: two_stage
+subsets: [hr, finance_en]
+options:
+  model: vidore/colSmol-500M
+  first_stage: mean
+  n_candidates: 25

@@ -1,0 +1,9 @@
+# Hybrid (D-029, D-031): RRF with k = 60 over the top 100 of the main visual system and of BM25
+retriever: hybrid
+subsets: [hr, finance_en]
+options:
+  visual:
+    model: vidore/colSmol-500M
+    first_stage: none
+  depth: 100
+  rrf_k: 60
