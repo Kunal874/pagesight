@@ -1,0 +1,701 @@
+{
+ "run_id": "dense_qwen3-slice-20261003T161417Z",
+ "config": {
+  "retriever": "dense",
+  "subsets": [
+   "hr",
+   "finance_en"
+  ]
+ },
+ "split": "slice",
+ "git": {
+  "commit": "54ded16",
+  "dirty": false
+ },
+ "started_utc": "2026-10-03T16:14:17+00:00",
+ "subsets": {
+  "hr": {
+   "n_queries": 8,
+   "metrics": {
+    "ndcg@10": {
+     "mean": 0.7912435867872183,
+     "ci95": [
+      0.6750937396584152,
+      0.9051443236858898
+     ]
+    },
+    "recall@1": {
+     "mean": 0.33229166666666665,
+     "ci95": [
+      0.14164062500000002,
+      0.578125
+     ]
+    },
+    "recall@5": {
+     "mean": 0.5989583333333334,
+     "ci95": [
+      0.41666666666666663,
+      0.796875
+     ]
+    },
+    "recall@10": {
+     "mean": 0.7760416666666666,
+     "ci95": [
+      0.6041666666666666,
+      0.9375
+     ]
+    },
+    "hit@1": {
+     "mean": 0.875,
+     "ci95": [
+      0.625,
+      1.0
+     ]
+    },
+    "hit@3": {
+     "mean": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ]
+    },
+    "hit@5": {
+     "mean": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ]
+    },
+    "hit@10": {
+     "mean": 1.0,
+     "ci95": [
+      1.0,
+      1.0
+     ]
+    },
+    "mrr@10": {
+     "mean": 0.9375,
+     "ci95": [
+      0.8125,
+      1.0
+     ]
+    }
+   },
+   "latency_ms": {
+    "p50": 142.03750000160653,
+    "p95": 291.94120499450935
+   },
+   "n_pages": 100,
+   "index_seconds": 83.19,
+   "peak_vram_gb": 3.32,
+   "per_query": {
+    "hr-q27": {
+     "ranking": [
+      "hr-622",
+      "hr-60",
+      "hr-621",
+      "hr-863",
+      "hr-658",
+      "hr-665",
+      "hr-630",
+      "hr-632",
+      "hr-490",
+      "hr-523"
+     ],
+     "ndcg@10": 0.8141120382435488,
+     "recall@1": 0.125,
+     "recall@5": 0.625,
+     "recall@10": 0.875,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q30": {
+     "ranking": [
+      "hr-504",
+      "hr-505",
+      "hr-524",
+      "hr-523",
+      "hr-525",
+      "hr-512",
+      "hr-508",
+      "hr-510",
+      "hr-490",
+      "hr-511"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 0.03333333333333333,
+     "recall@5": 0.16666666666666666,
+     "recall@10": 0.3333333333333333,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q62": {
+     "ranking": [
+      "hr-485",
+      "hr-487",
+      "hr-372",
+      "hr-488",
+      "hr-418",
+      "hr-490",
+      "hr-502",
+      "hr-516",
+      "hr-351",
+      "hr-505"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 1.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q176": {
+     "ranking": [
+      "hr-519",
+      "hr-518",
+      "hr-516",
+      "hr-497",
+      "hr-505",
+      "hr-420",
+      "hr-499",
+      "hr-351",
+      "hr-396",
+      "hr-487"
+     ],
+     "ndcg@10": 0.6309297535714575,
+     "recall@1": 0.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 0.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 0.5
+    },
+    "hr-q187": {
+     "ranking": [
+      "hr-799",
+      "hr-803",
+      "hr-502",
+      "hr-523",
+      "hr-410",
+      "hr-524",
+      "hr-511",
+      "hr-372",
+      "hr-773",
+      "hr-805"
+     ],
+     "ndcg@10": 0.5032251913410369,
+     "recall@1": 0.25,
+     "recall@5": 0.25,
+     "recall@10": 0.5,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q266": {
+     "ranking": [
+      "hr-148",
+      "hr-507",
+      "hr-509",
+      "hr-515",
+      "hr-508",
+      "hr-60",
+      "hr-523",
+      "hr-621",
+      "hr-52",
+      "hr-511"
+     ],
+     "ndcg@10": 0.7601875334318685,
+     "recall@1": 0.5,
+     "recall@5": 0.5,
+     "recall@10": 0.5,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q267": {
+     "ranking": [
+      "hr-803",
+      "hr-890",
+      "hr-954",
+      "hr-773",
+      "hr-726",
+      "hr-1",
+      "hr-715",
+      "hr-12",
+      "hr-805",
+      "hr-789"
+     ],
+     "ndcg@10": 0.8700592720921217,
+     "recall@1": 0.5,
+     "recall@5": 0.5,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "hr-q270": {
+     "ranking": [
+      "hr-1054",
+      "hr-984",
+      "hr-1035",
+      "hr-1037",
+      "hr-658",
+      "hr-890",
+      "hr-1002",
+      "hr-205",
+      "hr-968",
+      "hr-1036"
+     ],
+     "ndcg@10": 0.751434905617713,
+     "recall@1": 0.25,
+     "recall@5": 0.75,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    }
+   }
+  },
+  "finance_en": {
+   "n_queries": 15,
+   "metrics": {
+    "ndcg@10": {
+     "mean": 0.8011609433093406,
+     "ci95": [
+      0.6262873637190812,
+      0.9204030017862438
+     ]
+    },
+    "recall@1": {
+     "mean": 0.36846153846153845,
+     "ci95": [
+      0.19243376068376072,
+      0.561155982905983
+     ]
+    },
+    "recall@5": {
+     "mean": 0.7667521367521368,
+     "ci95": [
+      0.5887542735042737,
+      0.9100576923076923
+     ]
+    },
+    "recall@10": {
+     "mean": 0.8717094017094017,
+     "ci95": [
+      0.7139316239316239,
+      0.97225
+     ]
+    },
+    "hit@1": {
+     "mean": 0.7333333333333333,
+     "ci95": [
+      0.4666666666666667,
+      0.9333333333333333
+     ]
+    },
+    "hit@3": {
+     "mean": 0.8666666666666667,
+     "ci95": [
+      0.6666666666666666,
+      1.0
+     ]
+    },
+    "hit@5": {
+     "mean": 0.9333333333333333,
+     "ci95": [
+      0.8,
+      1.0
+     ]
+    },
+    "hit@10": {
+     "mean": 0.9333333333333333,
+     "ci95": [
+      0.8,
+      1.0
+     ]
+    },
+    "mrr@10": {
+     "mean": 0.8166666666666667,
+     "ci95": [
+      0.6166666666666667,
+      0.9666666666666667
+     ]
+    }
+   },
+   "latency_ms": {
+    "p50": 142.06120000744704,
+    "p95": 153.51965999725508
+   },
+   "n_pages": 100,
+   "index_seconds": 20.62,
+   "peak_vram_gb": 2.47,
+   "per_query": {
+    "finance_en-q18": {
+     "ranking": [
+      "finance_en-2713",
+      "finance_en-2878",
+      "finance_en-2874",
+      "finance_en-2877",
+      "finance_en-2503",
+      "finance_en-417",
+      "finance_en-2338",
+      "finance_en-2849",
+      "finance_en-2688",
+      "finance_en-1718"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 0.25,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q27": {
+     "ranking": [
+      "finance_en-2338",
+      "finance_en-2503",
+      "finance_en-2903",
+      "finance_en-532",
+      "finance_en-2474",
+      "finance_en-2874",
+      "finance_en-1829",
+      "finance_en-417",
+      "finance_en-2710",
+      "finance_en-2713"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 0.5,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q102": {
+     "ranking": [
+      "finance_en-1984",
+      "finance_en-1829",
+      "finance_en-1982",
+      "finance_en-1292",
+      "finance_en-1976",
+      "finance_en-1091",
+      "finance_en-1090",
+      "finance_en-1995",
+      "finance_en-1121",
+      "finance_en-1308"
+     ],
+     "ndcg@10": 0.0,
+     "recall@1": 0.0,
+     "recall@5": 0.0,
+     "recall@10": 0.0,
+     "hit@1": 0.0,
+     "hit@3": 0.0,
+     "hit@5": 0.0,
+     "hit@10": 0.0,
+     "mrr@10": 0.0
+    },
+    "finance_en-q125": {
+     "ranking": [
+      "finance_en-643",
+      "finance_en-644",
+      "finance_en-634",
+      "finance_en-633",
+      "finance_en-623",
+      "finance_en-624",
+      "finance_en-625",
+      "finance_en-2573",
+      "finance_en-615",
+      "finance_en-635"
+     ],
+     "ndcg@10": 0.9305687780632227,
+     "recall@1": 0.07692307692307693,
+     "recall@5": 0.38461538461538464,
+     "recall@10": 0.6923076923076923,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q136": {
+     "ranking": [
+      "finance_en-2849",
+      "finance_en-2713",
+      "finance_en-2688",
+      "finance_en-2878",
+      "finance_en-2877",
+      "finance_en-2338",
+      "finance_en-417",
+      "finance_en-2874",
+      "finance_en-1718",
+      "finance_en-2260"
+     ],
+     "ndcg@10": 0.8800937667159342,
+     "recall@1": 0.5,
+     "recall@5": 0.5,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q151": {
+     "ranking": [
+      "finance_en-2127",
+      "finance_en-2260",
+      "finance_en-2249",
+      "finance_en-447",
+      "finance_en-1595",
+      "finance_en-1933",
+      "finance_en-2190",
+      "finance_en-639",
+      "finance_en-2189",
+      "finance_en-615"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 0.3333333333333333,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q200": {
+     "ranking": [
+      "finance_en-631",
+      "finance_en-632",
+      "finance_en-641",
+      "finance_en-665",
+      "finance_en-642",
+      "finance_en-621",
+      "finance_en-625",
+      "finance_en-633",
+      "finance_en-622",
+      "finance_en-634"
+     ],
+     "ndcg@10": 0.8772153153380493,
+     "recall@1": 0.5,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q212": {
+     "ranking": [
+      "finance_en-2688",
+      "finance_en-2713",
+      "finance_en-2849",
+      "finance_en-2878",
+      "finance_en-2874",
+      "finance_en-2338",
+      "finance_en-2877",
+      "finance_en-417",
+      "finance_en-2503",
+      "finance_en-1829"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 1.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q219": {
+     "ranking": [
+      "finance_en-1982",
+      "finance_en-1984",
+      "finance_en-1097",
+      "finance_en-1995",
+      "finance_en-1091",
+      "finance_en-1829",
+      "finance_en-1718",
+      "finance_en-1976",
+      "finance_en-1308",
+      "finance_en-1156"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 1.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q232": {
+     "ranking": [
+      "finance_en-1718",
+      "finance_en-1156",
+      "finance_en-1091",
+      "finance_en-1097",
+      "finance_en-1090",
+      "finance_en-1829",
+      "finance_en-574",
+      "finance_en-1308",
+      "finance_en-1982",
+      "finance_en-2688"
+     ],
+     "ndcg@10": 0.5665372262534346,
+     "recall@1": 0.0,
+     "recall@5": 0.75,
+     "recall@10": 0.75,
+     "hit@1": 0.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 0.5
+    },
+    "finance_en-q242": {
+     "ranking": [
+      "finance_en-1718",
+      "finance_en-1292",
+      "finance_en-1308",
+      "finance_en-1097",
+      "finance_en-1091",
+      "finance_en-1829",
+      "finance_en-1995",
+      "finance_en-1156",
+      "finance_en-1982",
+      "finance_en-1148"
+     ],
+     "ndcg@10": 0.7735485120422142,
+     "recall@1": 0.16666666666666666,
+     "recall@5": 0.6666666666666666,
+     "recall@10": 0.8333333333333334,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q265": {
+     "ranking": [
+      "finance_en-643",
+      "finance_en-633",
+      "finance_en-623",
+      "finance_en-2796",
+      "finance_en-644",
+      "finance_en-634",
+      "finance_en-624",
+      "finance_en-2573",
+      "finance_en-1595",
+      "finance_en-667"
+     ],
+     "ndcg@10": 0.43067655807339306,
+     "recall@1": 0.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 0.0,
+     "hit@3": 0.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 0.25
+    },
+    "finance_en-q266": {
+     "ranking": [
+      "finance_en-1148",
+      "finance_en-1718",
+      "finance_en-1097",
+      "finance_en-1829",
+      "finance_en-1308",
+      "finance_en-2903",
+      "finance_en-1091",
+      "finance_en-1982",
+      "finance_en-1156",
+      "finance_en-2688"
+     ],
+     "ndcg@10": 1.0,
+     "recall@1": 1.0,
+     "recall@5": 1.0,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    },
+    "finance_en-q288": {
+     "ranking": [
+      "finance_en-666",
+      "finance_en-665",
+      "finance_en-644",
+      "finance_en-624",
+      "finance_en-641",
+      "finance_en-634",
+      "finance_en-1814",
+      "finance_en-642",
+      "finance_en-631",
+      "finance_en-632"
+     ],
+     "ndcg@10": 0.5840310402970723,
+     "recall@1": 0.0,
+     "recall@5": 0.4,
+     "recall@10": 0.8,
+     "hit@1": 0.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 0.5
+    },
+    "finance_en-q1764": {
+     "ranking": [
+      "finance_en-2189",
+      "finance_en-2188",
+      "finance_en-2190",
+      "finance_en-1976",
+      "finance_en-2191",
+      "finance_en-2077",
+      "finance_en-364",
+      "finance_en-2249",
+      "finance_en-2260",
+      "finance_en-2127"
+     ],
+     "ndcg@10": 0.9747429528567879,
+     "recall@1": 0.2,
+     "recall@5": 0.8,
+     "recall@10": 1.0,
+     "hit@1": 1.0,
+     "hit@3": 1.0,
+     "hit@5": 1.0,
+     "hit@10": 1.0,
+     "mrr@10": 1.0
+    }
+   }
+  }
+ }
+}
