@@ -2,6 +2,7 @@
 one vector per token, scored with MaxSim. Page vectors are cached under indexes/ and reused."""
 
 import time
+from pathlib import Path
 
 import torch
 from PIL import Image
@@ -24,6 +25,10 @@ MODELS = {
     ),
 }
 CACHE = ROOT / "indexes" / "colsmol"
+
+
+def cache_path(model: str, subset: str) -> Path:
+    return CACHE / model.replace("/", "__") / f"{subset}.pt"
 
 
 def load_model(name: str):
@@ -66,8 +71,7 @@ class ColSmolRetriever:
     def __init__(self, pages: list[Page], model: str, batch_size: int):
         self.ids = [p.id for p in pages]
         self.model, self.processor = load_model(model)
-        subset = pages[0].id.rsplit("-", 1)[0]
-        path = CACHE / model.replace("/", "__") / f"{subset}.pt"
+        path = cache_path(model, pages[0].id.rsplit("-", 1)[0])
         cache = torch.load(path, weights_only=True) if path.exists() else {}
         missing = [p for p in pages if p.id not in cache]
         self.stats = {"pages_embedded": len(missing)}
