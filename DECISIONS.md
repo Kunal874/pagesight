@@ -113,3 +113,11 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** All 188 dev queries on each subset's full corpus (4,052 pages), plus a ~200-page smoke slice for quick pipeline checks
 - **Why:** The benchmark setting makes the published ColSmol numbers a real sanity check, and every dev query counts in the gate. Slicing would save little: the dev queries' gold pages already cover 33% of hr's 1,110 pages.
 - **Consequences:** Changes the brief's task 3.1 ("embed the dev-slice pages"): Group 3 embeds all 4,052 pages per tested model (time measured on a small batch first; ask if over 30 minutes), and Group 4 reuses those embeddings. The smoke slice (configs/dev_slice.json) is for pipeline checks only, never for reported numbers.
+
+## D-017 · Render DPI for uploaded PDFs · 2026-10-03 · Group 1
+- **Question:** At what DPI does PyMuPDF render user PDFs? Settled by a quick test, not asked.
+- **Measured:** the smallest hr source PDF (`undeclared_care_work_in_the_eu-TJ0125004ENN.pdf`, 52 pages): page 0 renders at 827 × 1170 (100 dpi), 1241 × 1754 (150 dpi) and 1654 × 2339 (200 dpi); the dataset's image of that page is 1654 × 2339. Render + PNG encode: 61, 114 and 173 ms per page.
+- **Options:** 100 · 150 · 200 dpi
+- **Choice:** 200 dpi
+- **Why:** It reproduces the benchmark's page images exactly, so uploaded pages look to the retriever like the pages it was evaluated on. 173 ms per page is about 9 s for a 50-page upload.
+- **Consequences:** `PDF_DPI = 200` in config.py; letter pages render at 1700 × 2200, A4 pages at 1654 × 2339.

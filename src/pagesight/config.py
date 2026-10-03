@@ -8,3 +8,4 @@ SUBSETS = {"hr": "vidore/vidore_v3_hr", "finance_en": "vidore/vidore_v3_finance_
 SPLIT_FILE = ROOT / "configs" / "split.json"  # committed, so the split is auditable
 SLICE_FILE = ROOT / "configs" / "dev_slice.json"  # pipeline checks only (D-016)
 SEED = 42
+PDF_DPI = 200  # reproduces the benchmark's page images exactly (D-017)
