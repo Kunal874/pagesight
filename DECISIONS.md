@@ -164,3 +164,25 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** GO with ColSmol-500M
 - **Why:** Both models meet the brief's rule; only 500M has clear wins (vs BM25 on finance_en, vs dense on hr), and it never scores below either text baseline.
 - **Consequences:** Groups 4–5 use ColSmol-500M; its page vectors are already cached under indexes/colsmol/. ColSmol-256M results stay as the published-number sanity check. The trade-off is reported: about 190–250 ms per query vs 0.3 ms for BM25, and about 40 minutes to embed the corpus.
+
+## D-024 · Qdrant runtime · 2026-10-04 · Group 4
+- **Question:** Where does Qdrant run for Groups 4–5?
+- **Options:** Qdrant server in Docker · embedded local mode (qdrant-client in-process)
+- **Choice:** Qdrant server in Docker: `qdrant/qdrant:v1.19.1` (latest stable, 2026-09-04; 71 MB image) with `qdrant-client==1.19.1`
+- **Why:** Local mode silently ignores quantization (the client source accepts the config and always searches exactly), so it cannot measure compression; its pickled-SQLite storage says nothing about Qdrant's real disk size; and it would hold ~2.2 GB of float32 vectors inside our Python process. The server gives real quantization, disk size and latency. Facts and sources: docs/QDRANT.md.
+- **Consequences:** docker-compose.yml binds the ports to 127.0.0.1 only (Qdrant has no authentication by default) and turns telemetry off. Upload over gRPC: REST bodies are capped at 32 MB, and one finance page is ~1.5–2.9 MB as JSON. "patches" and "pooled" are created together with the collection (open bug #10857: adding a multivector to an existing collection breaks it on 1.19.x). Local mode, with the same client code, stays an option for CPU-only tests and Group 9's serverless demo.
+
+## D-025 · Compression variants · 2026-10-04 · Group 4
+- **Question:** Which compression variants do we evaluate?
+- **Options:** none + binary · none + scalar int8 + binary
+- **Choice:** none + binary (1-bit binary quantization on "patches")
+- **Why:** Qdrant's ColPali tests report binary with rescoring at accuracy similar to int8 and ~2× faster. One collection per subset serves both variants: quantization is a compressed copy next to the float32 originals, and a per-query flag (`ignore=True`) skips it for the "none" runs.
+- **Consequences:** Group 5 compares none vs binary (with and without rescoring) on dev; every run logs `rescore` and `oversampling`. Risk: Qdrant's docs say 1-bit loses precision below ~1,000 dimensions (ours: 128). If binary fails on dev, int8 or 2-bit binary is a `update_collection` change without re-embedding — that needs a new decision. Storage estimate, vectors only: float32 2.21 GB, binary copy 69 MB.
+
+## D-026 · Qdrant data location · 2026-10-04 · Group 4
+- **Question:** Where do Qdrant's files live? D-008 keeps large files on D:, but Docker Desktop keeps named volumes inside its own disk image on C:.
+- **Measured:** `docker volume inspect` puts volumes under `/var/lib/docker/volumes/`; Docker's data disk `C:\Users\Kunal\AppData\Local\Docker\wsl\disk\docker_data.vhdx` is 16.6 GB (images, containers and volumes, including other projects' databases). C: 647 GB free, D: 53 GB free.
+- **Options:** named Docker volume (on C:) · move Docker Desktop's disk image to D: · bind-mount a D: folder
+- **Choice:** Named Docker volume, on C: — an exception to D-008 for the Qdrant index only
+- **Why:** Qdrant's supported setup: its install docs say Docker/WSL on Windows with mounts "is known to have file system problems causing data loss". Moving Docker's disk image would move 16.6 GB of other projects' data and cut D: free space to ~34 GB. The index is derived data (~2.3 GB, estimate), rebuildable from the cached vectors on D: (rebuild time measured in Task 4.4).
+- **Consequences:** Volume `pagesight_qdrant_storage`; `docker compose down -v` deletes the index (rebuild with the indexing script). Index size is read from Qdrant's collection stats, not from Windows folders.
