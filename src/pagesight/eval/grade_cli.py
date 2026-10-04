@@ -25,9 +25,8 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("answers", type=Path)
     args = parser.parse_args(argv)
-    sys.stdout.reconfigure(
-        encoding="utf-8"
-    )  # page text has curly quotes, euro signs, ...
+    # page text has curly quotes, euro signs, ...; the Windows console default can't print them
+    sys.stdout.reconfigure(encoding="utf-8")
     run = json.loads(args.answers.read_text(encoding="utf-8"))
     queries = {q.id: q for s in SUBSETS for q in load_queries(s)}
     answers = {
