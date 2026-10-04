@@ -68,6 +68,8 @@ def answer(model, processor, question: str, pages: list[Page], max_pixels: int) 
         tokenize=True,
         return_dict=True,
         return_tensors="pt",
+        # Qwen3.5-4B writes its reasoning first unless told not to; other templates ignore it
+        enable_thinking=False,
     ).to(model.device)
     torch.cuda.reset_peak_memory_stats()
     start = time.perf_counter()
