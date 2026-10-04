@@ -253,3 +253,11 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** The model decides: the prompt tells it to answer only from the given pages and otherwise reply exactly NOT_FOUND; the wording is tuned on the dev abstention set only
 - **Why:** Once gold pages are removed, other pages of the same report score almost as high, so a threshold would refuse ~40% of answerable questions to catch ~60% of unanswerable ones.
 - **Consequences:** The abstention set (Task 6.3) measures both error types: answers where NOT_FOUND was correct, and NOT_FOUND on answerable questions. The UI still shows the closest pages with every NOT_FOUND.
+
+## D-036 · How the model's refusal is captured · 2026-10-04 · Group 6
+- **Question:** Qwen3.5-4B refuses in prose ("The provided pages do not contain …") instead of NOT_FOUND. How is its refusal captured? Refines D-035 (the model still decides).
+- **Measured (dev pipeline checks, logs not saved):** after 4 prompt fixes (strict system prompt; format rule moved after the question — the one that helped other failures; "do not explain"; quoting the banned sentence plus example replies), 15 of 47 outputs on the first 20 dev questions per subset were still prose refusals, and 0 of 7 gold-removed questions got NOT_FOUND.
+- **Options:** YES/NO gate before answering · parser maps the refusal sentence to NOT_FOUND · switch to Qwen3.5-2B · keep and report
+- **Choice:** A gate: one forward pass over the same pages and question asks "Do these pages contain the information needed to answer the question? Reply YES or NO" and compares the probabilities of the YES and NO tokens. p(YES) ≥ 0.5 (the model's own choice, not tuned) → the answer prompt runs; otherwise the output is NOT_FOUND without generating.
+- **Why:** A probability comparison cannot produce prose, the parser stays strict, and p(YES) is a confidence score; about one extra prefill per query.
+- **Consequences:** Every record stores p(YES), so the report can show the abstention trade-off at other thresholds without tuning on test. A prose refusal after a YES still counts as invalid.
