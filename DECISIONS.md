@@ -269,3 +269,11 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** p(YES) ≥ 0.4
 - **Why:** On dev it lets 6 more points of answerable questions through with no more gold-removed questions passing. Chosen on dev, before any test answer run.
 - **Consequences:** The dev answer run stays at 0.5 (its record); the test run uses 0.4. Dev queries with 0.4 ≤ p(YES) < 0.5 have no generated answer, so the dev numbers slightly understate the answer rate at 0.4.
+
+## D-038 · How answer quality is reported · 2026-10-05 · Group 6
+- **Question:** The 3-level judge failed validation against Kunal's 50 blind dev grades. How is answer quality reported on test? Refines D-034.
+- **Measured (results/judge-dev-20261004T161502Z.json, results/human_grades-dev-20261004T161502Z.json):** 3 levels: 64% agreement, kappa 0.39; after one rubric fix (omitted reference detail no longer penalised) 62%, 0.36 — mostly judge "partial" where Kunal said "correct". Usable (correct or partial) vs incorrect: 92%, kappa 0.62. Correct vs rest: 68%, 0.37.
+- **Options:** usable vs incorrect · keep trying rubrics · report the judge as untrusted
+- **Choice:** Headline metric = share of answerable test queries with a usable answer (judge correct or partial), the level validated at kappa 0.62 ≥ 0.6. The correct / partial split is shown but marked unvalidated.
+- **Why:** The 4B judge reliably separates usable from wrong answers but not correct from partial; more rubric rounds on the same 50 grades would fit them.
+- **Consequences:** The report states this level was chosen after seeing the 50 grades (a mild selection effect). The test judge uses the revised rubric (commit c211376's successor).

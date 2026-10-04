@@ -4,23 +4,23 @@
  "model": "Qwen/Qwen3.5-4B",
  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
  "git": {
-  "commit": "601ef5e",
+  "commit": "07522b1",
   "dirty": false
  },
  "accuracy": {
   "all": {
-   "correct": 0.30319148936170215,
-   "partial": 0.17553191489361702,
+   "correct": 0.2925531914893617,
+   "partial": 0.2074468085106383,
    "ungraded": 0.0
   },
   "hr": {
-   "correct": 0.2631578947368421,
-   "partial": 0.18947368421052632,
+   "correct": 0.24210526315789474,
+   "partial": 0.22105263157894736,
    "ungraded": 0.0
   },
   "finance_en": {
    "correct": 0.34408602150537637,
-   "partial": 0.16129032258064516,
+   "partial": 0.1935483870967742,
    "ungraded": 0.0
   }
  },
@@ -33,11 +33,11 @@
   "hr-q57": "correct",
   "hr-q62": "correct",
   "hr-q70": "partial",
-  "hr-q74": "correct",
+  "hr-q74": "partial",
   "hr-q78": "partial",
   "hr-q79": "partial",
   "hr-q82": "incorrect",
-  "hr-q83": "correct",
+  "hr-q83": "partial",
   "hr-q91": "partial",
   "hr-q94": "partial",
   "hr-q95": "partial",
@@ -62,7 +62,7 @@
   "hr-q221": "partial",
   "hr-q226": "partial",
   "hr-q234": "correct",
-  "hr-q235": "incorrect",
+  "hr-q235": "partial",
   "hr-q239": "correct",
   "hr-q252": "correct",
   "hr-q262": "incorrect",
@@ -73,7 +73,7 @@
   "hr-q294": "correct",
   "hr-q1813": "partial",
   "hr-q1819": "correct",
-  "finance_en-q3": "incorrect",
+  "finance_en-q3": "partial",
   "finance_en-q7": "partial",
   "finance_en-q14": "correct",
   "finance_en-q27": "correct",
@@ -111,7 +111,7 @@
   "finance_en-q219": "correct",
   "finance_en-q223": "correct",
   "finance_en-q232": "partial",
-  "finance_en-q235": "incorrect",
+  "finance_en-q235": "partial",
   "finance_en-q242": "correct",
   "finance_en-q246": "incorrect",
   "finance_en-q249": "partial",
@@ -127,15 +127,15 @@
   "finance_en-q290": "correct",
   "finance_en-q1752": "partial",
   "finance_en-q1764": "partial",
-  "finance_en-q1765": "incorrect",
+  "finance_en-q1765": "partial",
   "finance_en-q1768": "partial"
  },
  "agreement": {
   "n": 50,
-  "percent": 64.0,
-  "cohen_kappa": 0.3914807302231238,
+  "percent": 62.0,
+  "cohen_kappa": 0.3615591397849462,
   "git": {
-   "commit": "c211376",
+   "commit": "07522b1",
    "dirty": false
   }
  }
