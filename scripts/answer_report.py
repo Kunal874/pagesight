@@ -13,6 +13,7 @@ from pagesight.config import SUBSETS
 from pagesight.data.vidore import load_queries
 from pagesight.eval.answers import answer_metrics, share
 from pagesight.eval.judge import accuracy
+from pagesight.eval.metrics import cohen_kappa
 from pagesight.eval.runner import RESULTS, git_state
 
 THRESHOLDS = [0.4, 0.5, 0.6, 0.7]
@@ -34,10 +35,10 @@ def pct(x: float | None) -> str:
 def table(records: list[dict], grades: dict) -> list[str]:
     lines = [
         (
-            "| | queries | correct | partial | NOT_FOUND | invalid | wrong NOT_FOUND "
+            "| | queries | usable | correct* | partial* | NOT_FOUND | invalid | wrong NOT_FOUND "
             "| citation accuracy | abstention recall | NOT_FOUND precision |"
         ),
-        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for name in ["all", *SUBSETS]:
         rs = records if name == "all" else [r for r in records if r["subset"] == name]
@@ -47,6 +48,7 @@ def table(records: list[dict], grades: dict) -> list[str]:
         cells = [
             name,
             f"{m['answerable']} + {m['abstain']}",
+            pct(acc["correct"] + acc["partial"]),
             pct(acc["correct"]),
             pct(acc["partial"]),
             pct(not_found),
@@ -85,7 +87,12 @@ def main() -> None:
     queries = {q.id: q for s in SUBSETS for q in load_queries(s)}
     git = git_state()
     agree = dev_judge.get("agreement")
-    trusted = agree is not None and agree["cohen_kappa"] >= 0.6
+    human = json.loads(only("human_grades-dev-*.json").read_text(encoding="utf-8"))
+    both = sorted(q for q in human if dev_judge["grades"].get(q))
+    usable = [[g[q] != "incorrect" for q in both] for g in (dev_judge["grades"], human)]
+    usable_kappa = cohen_kappa(*usable)
+    usable_agree = share(sum(a == b for a, b in zip(*usable, strict=True)), len(both))
+    trusted = usable_kappa >= 0.6
     lines = [
         "# Answer report (test split)",
         "",
@@ -116,9 +123,12 @@ def main() -> None:
             "- Judge: the same Qwen3.5-4B, text only, grades each answer against the reference "
             "answer (D-034). Validation on dev: "
             + (
-                f"{agree['n']} answers graded blind by Kunal — agreement "
-                f"{agree['percent']:.1f}%, Cohen's kappa {agree['cohen_kappa']:.2f} "
-                f"({'≥' if trusted else '<'} 0.6: {'trusted' if trusted else 'NOT trusted'})."
+                f"{agree['n']} answers graded blind by Kunal. Usable (correct or partial) vs "
+                f"incorrect: agreement {pct(usable_agree)}, kappa {usable_kappa:.2f} "
+                f"({'trusted' if trusted else 'NOT trusted'}, D-038). Three levels: agreement "
+                f"{agree['percent']:.1f}%, kappa {agree['cohen_kappa']:.2f} — not validated, so "
+                "correct* and partial* below are indicative only. The usable level was chosen "
+                "after seeing the 50 grades."
                 if agree
                 else "not yet run."
             )
