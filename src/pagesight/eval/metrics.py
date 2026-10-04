@@ -49,3 +49,12 @@ def query_metrics(ranking: list[str], gold: dict[str, int]) -> dict[str, float]:
         **{f"hit@{k}": hit_at_k(ranking, gold, k) for k in (1, 3, 5, 10)},
         "mrr@10": mrr_at_k(ranking, gold, 10),
     }
+
+
+def cohen_kappa(a: list[str], b: list[str]) -> float:
+    """Agreement of two graders beyond chance: (p_o - p_e) / (1 - p_e), where p_o is the observed
+    agreement and p_e the agreement expected if both graded at random with their own label rates."""
+    n = len(a)
+    p_o = sum(x == y for x, y in zip(a, b, strict=True)) / n
+    p_e = sum((a.count(label) / n) * (b.count(label) / n) for label in set(a) | set(b))
+    return 1.0 if p_e == 1 else (p_o - p_e) / (1 - p_e)

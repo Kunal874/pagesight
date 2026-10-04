@@ -4,6 +4,7 @@ import pytest
 
 from pagesight.eval.metrics import (
     bootstrap_ci,
+    cohen_kappa,
     hit_at_k,
     mrr_at_k,
     ndcg_at_k,
@@ -83,3 +84,15 @@ def test_bootstrap_ci_is_reproducible_with_a_seed():
     values = [0.0, 0.3, 1.0, 0.5, 0.8] * 10
     assert bootstrap_ci(values, seed=1) == bootstrap_ci(values, seed=1)
     assert bootstrap_ci(values, seed=1) != bootstrap_ci(values, seed=2)
+
+
+def test_cohen_kappa_by_hand():
+    # agree on 7 of 10 (p_o = 0.7); both raters use c, p, i 4, 2, 4 times
+    # (p_e = (16 + 4 + 16) / 100 = 0.36), so kappa = 0.34 / 0.64
+    a = list("ccccppiiii")
+    b = list("cccppiiiic")
+    assert cohen_kappa(a, b) == pytest.approx(0.34 / 0.64)
+
+
+def test_cohen_kappa_is_one_for_identical_single_label_grades():
+    assert cohen_kappa(["c", "c"], ["c", "c"]) == 1.0
