@@ -1,6 +1,7 @@
 """Answer judge (Task 6.4, D-034): Qwen3.5-4B, text only, grades each answer against the reference
-answer as correct, partial or incorrect. It never sees the pages. With --human, it also reports
-agreement % and Cohen's kappa against Kunal's blind grades (trusted only if kappa >= 0.6).
+answer as correct, partial or incorrect. It never sees the pages. With --human it does not judge
+again: it adds agreement % and Cohen's kappa between the stored judge grades and Kunal's blind
+grades to the judge results (the judge is trusted only if kappa >= 0.6).
 
 Usage: uv run python -m pagesight.eval.judge results/answers-<split>-<time>.json
            [--human results/human_grades-<split>-<time>.json]
@@ -53,12 +54,20 @@ def accuracy(records: list[dict], grades: dict[str, str | None]) -> dict:
     }
 
 
-def main(argv: list[str] | None = None) -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("answers", type=Path)
-    parser.add_argument("--human", type=Path)
-    args = parser.parse_args(argv)
-    run = json.loads(args.answers.read_text(encoding="utf-8"))
+def agreement(judge: dict[str, str | None], human: dict[str, str]) -> dict:
+    """Over the answers both graded (the judge leaves unparseable replies ungraded)."""
+    both = sorted(q for q in human if judge.get(q))
+    pairs = [judge[q] for q in both], [human[q] for q in both]
+    agree = sum(x == y for x, y in zip(*pairs, strict=True))
+    return {
+        "n": len(both),
+        "percent": 100 * share(agree, len(both)),
+        "cohen_kappa": cohen_kappa(*pairs),
+        "git": git_state(),
+    }
+
+
+def judge_run(run: dict) -> dict:
     queries = {q.id: q for s in SUBSETS for q in load_queries(s)}
     to_grade = [
         r
@@ -91,22 +100,25 @@ def main(argv: list[str] | None = None) -> None:
         },
         "grades": grades,
     }
+    return result
+
+
+def main(argv: list[str] | None = None) -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("answers", type=Path)
+    parser.add_argument("--human", type=Path)
+    args = parser.parse_args(argv)
+    run = json.loads(args.answers.read_text(encoding="utf-8"))
+    path = RESULTS / f"{run['run_id'].replace('answers-', 'judge-')}.json"
     if args.human:
+        # the stored grades: agreement must describe the very grades the report uses
+        result = json.loads(path.read_text(encoding="utf-8"))
         human = json.loads(args.human.read_text(encoding="utf-8"))
-        both = sorted(q for q in human if grades.get(q))
-        pairs = [grades[q] for q in both], [human[q] for q in both]
-        result["agreement"] = {
-            "n": len(both),
-            "percent": 100
-            * share(sum(x == y for x, y in zip(*pairs, strict=True)), len(both)),
-            "cohen_kappa": cohen_kappa(*pairs),
-        }
-    print(
-        json.dumps(
-            {k: result[k] for k in result if k in ("accuracy", "agreement")}, indent=1
-        )
-    )
-    path = RESULTS / f"{result['run_id']}.json"
+        result["agreement"] = agreement(result["grades"], human)
+    else:
+        result = judge_run(run)
+    shown = {k: result[k] for k in result if k in ("accuracy", "agreement")}
+    print(json.dumps(shown, indent=1))
     path.write_text(json.dumps(result, indent=1) + "\n", encoding="utf-8")
     print(f"saved results/{path.name}")
 

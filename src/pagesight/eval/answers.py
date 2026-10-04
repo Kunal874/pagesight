@@ -29,7 +29,7 @@ from pagesight.search.two_stage import TwoStageRetriever, two_stage
 
 PAGES_PER_ANSWER = 2  # D-033
 ABSTAIN_PER_SUBSET = 15  # Task 6.3: about 30 queries per split
-GATE = 0.5  # answer only if p(YES) >= 0.5: the model's own choice, not tuned (D-036)
+GATE = 0.4  # answer only if p(YES) >= 0.4, chosen on dev (D-037)
 
 
 def share(part: int, whole: int) -> float | None:
