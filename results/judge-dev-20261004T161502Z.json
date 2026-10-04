@@ -129,5 +129,14 @@
   "finance_en-q1764": "partial",
   "finance_en-q1765": "incorrect",
   "finance_en-q1768": "partial"
+ },
+ "agreement": {
+  "n": 50,
+  "percent": 64.0,
+  "cohen_kappa": 0.3914807302231238,
+  "git": {
+   "commit": "c211376",
+   "dirty": false
+  }
  }
 }
