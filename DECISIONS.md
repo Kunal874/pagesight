@@ -261,3 +261,11 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** A gate: one forward pass over the same pages and question asks "Do these pages contain the information needed to answer the question? Reply YES or NO" and compares the probabilities of the YES and NO tokens. p(YES) ≥ 0.5 (the model's own choice, not tuned) → the answer prompt runs; otherwise the output is NOT_FOUND without generating.
 - **Why:** A probability comparison cannot produce prose, the parser stays strict, and p(YES) is a confidence score; about one extra prefill per query.
 - **Consequences:** Every record stores p(YES), so the report can show the abstention trade-off at other thresholds without tuning on test. A prose refusal after a YES still counts as invalid.
+
+## D-037 · Gate threshold · 2026-10-04 · Group 6
+- **Question:** At 0.5 the gate wrongly refused 31% of dev questions whose gold page was shown (results/answers-dev-20261004T161502Z.json). Which threshold does the test run use? Supersedes D-036's "0.5, untuned".
+- **Measured (dev, from the stored p(YES) — share passing the gate):** gold page shown / gold pages removed: t = 0.5 → 0.69 / 0.27; t = 0.4 → 0.75 / 0.27; t = 0.3 → 0.78 / 0.30; t = 0.2 → 0.83 / 0.37.
+- **Options:** 0.4 · keep 0.5 · 0.3
+- **Choice:** p(YES) ≥ 0.4
+- **Why:** On dev it lets 6 more points of answerable questions through with no more gold-removed questions passing. Chosen on dev, before any test answer run.
+- **Consequences:** The dev answer run stays at 0.5 (its record); the test run uses 0.4. Dev queries with 0.4 ≤ p(YES) < 0.5 have no generated answer, so the dev numbers slightly understate the answer rate at 0.4.
