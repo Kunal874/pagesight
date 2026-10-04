@@ -134,7 +134,10 @@ def answer(jobs: list[dict]) -> list[dict]:
                 "answer_s": round(answer_s, 2),
             }
         )
-        print(f"{n}/{len(jobs)} {q.id} {job['kind']} {parsed.status} {answer_s:.1f} s")
+        print(
+            f"{n}/{len(jobs)} {q.id} {job['kind']} {parsed.status} {answer_s:.1f} s "
+            f"{output[:100]!r}"
+        )
     vlm.unload()
     return records
 

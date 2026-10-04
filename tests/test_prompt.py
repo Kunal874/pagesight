@@ -41,4 +41,6 @@ def test_each_image_is_preceded_by_its_page_label_and_the_question_comes_last():
     assert [c["type"] for c in content] == ["text", "image", "text", "image", "text"]
     assert content[0]["text"] == "Page [p:hr-419]:" and content[1]["image"] == "img-a"
     assert content[2]["text"] == "Page [p:hr-493]:" and content[3]["image"] == "img-b"
-    assert content[4]["text"] == "Question: Which country?"
+    question, rules = content[4]["text"].split("\n\n")
+    assert question == "Question: Which country?"
+    assert "[p:hr-419]" in rules and "NOT_FOUND" in rules
