@@ -17,10 +17,10 @@ from pagesight.data.split import load_split
 from pagesight.data.vidore import Page, Query, load_pages, load_queries
 from pagesight.eval.runner import RESULTS, git_state
 
+ABSTAIN = "If the pages do not answer the question, reply exactly NOT_FOUND.\n"
 PROMPT = (
     "Answer the question using only the page images. Cite the page you used as [p:<page id>]. "
-    "If the pages do not answer the question, reply exactly NOT_FOUND.\n"
-    "Pages, in order: {ids}\nQuestion: {question}"
+    "{abstain}Pages, in order: {ids}\nQuestion: {question}"
 )
 MAX_NEW_TOKENS = 128
 
@@ -58,10 +58,17 @@ def load_image(page: Page, max_pixels: int) -> Image.Image:
 
 
 @torch.inference_mode()
-def answer(model, processor, question: str, pages: list[Page], max_pixels: int) -> dict:
+def answer(
+    model, processor, question: str, pages: list[Page], max_pixels: int, abstain: str
+) -> dict:
     content = [{"type": "image", "image": load_image(p, max_pixels)} for p in pages]
     ids = ", ".join(p.id for p in pages)
-    content.append({"type": "text", "text": PROMPT.format(ids=ids, question=question)})
+    content.append(
+        {
+            "type": "text",
+            "text": PROMPT.format(abstain=abstain, ids=ids, question=question),
+        }
+    )
     inputs = processor.apply_chat_template(
         [{"role": "user", "content": content}],
         add_generation_prompt=True,
@@ -90,6 +97,8 @@ def main() -> None:
     parser.add_argument("model")
     parser.add_argument("--four-bit", action="store_true")
     parser.add_argument("--max-pixels", type=int, default=1_600_000)
+    # without the NOT_FOUND sentence: can the model read the page when it has no way out?
+    parser.add_argument("--no-abstain", action="store_true")
     args = parser.parse_args()
 
     quant = (
@@ -109,13 +118,15 @@ def main() -> None:
     load_s = time.perf_counter() - start
     weights_gb = torch.cuda.memory_allocated() / 2**30
 
+    abstain = "" if args.no_abstain else ABSTAIN
     picks = samples()
     rows = [(q.id, q, [page]) for q, page in picks]
     rows.append(("3 pages", picks[0][0], [page for _, page in picks]))
     git = git_state()
     lines = [
         "",
-        f"## {args.model} ({'4-bit NF4' if args.four_bit else 'bf16'})",
+        f"## {args.model} ({'4-bit NF4' if args.four_bit else 'bf16'})"
+        + (", prompt without the NOT_FOUND sentence" if args.no_abstain else ""),
         "",
         (
             f"`scripts/probe_vlm.py` at {git['commit']}{'+dirty' if git['dirty'] else ''}; "
@@ -128,7 +139,7 @@ def main() -> None:
         "|---|---:|---:|---:|---:|---|---|",
     ]
     for name, q, pages in rows:
-        r = answer(model, processor, q.text, pages, args.max_pixels)
+        r = answer(model, processor, q.text, pages, args.max_pixels, abstain)
         reply = r["answer"].replace("|", "/").replace("\n", " ")[:160]
         cells = [
             name,
