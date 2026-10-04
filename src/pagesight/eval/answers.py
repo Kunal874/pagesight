@@ -106,6 +106,14 @@ def retrieve(split: set[str], abstain: set[str], limit: int | None) -> list[dict
     return jobs
 
 
+def respond(vlm: AnswerModel, question: str, shown: list[str], images: list) -> tuple:
+    """The YES/NO gate (D-036), then the answer only if the gate says YES."""
+    p_yes = vlm.p_yes(build_gate_messages(question, shown, images))
+    if p_yes < GATE:
+        return p_yes, "NOT_FOUND"  # the gate's refusal, no generation
+    return p_yes, vlm.generate(build_messages(question, shown, images))
+
+
 def answer(jobs: list[dict]) -> list[dict]:
     """Phase 2: the VLM reads the shown pages and answers."""
     pages = {p.id: p for s in SUBSETS for p in load_pages(s)}
@@ -114,13 +122,19 @@ def answer(jobs: list[dict]) -> list[dict]:
     for n, job in enumerate(jobs, start=1):
         q, shown = job["query"], job["shown"]
         images = [load_image(pages[pid].image) for pid in shown]
-        start = time.perf_counter()
-        p_yes = vlm.p_yes(build_gate_messages(q.text, shown, images))
-        if p_yes >= GATE:
-            output = vlm.generate(build_messages(q.text, shown, images))
-        else:
-            output = "NOT_FOUND"  # the gate's refusal, no generation
+        start, retried = time.perf_counter(), False
+        try:
+            p_yes, output = respond(vlm, q.text, shown, images)
+        except (torch.OutOfMemoryError, torch.AcceleratorError) as e:
+            # One dev check ran out of VRAM at job 43 although that input alone peaks at 5.5 GB:
+            # cached blocks fragment over a long run. Free them and retry once; a 2nd failure stops.
+            if "out of memory" not in str(e):
+                raise
+            torch.cuda.empty_cache()
+            p_yes, output = respond(vlm, q.text, shown, images)
+            retried = True
         answer_s = time.perf_counter() - start
+        torch.cuda.empty_cache()  # return cached blocks between queries
         parsed = parse(output, shown)
         records.append(
             {
@@ -138,6 +152,7 @@ def answer(jobs: list[dict]) -> list[dict]:
                 "citations_gold": all(c in q.gold for c in parsed.citations),
                 "retrieve_s": round(job["retrieve_s"], 3),
                 "answer_s": round(answer_s, 2),
+                "retried_after_oom": retried,
             }
         )
         print(
