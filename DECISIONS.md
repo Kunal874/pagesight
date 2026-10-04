@@ -222,3 +222,34 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Choice:** Qdrant's exact float scan (single stage, exact MaxSim on every page)
 - **Why:** It ranks exactly like brute force and is the fastest exact option measured. At 4,052 pages a first stage either loses quality (mean pooling) or is not faster (binary: Qdrant 1.19.1 scores binary multivectors more slowly than float; cause not investigated). Binary's measured benefit is memory: 69 MB instead of 2.21 GB.
 - **Consequences:** Seven systems run once on test: BM25, dense, visual brute force (GPU), visual exact (Qdrant), two-stage mean (N = 25), two-stage binary (N = 25), hybrid = RRF(visual exact, BM25) with k = 60 over the top 100 of each.
+
+## D-032 · Answer model (VLM) · 2026-10-04 · Group 6
+- **Question:** Which small vision-language model writes the answers?
+- **Measured (results/vlm_probe.md, 3 dev questions + one 3-page prompt, pages resized to ≤ 1.6 MP; survey in docs/VLM.md):** Qwen3.5-2B bf16: 4.51 GB peak with 1 page, 6.26 GB with 3, 1.3–19 s per answer; refused all 3 answerable questions when given the NOT_FOUND line, and without it gave the net instead of the gross figure once. InternVL3.5-2B bf16: 5.2–6.6 GB with 1 page; 3 pages need 12.4 GB (spills into system RAM, 138–145 s). Qwen3.5-4B NF4: 4.0 GB with 1 page, 7.3 GB with 3, 21–30 s per answer; the only one to notice that the gold page of finance_en-q102 (a human-written query naming Citigroup) is a Bank of America page — a label error in the benchmark.
+- **Options:** Qwen3.5-4B 4-bit · Qwen3.5-2B bf16 · InternVL3.5-2B bf16
+- **Choice:** `Qwen/Qwen3.5-4B` at revision `851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a`, 4-bit NF4 (bitsandbytes, bf16 compute), `enable_thinking=False`; Apache-2.0, not gated
+- **Why:** The best reader that fits; the evidence is thin (3 questions), so the dev evaluation checks it.
+- **Consequences:** About 20–30 s per answer on this laptop, so evaluation runs take hours (estimated before each run). The rejected candidates (Qwen3.5-2B, InternVL3.5-2B, 9.25 GB) are deleted from D:\hf-cache after Group 6 (D-008).
+
+## D-033 · Pages per answer · 2026-10-04 · Group 6
+- **Question:** How many retrieved pages does the VLM read per question?
+- **Measured (dev, visual exact retrieval):** a gold page is among the pages shown for 49% / 60% of queries (hr / finance_en) with 1 page, 64% / 77% with 2, 77% / 82% with 3. Qwen3.5-4B needs 4.0 GB with 1 page and 7.3 GB with 3 (over the 6.9 GB budget).
+- **Options:** 1 · 2 · 3
+- **Choice:** 2 pages: the top 2 of the main visual system (D-031)
+- **Why:** +15–17 points of gold-page coverage over 1 page, and it fits in VRAM (~5 GB, est.; measured in Task 6.1).
+- **Consequences:** Answers can cite either page; citation accuracy counts a citation as correct when the cited page is a gold page.
+
+## D-034 · Answer judge · 2026-10-04 · Group 6
+- **Question:** How are answers graded against the reference answers?
+- **Options:** local model as judge, validated against Kunal's grades · string-overlap metrics only
+- **Choice:** Qwen3.5-4B (the D-032 model, text only) grades each answer correct / partially correct / incorrect against the question and reference answer; Kunal grades 50 dev answers in a small grading tool; agreement % and Cohen's kappa are reported
+- **Why:** Answers are free text; overlap metrics score wording, not meaning ("$815,120 million" vs "815.1 billion dollars").
+- **Consequences:** The judge is trusted only if kappa ≥ 0.6 (brief); otherwise the rubric is fixed and re-validated on dev. The judge sees the reference answer, never the pages. A known caveat: the same model writes and judges the answers.
+
+## D-035 · NOT_FOUND rule · 2026-10-04 · Group 6
+- **Question:** How does the system decide to answer NOT_FOUND?
+- **Measured (results/abstain_probe.md, dev):** the top retrieval score barely separates answerable queries from the same queries with their gold pages removed — AUC 0.60 (hr) / 0.62 (finance_en) per query token; the best threshold reaches only 0.57 / 0.61 balanced accuracy.
+- **Options:** the model decides (explicit NOT_FOUND instruction) · retrieval-score threshold tuned on dev + instruction
+- **Choice:** The model decides: the prompt tells it to answer only from the given pages and otherwise reply exactly NOT_FOUND; the wording is tuned on the dev abstention set only
+- **Why:** Once gold pages are removed, other pages of the same report score almost as high, so a threshold would refuse ~40% of answerable questions to catch ~60% of unanswerable ones.
+- **Consequences:** The abstention set (Task 6.3) measures both error types: answers where NOT_FOUND was correct, and NOT_FOUND on answerable questions. The UI still shows the closest pages with every NOT_FOUND.
