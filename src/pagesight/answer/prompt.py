@@ -12,8 +12,18 @@ SYSTEM = (
 # Placed after the question: the small VLM follows the last instruction it reads best (dev check).
 FORMAT = (
     "Answer in one or two sentences using only facts from these pages, and end with the id of "
-    "every page you used, like [p:{example}]. If the pages do not answer the question, reply "
-    "with the single word NOT_FOUND and nothing else; do not explain."
+    "every page you used, like [p:{example}].\n"
+    "If the pages do not answer the question, the whole reply is the single word NOT_FOUND. "
+    'Never write sentences such as "The provided pages do not contain ..."; write NOT_FOUND '
+    "instead.\n"
+    "Examples of complete replies:\n"
+    "The rate rose to 12% in 2024 [p:{example}].\n"
+    "NOT_FOUND"
+)
+# The YES/NO gate (D-036) runs first; only its token probabilities are read, so no prose is possible.
+GATE = (
+    "Do these pages contain the information needed to answer the question? "
+    "Reply with one word: YES or NO."
 )
 CITATION = re.compile(r"\[p:([^\]\s]+)\]")
 
@@ -25,18 +35,29 @@ class Parsed:
     citations: list[str]
 
 
-def build_messages(question: str, page_ids: list[str], images: list) -> list[dict]:
-    """Chat messages with each page image preceded by its id, so the model can cite it."""
+def page_messages(
+    question: str, page_ids: list[str], images: list, instruction: str
+) -> list[dict]:
+    """Chat messages with each page image preceded by its id (so the model can cite it), then the
+    question and the instruction."""
     content = []
     for pid, image in zip(page_ids, images, strict=True):
         content.append({"type": "text", "text": f"Page [p:{pid}]:"})
         content.append({"type": "image", "image": image})
-    rules = FORMAT.format(example=page_ids[0])
-    content.append({"type": "text", "text": f"Question: {question}\n\n{rules}"})
+    content.append({"type": "text", "text": f"Question: {question}\n\n{instruction}"})
     return [
         {"role": "system", "content": [{"type": "text", "text": SYSTEM}]},
         {"role": "user", "content": content},
     ]
+
+
+def build_messages(question: str, page_ids: list[str], images: list) -> list[dict]:
+    rules = FORMAT.format(example=page_ids[0])
+    return page_messages(question, page_ids, images, rules)
+
+
+def build_gate_messages(question: str, page_ids: list[str], images: list) -> list[dict]:
+    return page_messages(question, page_ids, images, GATE)
 
 
 def parse(output: str, page_ids: list[str]) -> Parsed:

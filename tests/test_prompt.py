@@ -44,3 +44,14 @@ def test_each_image_is_preceded_by_its_page_label_and_the_question_comes_last():
     question, rules = content[4]["text"].split("\n\n")
     assert question == "Question: Which country?"
     assert "[p:hr-419]" in rules and "NOT_FOUND" in rules
+
+
+def test_gate_shows_the_same_pages_and_asks_yes_or_no_last():
+    from pagesight.answer.prompt import build_gate_messages
+
+    _, user = build_gate_messages("Which country?", PAGES, ["img-a", "img-b"])
+    content = user["content"]
+    assert [c["type"] for c in content] == ["text", "image", "text", "image", "text"]
+    question, rule = content[4]["text"].split("\n\n")
+    assert question == "Question: Which country?"
+    assert "YES" in rule and "NO" in rule and "NOT_FOUND" not in rule

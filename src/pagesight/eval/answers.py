@@ -18,7 +18,7 @@ import torch
 from qdrant_client import models
 
 from pagesight.answer.abstain import abstention_set
-from pagesight.answer.prompt import build_messages, parse
+from pagesight.answer.prompt import build_gate_messages, build_messages, parse
 from pagesight.answer.vlm import MAX_PIXELS, MODEL, REVISION, AnswerModel, load_image
 from pagesight.config import SEED, SUBSETS
 from pagesight.data.split import load_split
@@ -29,6 +29,7 @@ from pagesight.search.two_stage import TwoStageRetriever, two_stage
 
 PAGES_PER_ANSWER = 2  # D-033
 ABSTAIN_PER_SUBSET = 15  # Task 6.3: about 30 queries per split
+GATE = 0.5  # answer only if p(YES) >= 0.5: the model's own choice, not tuned (D-036)
 
 
 def share(part: int, whole: int) -> float | None:
@@ -114,7 +115,11 @@ def answer(jobs: list[dict]) -> list[dict]:
         q, shown = job["query"], job["shown"]
         images = [load_image(pages[pid].image) for pid in shown]
         start = time.perf_counter()
-        output = vlm.generate(build_messages(q.text, shown, images))
+        p_yes = vlm.p_yes(build_gate_messages(q.text, shown, images))
+        if p_yes >= GATE:
+            output = vlm.generate(build_messages(q.text, shown, images))
+        else:
+            output = "NOT_FOUND"  # the gate's refusal, no generation
         answer_s = time.perf_counter() - start
         parsed = parse(output, shown)
         records.append(
@@ -125,6 +130,7 @@ def answer(jobs: list[dict]) -> list[dict]:
                 "generator": q.generator,
                 "shown": shown,
                 "gold_shown": any(pid in q.gold for pid in shown),
+                "p_yes": round(p_yes, 4),
                 "output": output,
                 "status": parsed.status,
                 "answer": parsed.text,
@@ -135,7 +141,7 @@ def answer(jobs: list[dict]) -> list[dict]:
             }
         )
         print(
-            f"{n}/{len(jobs)} {q.id} {job['kind']} {parsed.status} {answer_s:.1f} s "
+            f"{n}/{len(jobs)} {q.id} {job['kind']} {parsed.status} p_yes={p_yes:.2f} {answer_s:.1f} s "
             f"{output[:100]!r}"
         )
     vlm.unload()
@@ -179,6 +185,7 @@ def main(argv: list[str] | None = None) -> None:
             "model": MODEL,
             "revision": REVISION,
             "pages_per_answer": PAGES_PER_ANSWER,
+            "gate": GATE,
             "max_pixels": MAX_PIXELS,
             "abstain_per_subset": ABSTAIN_PER_SUBSET,
             "seed": SEED,

@@ -11,6 +11,16 @@ MODEL = "Qwen/Qwen3.5-4B"
 REVISION = "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a"  # pinned (D-032)
 MAX_PIXELS = 1_600_000  # per page, the setting measured in results/vlm_probe.md
 MAX_NEW_TOKENS = 128
+YES_WORDS, NO_WORDS = ("YES", "Yes", "yes"), ("NO", "No", "no")
+
+
+def yes_probability(
+    logits: torch.Tensor, yes_ids: list[int], no_ids: list[int]
+) -> float:
+    """P(YES) when the model must choose between the YES and NO tokens (spellings pooled)."""
+    return torch.sigmoid(
+        logits[yes_ids].logsumexp(0) - logits[no_ids].logsumexp(0)
+    ).item()
 
 
 def load_image(path: Path, max_pixels: int = MAX_PIXELS) -> Image.Image:
@@ -47,19 +57,29 @@ class AnswerModel:
             quantization_config=quant,
         ).eval()
         self.processor = AutoProcessor.from_pretrained(MODEL, revision=REVISION)
+        tok = self.processor.tokenizer
+        # first token of each spelling; load() checks below that each is a single token
+        self.yes_ids, self.no_ids = (
+            [tok.encode(w, add_special_tokens=False)[0] for w in words]
+            for words in (YES_WORDS, NO_WORDS)
+        )
+        if any(
+            len(tok.encode(w, add_special_tokens=False)) != 1
+            for w in YES_WORDS + NO_WORDS
+        ):
+            raise ValueError(
+                "a YES/NO spelling is not a single token for this tokenizer"
+            )
 
     def unload(self) -> None:
         self.model = self.processor = None
         gc.collect()
         torch.cuda.empty_cache()
 
-    @torch.inference_mode()
-    def generate(
-        self, messages: list[dict], max_new_tokens: int = MAX_NEW_TOKENS
-    ) -> str:
+    def inputs(self, messages: list[dict]):
         if self.model is None:
             self.load()
-        inputs = self.processor.apply_chat_template(
+        return self.processor.apply_chat_template(
             messages,
             add_generation_prompt=True,
             tokenize=True,
@@ -67,8 +87,27 @@ class AnswerModel:
             return_tensors="pt",
             enable_thinking=False,  # Qwen3.5-4B would otherwise reason before answering
         ).to(self.model.device)
+
+    @torch.inference_mode()
+    def generate(
+        self, messages: list[dict], max_new_tokens: int = MAX_NEW_TOKENS
+    ) -> str:
+        inputs = self.inputs(messages)
         out = self.model.generate(
             **inputs, max_new_tokens=max_new_tokens, do_sample=False
         )
         new = out[0, inputs["input_ids"].shape[1] :]
         return self.processor.decode(new, skip_special_tokens=True)
+
+    @torch.inference_mode()
+    def p_yes(self, messages: list[dict]) -> float:
+        """The gate (D-036): the first-token probability of YES against NO."""
+        inputs = self.inputs(messages)  # first: it loads the model on demand
+        out = self.model.generate(
+            **inputs,
+            max_new_tokens=1,
+            do_sample=False,
+            output_logits=True,
+            return_dict_in_generate=True,
+        )
+        return yes_probability(out.logits[0][0].float(), self.yes_ids, self.no_ids)

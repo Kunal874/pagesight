@@ -1,3 +1,4 @@
+import pytest
 from PIL import Image
 
 from pagesight.answer.vlm import load_image
@@ -21,3 +22,16 @@ def test_small_pages_are_never_enlarged(tmp_path):
     img = load_image(path, max_pixels=1_000_000)
 
     assert img.size == (300, 400) and img.mode == "RGB"
+
+
+def test_yes_probability_compares_only_the_yes_and_no_tokens():
+    import math
+
+    import torch
+
+    from pagesight.answer.vlm import yes_probability
+
+    logits = torch.tensor([0.0, math.log(3), 0.0, 5.0])  # token 3 is neither YES nor NO
+    assert yes_probability(logits, yes_ids=[1], no_ids=[0]) == pytest.approx(3 / 4)
+    # spelling variants are pooled: YES = e^ln3 + e^0 = 4, NO = e^0 = 1
+    assert yes_probability(logits, yes_ids=[1, 2], no_ids=[0]) == pytest.approx(4 / 5)
