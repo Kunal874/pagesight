@@ -21,9 +21,10 @@ from pagesight.eval.runner import RESULTS, git_state
 
 RUBRIC = (
     "You grade an answer to a question against a reference answer.\n"
-    "CORRECT: the answer gives the key facts of the reference (numbers, names, direction of "
-    "change) and contradicts nothing in it; extra correct detail is fine.\n"
-    "PARTIAL: some key facts are right, but others are missing or wrong.\n"
+    "CORRECT: the answer gets right what the question asks (the numbers, names or direction "
+    "of change it needs) and contradicts nothing in the reference. Leaving out extra detail "
+    "that the reference adds is fine.\n"
+    "PARTIAL: it answers only part of what the question asks, or gets part of it wrong.\n"
     "INCORRECT: the key facts are wrong or missing, or it answers a different question.\n"
     "Reply with one word: CORRECT, PARTIAL or INCORRECT."
 )
