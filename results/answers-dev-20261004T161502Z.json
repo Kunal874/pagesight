@@ -1,0 +1,4660 @@
+{
+ "run_id": "answers-dev-20261004T161502Z",
+ "split": "dev",
+ "config": {
+  "model": "Qwen/Qwen3.5-4B",
+  "revision": "851bf6e806efd8d0a36b00ddf55e13ccb7b8cd0a",
+  "pages_per_answer": 2,
+  "gate": 0.5,
+  "max_pixels": 1600000,
+  "abstain_per_subset": 15,
+  "seed": 42
+ },
+ "git": {
+  "commit": "d348767",
+  "dirty": false
+ },
+ "started_utc": "2026-10-04T16:15:02+00:00",
+ "peak_vram_gb": 5.48,
+ "summary": {
+  "all": {
+   "answerable": 188,
+   "abstain": 30,
+   "answered": 0.5531914893617021,
+   "invalid": 0.015957446808510637,
+   "wrong_not_found": 0.3082706766917293,
+   "citation_accuracy": 0.75,
+   "abstention_recall": 0.7333333333333333,
+   "not_found_precision": 0.6019417475728155
+  },
+  "hr": {
+   "answerable": 95,
+   "abstain": 15,
+   "answered": 0.5052631578947369,
+   "invalid": 0.021052631578947368,
+   "wrong_not_found": 0.3442622950819672,
+   "citation_accuracy": 0.6666666666666666,
+   "abstention_recall": 0.7333333333333333,
+   "not_found_precision": 0.625
+  },
+  "finance_en": {
+   "answerable": 93,
+   "abstain": 15,
+   "answered": 0.6021505376344086,
+   "invalid": 0.010752688172043012,
+   "wrong_not_found": 0.2777777777777778,
+   "citation_accuracy": 0.8214285714285714,
+   "abstention_recall": 0.7333333333333333,
+   "not_found_precision": 0.574468085106383
+  },
+  "latency_s": {
+   "p50": 11.34,
+   "p95": 22.14
+  }
+ },
+ "records": [
+  {
+   "query": "hr-q1",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-638",
+    "hr-551"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0536,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 3.83,
+   "answer_s": 32.25,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q12",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-900",
+    "hr-916"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0046,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.255,
+   "answer_s": 3.19,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q14",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-876",
+    "hr-929"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9048,
+   "output": "Gender disparities in EU jobs focused on digital and green transitions are exacerbated by the underrepresentation of women in high-digital-intensity occupations, their overrepresentation in care work, and the risk of gender imbalance in green-task jobs due to automation and task content [p:hr-876]. Additionally, the digital transition can hinder individuals with disabilities from performing tasks effectively, further complicating their employment situation [p:hr-929].\n",
+   "status": "answer",
+   "answer": "Gender disparities in EU jobs focused on digital and green transitions are exacerbated by the underrepresentation of women in high-digital-intensity occupations, their overrepresentation in care work, and the risk of gender imbalance in green-task jobs due to automation and task content. Additionally, the digital transition can hinder individuals with disabilities from performing tasks effectively, further complicating their employment situation.",
+   "citations": [
+    "hr-876",
+    "hr-929"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.252,
+   "answer_s": 24.43,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q27",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-622",
+    "hr-621"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7775,
+   "output": "The EU's employment rate target for 2030 is at least 78% of the working-age population [p:hr-621].\n",
+   "status": "answer",
+   "answer": "The EU's employment rate target for 2030 is at least 78% of the working-age population.",
+   "citations": [
+    "hr-621"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.199,
+   "answer_s": 13.84,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q30",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-523",
+    "hr-504"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.3238,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.234,
+   "answer_s": 3.39,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q31",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-790",
+    "hr-791"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.8356,
+   "output": "Real wages in the EU recovered in the second half of 2023, reaching 2.4% growth in the second quarter of 2024, driven by falling inflation and higher labour market participation [p:hr-790].\n",
+   "status": "answer",
+   "answer": "Real wages in the EU recovered in the second half of 2023, reaching 2.4% growth in the second quarter of 2024, driven by falling inflation and higher labour market participation.",
+   "citations": [
+    "hr-790"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.202,
+   "answer_s": 16.39,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q31",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-790",
+    "hr-791"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.8356,
+   "output": "Real wages in the EU recovered in the second half of 2023, reaching 2.4% growth in the second quarter of 2024, driven by falling inflation and higher labour market participation [p:hr-790].\n",
+   "status": "answer",
+   "answer": "Real wages in the EU recovered in the second half of 2023, reaching 2.4% growth in the second quarter of 2024, driven by falling inflation and higher labour market participation.",
+   "citations": [
+    "hr-790"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.207,
+   "answer_s": 16.86,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q33",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-834",
+    "hr-563"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.4381,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.257,
+   "answer_s": 3.61,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q34",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-132",
+    "hr-131"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0425,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.249,
+   "answer_s": 3.26,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q35",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-909",
+    "hr-873"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0181,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.237,
+   "answer_s": 3.2,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q39",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-245",
+    "hr-477"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5314,
+   "output": "Low reliability for third-country nationals for inactive in Ireland is noted, which affects data comparisons [p:hr-477].\n",
+   "status": "answer",
+   "answer": "Low reliability for third-country nationals for inactive in Ireland is noted, which affects data comparisons.",
+   "citations": [
+    "hr-477"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.229,
+   "answer_s": 11.61,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q39",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-245",
+    "hr-477"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5314,
+   "output": "Low reliability for third-country nationals for inactive in Ireland is noted, which affects data comparisons [p:hr-477].\n",
+   "status": "answer",
+   "answer": "Low reliability for third-country nationals for inactive in Ireland is noted, which affects data comparisons.",
+   "citations": [
+    "hr-477"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.22,
+   "answer_s": 12.03,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q41",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-1029",
+    "hr-1055"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7986,
+   "output": "The European Network of Public Employment Services had been operational for 10 years by the time the 2024 Annual Report was published [p:hr-1055].\n",
+   "status": "answer",
+   "answer": "The European Network of Public Employment Services had been operational for 10 years by the time the 2024 Annual Report was published.",
+   "citations": [
+    "hr-1055"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.254,
+   "answer_s": 13.86,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q43",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-878",
+    "hr-877"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2691,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.273,
+   "answer_s": 3.35,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q43",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-884",
+    "hr-894"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0087,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.272,
+   "answer_s": 3.21,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q51",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-822",
+    "hr-824"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0111,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.267,
+   "answer_s": 3.23,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q57",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-1013",
+    "hr-1011"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6794,
+   "output": "The anticipated reduction in the labour force projected for 2070 according to the static model scenario is 42.8 million [p:hr-1011].\n",
+   "status": "answer",
+   "answer": "The anticipated reduction in the labour force projected for 2070 according to the static model scenario is 42.8 million.",
+   "citations": [
+    "hr-1011"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.274,
+   "answer_s": 13.31,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q61",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-876",
+    "hr-875"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.408,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.222,
+   "answer_s": 3.46,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q62",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-486",
+    "hr-485"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9047,
+   "output": "Yes, the gap in fixed-term employment rates between EU movers and nationals decreased from 5 percentage points in 2018 to 3 percentage points in 2023 [p:hr-486].\n",
+   "status": "answer",
+   "answer": "Yes, the gap in fixed-term employment rates between EU movers and nationals decreased from 5 percentage points in 2018 to 3 percentage points in 2023.",
+   "citations": [
+    "hr-486"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.261,
+   "answer_s": 15.79,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q66",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-356",
+    "hr-353"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0235,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.246,
+   "answer_s": 3.42,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q69",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-1106",
+    "hr-1073"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1072,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.244,
+   "answer_s": 3.23,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q69",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-1073",
+    "hr-1069"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0477,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.245,
+   "answer_s": 3.23,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q70",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-835",
+    "hr-161"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5941,
+   "output": "The EU report outlines that policies to facilitate the employment of older people involve adjusting incentives through retirement and insurance systems, promoting flexible work, and improving employability, while also addressing age discrimination and supporting healthy ageing [p:hr-835]. To tackle workforce demographic challenges, the report highlights the Demography Toolbox and the Action Plan on labour and skills shortages as key initiatives to empower older people and harness the potential of underrepresented groups [p:hr-835].\n",
+   "status": "answer",
+   "answer": "The EU report outlines that policies to facilitate the employment of older people involve adjusting incentives through retirement and insurance systems, promoting flexible work, and improving employability, while also addressing age discrimination and supporting healthy ageing. To tackle workforce demographic challenges, the report highlights the Demography Toolbox and the Action Plan on labour and skills shortages as key initiatives to empower older people and harness the potential of underrepresented groups.",
+   "citations": [
+    "hr-835"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.291,
+   "answer_s": 25.46,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q74",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-255",
+    "hr-310"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7312,
+   "output": "By October 2024, ILO Convention C189 has been ratified by only nine EU Member States [p:hr-255] [p:hr-310].\n",
+   "status": "answer",
+   "answer": "By October 2024, ILO Convention C189 has been ratified by only nine EU Member States.",
+   "citations": [
+    "hr-255",
+    "hr-310"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.234,
+   "answer_s": 15.12,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q75",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-255",
+    "hr-310"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1826,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.3,
+   "answer_s": 3.45,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q76",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-887",
+    "hr-884"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1338,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.24,
+   "answer_s": 3.21,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q78",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-1017",
+    "hr-1022"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.8179,
+   "output": "In the most optimistic scenario, moving to Swedish labour force participation rates could almost fully offset the projected adverse effects of population ageing on the EU's workforce [p:hr-1017].\n",
+   "status": "answer",
+   "answer": "In the most optimistic scenario, moving to Swedish labour force participation rates could almost fully offset the projected adverse effects of population ageing on the EU's workforce.",
+   "citations": [
+    "hr-1017"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.239,
+   "answer_s": 15.17,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q79",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-131",
+    "hr-497"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6794,
+   "output": "In 2022, the weighted average EU share of government expenditure on education was approximately 30% for pre-primary and primary, 40% for secondary, and 10% for tertiary levels [p:hr-131].\n",
+   "status": "answer",
+   "answer": "In 2022, the weighted average EU share of government expenditure on education was approximately 30% for pre-primary and primary, 40% for secondary, and 10% for tertiary levels.",
+   "citations": [
+    "hr-131"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.269,
+   "answer_s": 16.87,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q79",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-497",
+    "hr-496"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0036,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.272,
+   "answer_s": 3.4,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q82",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-640",
+    "hr-796"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7312,
+   "output": "In Estonia, France, Hungary, Luxembourg, Portugal, and Spain, real statutory minimum wages increased by less than 5% between January 2022 and January 2024, while in Estonia, France, Hungary, Luxembourg, Portugal, and Spain, real wages fell by more than 3% [p:hr-640].\n",
+   "status": "answer",
+   "answer": "In Estonia, France, Hungary, Luxembourg, Portugal, and Spain, real statutory minimum wages increased by less than 5% between January 2022 and January 2024, while in Estonia, France, Hungary, Luxembourg, Portugal, and Spain, real wages fell by more than 3%.",
+   "citations": [
+    "hr-640"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.276,
+   "answer_s": 20.74,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q83",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-338",
+    "hr-358"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5316,
+   "output": "High medical graduation rates in countries like Ireland, Slovakia, Hungary, Croatia, and Romania do not necessarily imply a lack of shortages, as these nations have above-average densities of graduates but below-average densities of available healthcare workers [p:hr-338]. Additionally, while some eastern European states like Poland and Romania have sufficient numbers of doctors to train more than those projected to retire, they also serve as top countries of origin for many EU movers, creating a complex interplay of factors [p:hr-358].\n",
+   "status": "answer",
+   "answer": "High medical graduation rates in countries like Ireland, Slovakia, Hungary, Croatia, and Romania do not necessarily imply a lack of shortages, as these nations have above-average densities of graduates but below-average densities of available healthcare workers. Additionally, while some eastern European states like Poland and Romania have sufficient numbers of doctors to train more than those projected to retire, they also serve as top countries of origin for many EU movers, creating a complex interplay of factors.",
+   "citations": [
+    "hr-338",
+    "hr-358"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.223,
+   "answer_s": 26.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q83",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-330",
+    "hr-335"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0142,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.222,
+   "answer_s": 3.35,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q91",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-953",
+    "hr-924"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8523,
+   "output": "Digital transformation can exacerbate regional disparities and widen the gap between SMEs and larger businesses, while also creating new categories of vulnerable workers [p:hr-924].\n",
+   "status": "answer",
+   "answer": "Digital transformation can exacerbate regional disparities and widen the gap between SMEs and larger businesses, while also creating new categories of vulnerable workers.",
+   "citations": [
+    "hr-924"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.248,
+   "answer_s": 13.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q94",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-1054",
+    "hr-1056"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8673,
+   "output": "The Benchlearning initiative supported the advancement of public employment services by focusing on the 4th cycle of site visits, which included 15 assessments in 2024 across 15 European countries [p:hr-1056].\n",
+   "status": "answer",
+   "answer": "The Benchlearning initiative supported the advancement of public employment services by focusing on the 4th cycle of site visits, which included 15 assessments in 2024 across 15 European countries.",
+   "citations": [
+    "hr-1056"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.248,
+   "answer_s": 16.7,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q95",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-618",
+    "hr-637"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6794,
+   "output": "In 2023, the employment rate for people with tertiary education was 86.3%, while the employment rate for low-skilled workers was 55.2% [p:hr-618].\n",
+   "status": "answer",
+   "answer": "In 2023, the employment rate for people with tertiary education was 86.3%, while the employment rate for low-skilled workers was 55.2%.",
+   "citations": [
+    "hr-618"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.272,
+   "answer_s": 16.97,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q102",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-165",
+    "hr-231"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7983,
+   "output": "Based on the provided pages, more than 15% of domestic care work is reported to be undocumented in Poland and Spain, with 35% in Italy [p:hr-165].\n",
+   "status": "answer",
+   "answer": "Based on the provided pages, more than 15% of domestic care work is reported to be undocumented in Poland and Spain, with 35% in Italy.",
+   "citations": [
+    "hr-165"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.268,
+   "answer_s": 14.54,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q103",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-43",
+    "hr-12"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8521,
+   "output": "The green transition is affecting the entire economy and leading to significant transformations in specific sectors like energy, mining, construction, manufacturing, and waste management, impacting overall labour market demand, skills, occupations, wages, and working conditions [p:hr-12].\n",
+   "status": "answer",
+   "answer": "The green transition is affecting the entire economy and leading to significant transformations in specific sectors like energy, mining, construction, manufacturing, and waste management, impacting overall labour market demand, skills, occupations, wages, and working conditions.",
+   "citations": [
+    "hr-12"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.26,
+   "answer_s": 17.93,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q107",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-156",
+    "hr-137"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0125,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.245,
+   "answer_s": 3.57,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q107",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "hr-156",
+    "hr-137"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0125,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.232,
+   "answer_s": 3.59,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q108",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-750",
+    "hr-846"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.026,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.204,
+   "answer_s": 3.52,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q115",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-88",
+    "hr-106"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0858,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.249,
+   "answer_s": 3.65,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q121",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-934",
+    "hr-935"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.2234,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.258,
+   "answer_s": 3.66,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q125",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-126",
+    "hr-121"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8356,
+   "output": "Investment in early childhood education, care, and education (ECEC) can improve the labor market participation of parents, especially mothers, and speed up the narrowing and convergence of gender employment and pay gaps [p:hr-121].\n",
+   "status": "answer",
+   "answer": "Investment in early childhood education, care, and education (ECEC) can improve the labor market participation of parents, especially mothers, and speed up the narrowing and convergence of gender employment and pay gaps.",
+   "citations": [
+    "hr-121"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.276,
+   "answer_s": 17.48,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q128",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-97",
+    "hr-98"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0205,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.27,
+   "answer_s": 3.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q129",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-514",
+    "hr-929"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8521,
+   "output": "Principle 17 of the European Pillar of Social Rights (EPSR) emphasises the importance of fostering the inclusion of people with disabilities into the labour market [p:hr-514].\n",
+   "status": "answer",
+   "answer": "Principle 17 of the European Pillar of Social Rights (EPSR) emphasises the importance of fostering the inclusion of people with disabilities into the labour market.",
+   "citations": [
+    "hr-514"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.313,
+   "answer_s": 15.54,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q131",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-348",
+    "hr-347"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7312,
+   "output": "Among national health workers, women consistently constituted around 79-80% of the workforce, while among EU movers, women accounted for approximately 90% to 94% from 2017 to 2023 [p:hr-348].\n",
+   "status": "answer",
+   "answer": "Among national health workers, women consistently constituted around 79-80% of the workforce, while among EU movers, women accounted for approximately 90% to 94% from 2017 to 2023.",
+   "citations": [
+    "hr-348"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.231,
+   "answer_s": 19.96,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q132",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-651",
+    "hr-821"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0854,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.278,
+   "answer_s": 3.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q141",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-659",
+    "hr-492"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.3779,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.187,
+   "answer_s": 3.6,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q148",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "hr-487",
+    "hr-488"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.4381,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.233,
+   "answer_s": 3.58,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q151",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-264",
+    "hr-244"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6514,
+   "output": "The self-employment rate for domestic workers in Slovakia is around 30% [p:hr-244].\n",
+   "status": "answer",
+   "answer": "The self-employment rate for domestic workers in Slovakia is around 30%.",
+   "citations": [
+    "hr-244"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.25,
+   "answer_s": 12.5,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q152",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-952",
+    "hr-949"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.439,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.285,
+   "answer_s": 3.66,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q157",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-185",
+    "hr-161"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7985,
+   "output": "Care allowances are typically financial benefits or payments made to either carers or care recipients, which can be 'unbound' (allowing free spending) or 'bound' (requiring documentation of fund usage) [p:hr-185].\n",
+   "status": "answer",
+   "answer": "Care allowances are typically financial benefits or payments made to either carers or care recipients, which can be 'unbound' (allowing free spending) or 'bound' (requiring documentation of fund usage).",
+   "citations": [
+    "hr-185"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.155,
+   "answer_s": 14.33,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q163",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-489",
+    "hr-845"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0181,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.27,
+   "answer_s": 3.72,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q164",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-5",
+    "hr-320"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.8671,
+   "output": "In Poland, the average age of a miner worker is 39 years [p:hr-5].\n",
+   "status": "answer",
+   "answer": "In Poland, the average age of a miner worker is 39 years.",
+   "citations": [
+    "hr-5"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.248,
+   "answer_s": 12.21,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q165",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-142",
+    "hr-152"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9859,
+   "output": "Wage subsidies are particularly effective at boosting employment for long-term unemployed people in Greece [p:hr-142].\n",
+   "status": "answer",
+   "answer": "Wage subsidies are particularly effective at boosting employment for long-term unemployed people in Greece.",
+   "citations": [
+    "hr-142"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.241,
+   "answer_s": 12.76,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q168",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-863",
+    "hr-691"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2698,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.29,
+   "answer_s": 3.7,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q174",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-973",
+    "hr-487"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0852,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.198,
+   "answer_s": 3.61,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q176",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-518",
+    "hr-519"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7311,
+   "output": "Yes, third-country nationals had higher rates of formal education and training participation than EU movers between 2018 and 2022 [p:hr-518].\n",
+   "status": "answer",
+   "answer": "Yes, third-country nationals had higher rates of formal education and training participation than EU movers between 2018 and 2022.",
+   "citations": [
+    "hr-518"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.287,
+   "answer_s": 15.38,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q179",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-887",
+    "hr-906"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9399,
+   "output": "Occupations with higher digital skills intensity have the lowest job strain proportion at 16% [p:hr-887].\n",
+   "status": "answer",
+   "answer": "Occupations with higher digital skills intensity have the lowest job strain proportion at 16%.",
+   "citations": [
+    "hr-887"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.216,
+   "answer_s": 12.4,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q179",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-881",
+    "hr-878"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.2692,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.219,
+   "answer_s": 3.66,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q182",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-270",
+    "hr-290"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5928,
+   "output": "A new law enacted in October 2022 addressed the issue of domestic workers having no access to unemployment or sickness benefits [p:hr-270].\n",
+   "status": "answer",
+   "answer": "A new law enacted in October 2022 addressed the issue of domestic workers having no access to unemployment or sickness benefits.",
+   "citations": [
+    "hr-270"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.236,
+   "answer_s": 14.02,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q185",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-1081",
+    "hr-1067"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9242,
+   "output": "European universities tend to have more protection around tenure, whereas in North American universities, a drop in international student numbers has forced universities to lay off significant numbers of academic staff [p:hr-1081].\n",
+   "status": "answer",
+   "answer": "European universities tend to have more protection around tenure, whereas in North American universities, a drop in international student numbers has forced universities to lay off significant numbers of academic staff.",
+   "citations": [
+    "hr-1081"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.206,
+   "answer_s": 16.29,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q187",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-802",
+    "hr-773"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.4076,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.189,
+   "answer_s": 3.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q191",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-881",
+    "hr-880"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9466,
+   "output": "Jobs with higher digital skills intensity have a higher share of young workers (15-29) and a lower share of older workers (55-64), while occupations with intermediate to low digital skills intensity have roughly equal shares of younger and older workers [p:hr-881].\n",
+   "status": "answer",
+   "answer": "Jobs with higher digital skills intensity have a higher share of young workers (15-29) and a lower share of older workers (55-64), while occupations with intermediate to low digital skills intensity have roughly equal shares of younger and older workers.",
+   "citations": [
+    "hr-881"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.143,
+   "answer_s": 19.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q193",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-575",
+    "hr-649"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6515,
+   "output": "Preventing early school leaving and promoting skills acquisition, especially for young people, can help address challenges of population ageing and shortages of skilled labour [p:hr-575].\n",
+   "status": "answer",
+   "answer": "Preventing early school leaving and promoting skills acquisition, especially for young people, can help address challenges of population ageing and shortages of skilled labour.",
+   "citations": [
+    "hr-575"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.272,
+   "answer_s": 14.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q193",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-575",
+    "hr-671"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.6227,
+   "output": "Preventing early school leaving and promoting skills acquisition, especially for young people, can help address challenges of population ageing and shortages of skilled labour [p:hr-575].\n",
+   "status": "answer",
+   "answer": "Preventing early school leaving and promoting skills acquisition, especially for young people, can help address challenges of population ageing and shortages of skilled labour.",
+   "citations": [
+    "hr-575"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.284,
+   "answer_s": 14.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q194",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-185",
+    "hr-534"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8176,
+   "output": "The Housing Job Scheme in Denmark was introduced as a temporary experiment in 2011 and made permanent in 2018 [p:hr-185].\n",
+   "status": "answer",
+   "answer": "The Housing Job Scheme in Denmark was introduced as a temporary experiment in 2011 and made permanent in 2018.",
+   "citations": [
+    "hr-185"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.207,
+   "answer_s": 14.41,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q200",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-3",
+    "hr-46"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0078,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.177,
+   "answer_s": 3.53,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q201",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-848",
+    "hr-845"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0374,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.269,
+   "answer_s": 3.41,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q203",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-829",
+    "hr-710"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0602,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.311,
+   "answer_s": 3.47,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q208",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-724",
+    "hr-592"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.8356,
+   "output": "The national employment rate of France in 2020 was 51.8% [p:hr-724].\n",
+   "status": "answer",
+   "answer": "The national employment rate of France in 2020 was 51.8%.",
+   "citations": [
+    "hr-724"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.25,
+   "answer_s": 12.47,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q212",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-815",
+    "hr-809"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.6522,
+   "output": "Table 2.2 on page [p:hr-815] lists the income deciles with the lowest increase per Member State for 2022 and 2023, but it does not specify which countries are included in these deciles. Therefore, the answer is NOT_FOUND.\n",
+   "status": "invalid",
+   "answer": "Table 2.2 on page [p:hr-815] lists the income deciles with the lowest increase per Member State for 2022 and 2023, but it does not specify which countries are included in these deciles. Therefore, the answer is NOT_FOUND.",
+   "citations": [
+    "hr-815"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.293,
+   "answer_s": 19.67,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q214",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-352",
+    "hr-461"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0602,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.28,
+   "answer_s": 3.38,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q219",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-69",
+    "hr-748"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0054,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.266,
+   "answer_s": 3.41,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q220",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-491",
+    "hr-417"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7983,
+   "output": "Female employment in the EU increased from 66% in 2018 to 71% in 2023 [p:hr-417].\n",
+   "status": "answer",
+   "answer": "Female employment in the EU increased from 66% in 2018 to 71% in 2023.",
+   "citations": [
+    "hr-417"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.247,
+   "answer_s": 15.25,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q221",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-521",
+    "hr-520"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7551,
+   "output": "In 2023, EU movers in Malta, Finland, and Czechia had the highest levels of basic or above basic digital skills at 90%, 86%, and 86% respectively [p:hr-521].\n",
+   "status": "answer",
+   "answer": "In 2023, EU movers in Malta, Finland, and Czechia had the highest levels of basic or above basic digital skills at 90%, 86%, and 86% respectively.",
+   "citations": [
+    "hr-521"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.271,
+   "answer_s": 17.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q223",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-651",
+    "hr-478"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.3779,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.233,
+   "answer_s": 3.51,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q225",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-488",
+    "hr-353"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1482,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.3,
+   "answer_s": 3.46,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q226",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-926",
+    "hr-929"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9151,
+   "output": "To address challenges like rising mental stress and skilled worker shortages, participants highlighted the need to focus on promoting humane work design, ensuring workers' participation in technology implementation, and reassessing the value attributed to human work [p:hr-926].\n",
+   "status": "answer",
+   "answer": "To address challenges like rising mental stress and skilled worker shortages, participants highlighted the need to focus on promoting humane work design, ensuring workers' participation in technology implementation, and reassessing the value attributed to human work.",
+   "citations": [
+    "hr-926"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.198,
+   "answer_s": 17.17,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q234",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-413",
+    "hr-415"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.852,
+   "output": "The proportion of Switzerland national part-time contract workers in 2022 was 42% [p:hr-415].\n",
+   "status": "answer",
+   "answer": "The proportion of Switzerland national part-time contract workers in 2022 was 42%.",
+   "citations": [
+    "hr-415"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.243,
+   "answer_s": 12.87,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q235",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-304",
+    "hr-279"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.593,
+   "output": "The first section discusses the EU policy context, including the 2019 Council Recommendation on access to social protection and the 2022 Council Recommendation on access to high-quality affordable long-term care. The second section details challenges faced by domestic workers, such as exploitative conditions and lack of enforcement of labor law. [p:hr-304][p:hr-279]\n",
+   "status": "answer",
+   "answer": "The first section discusses the EU policy context, including the 2019 Council Recommendation on access to social protection and the 2022 Council Recommendation on access to high-quality affordable long-term care. The second section details challenges faced by domestic workers, such as exploitative conditions and lack of enforcement of labor law.",
+   "citations": [
+    "hr-304",
+    "hr-279"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.174,
+   "answer_s": 23.86,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q236",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-470",
+    "hr-415"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1331,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.247,
+   "answer_s": 3.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q239",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-484",
+    "hr-436"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9047,
+   "output": "EURES includes European Employment Services, a cooperation network of public employment services, other employment services, trade unions, employers' organisations and other relevant actors in the labour market [p:hr-484].\n",
+   "status": "answer",
+   "answer": "EURES includes European Employment Services, a cooperation network of public employment services, other employment services, trade unions, employers' organisations and other relevant actors in the labour market.",
+   "citations": [
+    "hr-484"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.28,
+   "answer_s": 15.66,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q243",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-449",
+    "hr-448"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0086,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.198,
+   "answer_s": 3.63,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q243",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-449",
+    "hr-448"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0086,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.186,
+   "answer_s": 3.58,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q245",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-876",
+    "hr-878"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1331,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.236,
+   "answer_s": 3.59,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q252",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-947",
+    "hr-946"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9466,
+   "output": "The STR Partnership will focus on four interconnected impact areas: (i) supporting the modernisation of social protection systems and essential services, (ii) fostering education and skills development, (iii) contributing to a fair transition towards climate neutrality, and (iv) shaping the future of work [p:hr-947].\n",
+   "status": "answer",
+   "answer": "The STR Partnership will focus on four interconnected impact areas: (i) supporting the modernisation of social protection systems and essential services, (ii) fostering education and skills development, (iii) contributing to a fair transition towards climate neutrality, and (iv) shaping the future of work.",
+   "citations": [
+    "hr-947"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.222,
+   "answer_s": 21.44,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q256",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-1089",
+    "hr-1079"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1653,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.244,
+   "answer_s": 3.65,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q259",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-265",
+    "hr-247"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0086,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.248,
+   "answer_s": 3.59,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q259",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-265",
+    "hr-247"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0086,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.245,
+   "answer_s": 3.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q262",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-732",
+    "hr-739"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9579,
+   "output": "In Hungary, the employment rate for young people (15-24) increased from 32.2% in 2019 to 31.2% in 2020 [p:hr-732].\n",
+   "status": "answer",
+   "answer": "In Hungary, the employment rate for young people (15-24) increased from 32.2% in 2019 to 31.2% in 2020.",
+   "citations": [
+    "hr-732"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.215,
+   "answer_s": 18.23,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q266",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-148",
+    "hr-64"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5626,
+   "output": "In 2022, the largest reductions in the AROP rate due to housing allowances were observed in Finland (4.3 pp), Ireland (3.5 pp), France (3.1 pp), and Germany (3.0 pp) [p:hr-148].\n",
+   "status": "answer",
+   "answer": "In 2022, the largest reductions in the AROP rate due to housing allowances were observed in Finland (4.3 pp), Ireland (3.5 pp), France (3.1 pp), and Germany (3.0 pp).",
+   "citations": [
+    "hr-148"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.289,
+   "answer_s": 19.63,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q267",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-803",
+    "hr-876"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8809,
+   "output": "Yes, green and digital jobs offer wage premiums due to productivity and skills shortages. The wage premium for green jobs is estimated to be between 4% and 7%, while jobs with high digital intensity entail an 18% wage premium in the EU on average [p:hr-803].\n",
+   "status": "answer",
+   "answer": "Yes, green and digital jobs offer wage premiums due to productivity and skills shortages. The wage premium for green jobs is estimated to be between 4% and 7%, while jobs with high digital intensity entail an 18% wage premium in the EU on average.",
+   "citations": [
+    "hr-803"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.258,
+   "answer_s": 20.25,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q270",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-1035",
+    "hr-1049"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.706,
+   "output": "The topic for the Annual Stakeholder Conference held in November 2024 was 'Rethinking Support for Those Furthest from the Labour Market' [p:hr-1035].\n",
+   "status": "answer",
+   "answer": "The topic for the Annual Stakeholder Conference held in November 2024 was 'Rethinking Support for Those Furthest from the Labour Market'.",
+   "citations": [
+    "hr-1035"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.249,
+   "answer_s": 15.99,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q273",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-700",
+    "hr-85"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1483,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.268,
+   "answer_s": 3.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q274",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-1029",
+    "hr-1044"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.3502,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.285,
+   "answer_s": 3.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q274",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-1029",
+    "hr-908"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1351,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.282,
+   "answer_s": 3.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q285",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-503",
+    "hr-952"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7312,
+   "output": "The European Pillar of Social Rights (EPSR) and its accompanying Action Plan, adopted in 2021, emphasize that economic and social progress must go hand in hand, ensuring that the benefits of mobility are equitably shared and that workers are protected against social exclusion [p:hr-503].\n",
+   "status": "answer",
+   "answer": "The European Pillar of Social Rights (EPSR) and its accompanying Action Plan, adopted in 2021, emphasize that economic and social progress must go hand in hand, ensuring that the benefits of mobility are equitably shared and that workers are protected against social exclusion.",
+   "citations": [
+    "hr-503"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.2,
+   "answer_s": 21.06,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q286",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-949",
+    "hr-926"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0142,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.209,
+   "answer_s": 3.76,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q289",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-1089",
+    "hr-1079"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1079,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.248,
+   "answer_s": 3.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q293",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-763",
+    "hr-336"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1333,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.265,
+   "answer_s": 3.7,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q294",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-262",
+    "hr-232"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9526,
+   "output": "Indirect contractual employment is defined as employment involving a third-party agency (a for-profit or not-for-profit service provider) and/or a digital platform that acts as an intermediary between the employee and the employer (a household) [p:hr-262].\n",
+   "status": "answer",
+   "answer": "Indirect contractual employment is defined as employment involving a third-party agency (a for-profit or not-for-profit service provider) and/or a digital platform that acts as an intermediary between the employee and the employer (a household).",
+   "citations": [
+    "hr-262"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.245,
+   "answer_s": 19.3,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q294",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-263",
+    "hr-260"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.3216,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.244,
+   "answer_s": 3.79,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1808",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-906",
+    "hr-873"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.016,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.311,
+   "answer_s": 3.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1812",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-822",
+    "hr-821"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7551,
+   "output": "Based on the text below Graph 3.2 on page [p:hr-821], the countries with employment rates for older workers above 70% are Czechia, Denmark, Germany, Estonia, Latvia, the Netherlands, Finland, and Sweden. The text does not specify which three of these have the highest rate.\n\nNOT_FOUND\n",
+   "status": "invalid",
+   "answer": "Based on the text below Graph 3.2 on page [p:hr-821], the countries with employment rates for older workers above 70% are Czechia, Denmark, Germany, Estonia, Latvia, the Netherlands, Finland, and Sweden. The text does not specify which three of these have the highest rate.\n\nNOT_FOUND",
+   "citations": [
+    "hr-821"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.238,
+   "answer_s": 23.99,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1813",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-458",
+    "hr-467"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5933,
+   "output": "The two countries with the highest share of EU movers aged 0-19 are France and Italy, each at 20%. The country with the biggest group of cross-border EU workers is not specified in the provided pages. [p:hr-458] [p:hr-467]\n",
+   "status": "answer",
+   "answer": "The two countries with the highest share of EU movers aged 0-19 are France and Italy, each at 20%. The country with the biggest group of cross-border EU workers is not specified in the provided pages.",
+   "citations": [
+    "hr-458",
+    "hr-467"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.309,
+   "answer_s": 22.13,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1813",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-458",
+    "hr-467"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5933,
+   "output": "The two countries with the highest share of EU movers aged 0-19 are France and Italy, each at 20%. The country with the biggest group of cross-border EU workers is not specified in the provided pages. [p:hr-458] [p:hr-467]\n",
+   "status": "answer",
+   "answer": "The two countries with the highest share of EU movers aged 0-19 are France and Italy, each at 20%. The country with the biggest group of cross-border EU workers is not specified in the provided pages.",
+   "citations": [
+    "hr-458",
+    "hr-467"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.302,
+   "answer_s": 13.75,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1817",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-541",
+    "hr-190"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0047,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.233,
+   "answer_s": 3.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1817",
+   "subset": "hr",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "hr-190",
+    "hr-73"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0037,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.229,
+   "answer_s": 3.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "hr-q1819",
+   "subset": "hr",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "hr-502",
+    "hr-501"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9324,
+   "output": "In 2023, the number of employed working-age movers in the manufacturing sector was 1,028 thousand, while the figure for human health and social work was 582 thousand [p:hr-502].\n",
+   "status": "answer",
+   "answer": "In 2023, the number of employed working-age movers in the manufacturing sector was 1,028 thousand, while the figure for human health and social work was 582 thousand.",
+   "citations": [
+    "hr-502"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.268,
+   "answer_s": 19.12,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2784",
+    "finance_en-2686"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0019,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 4.216,
+   "answer_s": 3.81,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q3",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1219",
+    "finance_en-1119"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8357,
+   "output": "In 2024, Citigroup's Banking segment reported $1,529 million in income from continuing operations, while the Wealth segment reported $1,002 million [p:finance_en-1119].\n",
+   "status": "answer",
+   "answer": "In 2024, Citigroup's Banking segment reported $1,529 million in income from continuing operations, while the Wealth segment reported $1,002 million.",
+   "citations": [
+    "finance_en-1119"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.913,
+   "answer_s": 17.96,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q7",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2906",
+    "finance_en-2879"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7983,
+   "output": "The provision for credit losses in Global Banking increased by $1.5 billion to $883 million in 2024, primarily driven by the commercial real estate office portfolio [p:finance_en-2879].\n",
+   "status": "answer",
+   "answer": "The provision for credit losses in Global Banking increased by $1.5 billion to $883 million in 2024, primarily driven by the commercial real estate office portfolio.",
+   "citations": [
+    "finance_en-2879"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.349,
+   "answer_s": 18.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q7",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2906",
+    "finance_en-2879"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7983,
+   "output": "The provision for credit losses in Global Banking increased by $1.5 billion to $883 million in 2024, primarily driven by the commercial real estate office portfolio [p:finance_en-2879].\n",
+   "status": "answer",
+   "answer": "The provision for credit losses in Global Banking increased by $1.5 billion to $883 million in 2024, primarily driven by the commercial real estate office portfolio.",
+   "citations": [
+    "finance_en-2879"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.329,
+   "answer_s": 17.84,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q12",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2650",
+    "finance_en-1290"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0162,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.436,
+   "answer_s": 3.78,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q14",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-771",
+    "finance_en-487"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8933,
+   "output": "Goldman Sachs' main business segments are Global Banking & Markets, Asset & Wealth Management, and Platform Solutions [p:finance_en-771] [p:finance_en-487].\n",
+   "status": "answer",
+   "answer": "Goldman Sachs' main business segments are Global Banking & Markets, Asset & Wealth Management, and Platform Solutions.",
+   "citations": [
+    "finance_en-771",
+    "finance_en-487"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.458,
+   "answer_s": 16.8,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q18",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2711",
+    "finance_en-2714"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0958,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.491,
+   "answer_s": 3.83,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q27",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2349",
+    "finance_en-2363"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.755,
+   "output": "Commercial loans decreased by $13,268 million and consumer loans decreased by $10,669 million, contributing to a total loan decrease of $23,937 million from December 31, 2023, to December 31, 2024 [p:finance_en-2349].\n",
+   "status": "answer",
+   "answer": "Commercial loans decreased by $13,268 million and consumer loans decreased by $10,669 million, contributing to a total loan decrease of $23,937 million from December 31, 2023, to December 31, 2024.",
+   "citations": [
+    "finance_en-2349"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.486,
+   "answer_s": 21.14,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q33",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1290",
+    "finance_en-1719"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0014,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.367,
+   "answer_s": 3.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q33",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1290",
+    "finance_en-1719"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0014,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.378,
+   "answer_s": 3.62,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q34",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2749",
+    "finance_en-2813"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1647,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.432,
+   "answer_s": 3.7,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q35",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2659",
+    "finance_en-2658"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.915,
+   "output": "Bank of America's total nonperforming loans were $5.975 billion at December 31, 2024 [p:finance_en-2659].\n",
+   "status": "answer",
+   "answer": "Bank of America's total nonperforming loans were $5.975 billion at December 31, 2024.",
+   "citations": [
+    "finance_en-2659"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.366,
+   "answer_s": 11.52,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q38",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-535",
+    "finance_en-602"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5316,
+   "output": "In 2024, the total charge-off amount was $1,640 million, with consumer loans contributing the most at $1,471 million [p:finance_en-535].\n",
+   "status": "answer",
+   "answer": "In 2024, the total charge-off amount was $1,640 million, with consumer loans contributing the most at $1,471 million.",
+   "citations": [
+    "finance_en-535"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.441,
+   "answer_s": 11.53,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q41",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2203",
+    "finance_en-2207"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8934,
+   "output": "Wealth Management net revenues in 2024 were $28,420 million [p:finance_en-2203].\n",
+   "status": "answer",
+   "answer": "Wealth Management net revenues in 2024 were $28,420 million.",
+   "citations": [
+    "finance_en-2203"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.304,
+   "answer_s": 10.42,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q42",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-9",
+    "finance_en-385"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8671,
+   "output": "The supplementary leverage ratio (SLR) for JPMorgan Chase in 2024 was 6.1% [p:finance_en-9].\n",
+   "status": "answer",
+   "answer": "The supplementary leverage ratio (SLR) for JPMorgan Chase in 2024 was 6.1%.",
+   "citations": [
+    "finance_en-9"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.34,
+   "answer_s": 10.53,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q43",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1385",
+    "finance_en-1830"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.023,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.462,
+   "answer_s": 3.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q43",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1385",
+    "finance_en-1830"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.023,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.464,
+   "answer_s": 3.75,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q49",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-535",
+    "finance_en-534"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6515,
+   "output": "The total wholesale loan credit loss allowance for the year ended December 2024 was $2,099 million. [p:finance_en-535]\n",
+   "status": "answer",
+   "answer": "The total wholesale loan credit loss allowance for the year ended December 2024 was $2,099 million.",
+   "citations": [
+    "finance_en-535"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.423,
+   "answer_s": 10.69,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q62",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-577",
+    "finance_en-1023"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7981,
+   "output": "In 2024, the Global Banking & Markets segment had a return on average common equity of 14.5%, while the Asset & Wealth Management segment had a return of 12.8%. The higher ROE in Global Banking & Markets is partly due to its significantly higher pre-tax earnings of $14,923 million compared to $4,549 million in Asset & Wealth Management, despite both segments having substantial operating expenses. [p:finance_en-577]\n",
+   "status": "answer",
+   "answer": "In 2024, the Global Banking & Markets segment had a return on average common equity of 14.5%, while the Asset & Wealth Management segment had a return of 12.8%. The higher ROE in Global Banking & Markets is partly due to its significantly higher pre-tax earnings of $14,923 million compared to $4,549 million in Asset & Wealth Management, despite both segments having substantial operating expenses.",
+   "citations": [
+    "finance_en-577"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.535,
+   "answer_s": 16.56,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q63",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2926",
+    "finance_en-2669"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0295,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.435,
+   "answer_s": 3.75,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q67",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-227",
+    "finance_en-385"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7774,
+   "output": "The Common Equity Tier 1 capital ratio reported by JPMorgan Chase for 2024 is 18.5% [p:finance_en-385].\n",
+   "status": "answer",
+   "answer": "The Common Equity Tier 1 capital ratio reported by JPMorgan Chase for 2024 is 18.5%.",
+   "citations": [
+    "finance_en-385"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 10.69,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q68",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-223",
+    "finance_en-414"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.2284,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.455,
+   "answer_s": 3.76,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q71",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2844",
+    "finance_en-2845"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9526,
+   "output": "The events triggering a default are: failure to pay principal or premium when due, failure to pay interest or other amounts due within 30 days, a breach of covenants not cured within 90 days, and specified bankruptcy, insolvency, or liquidation events [p:finance_en-2844].\n",
+   "status": "answer",
+   "answer": "The events triggering a default are: failure to pay principal or premium when due, failure to pay interest or other amounts due within 30 days, a breach of covenants not cured within 90 days, and specified bankruptcy, insolvency, or liquidation events.",
+   "citations": [
+    "finance_en-2844"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.399,
+   "answer_s": 13.69,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q76",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2840",
+    "finance_en-2841"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9707,
+   "output": "The interest rates for the Step Up Callable Notes increase over time as follows: 3.00% from November 28, 2016, to November 28, 2021; 3.50% from November 28, 2021, to November 28, 2026; 4.00% from November 28, 2026, to November 28, 2028; 5.00% from November 28, 2028, to November 28",
+   "status": "invalid",
+   "answer": "The interest rates for the Step Up Callable Notes increase over time as follows: 3.00% from November 28, 2016, to November 28, 2021; 3.50% from November 28, 2021, to November 28, 2026; 4.00% from November 28, 2026, to November 28, 2028; 5.00% from November 28, 2028, to November 28",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.456,
+   "answer_s": 18.12,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q77",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2849",
+    "finance_en-2861"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9325,
+   "output": "Yes, Bank of America Corporation reported a net income of $27.1 billion in 2024 [p:finance_en-2849].\n",
+   "status": "answer",
+   "answer": "Yes, Bank of America Corporation reported a net income of $27.1 billion in 2024.",
+   "citations": [
+    "finance_en-2849"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.429,
+   "answer_s": 10.59,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q80",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1441",
+    "finance_en-1206"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9325,
+   "output": "Citibank's Supplementary Leverage Ratio increased from 6.89% in December 31, 2023, to 7.09% in December 31, 2024 [p:finance_en-1441].\n",
+   "status": "answer",
+   "answer": "Citibank's Supplementary Leverage Ratio increased from 6.89% in December 31, 2023, to 7.09% in December 31, 2024.",
+   "citations": [
+    "finance_en-1441"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.421,
+   "answer_s": 12.03,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q81",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-395",
+    "finance_en-409"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8177,
+   "output": "In 2024, JPMorgan Chase's Consumer & Community Banking (CCB) segment revenue was $71,507 million, while the Corporate & Investment Bank (CIB) segment revenue was $70,114 million. The CCB segment saw a significant increase in revenue compared to 2023, whereas the CIB segment experienced a slight decrease. [p:finance_en-409]\n",
+   "status": "answer",
+   "answer": "In 2024, JPMorgan Chase's Consumer & Community Banking (CCB) segment revenue was $71,507 million, while the Corporate & Investment Bank (CIB) segment revenue was $70,114 million. The CCB segment saw a significant increase in revenue compared to 2023, whereas the CIB segment experienced a slight decrease.",
+   "citations": [
+    "finance_en-409"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.401,
+   "answer_s": 14.76,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q81",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-409",
+    "finance_en-223"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7984,
+   "output": "In 2024, the Consumer & Community Banking (CCB) segment had a total net revenue of $71,507 million, while the Commercial & Investment Bank (CIB) segment had $70,114 million. The CIB segment was formed in the second quarter of 2024 by combining the former Corporate & Investment Bank and Commercial Banking segments [p:finance_en-409] [p:finance_en-223].\n",
+   "status": "answer",
+   "answer": "In 2024, the Consumer & Community Banking (CCB) segment had a total net revenue of $71,507 million, while the Commercial & Investment Bank (CIB) segment had $70,114 million. The CIB segment was formed in the second quarter of 2024 by combining the former Corporate & Investment Bank and Commercial Banking segments.",
+   "citations": [
+    "finance_en-409",
+    "finance_en-223"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.399,
+   "answer_s": 15.81,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q83",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1308",
+    "finance_en-1206"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7063,
+   "output": "In 2024, Citigroup's total risk-weighted assets under the Standardized Approach were $1,139,988 million, while under the Advanced Approaches they were $1,280,190 million; the primary driver for the difference is that the Advanced Approach includes market risk-weighted assets, which are more sensitive than those calculated under the Standardized Approach [p:finance_en-1308].\n",
+   "status": "answer",
+   "answer": "In 2024, Citigroup's total risk-weighted assets under the Standardized Approach were $1,139,988 million, while under the Advanced Approaches they were $1,280,190 million; the primary driver for the difference is that the Advanced Approach includes market risk-weighted assets, which are more sensitive than those calculated under the Standardized Approach.",
+   "citations": [
+    "finance_en-1308"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.508,
+   "answer_s": 17.0,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q84",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-1119",
+    "finance_en-1152"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0053,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.461,
+   "answer_s": 3.9,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q85",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2904",
+    "finance_en-2907"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5003,
+   "output": "In 2024, commercial real estate office loans contributed to a $1.1 billion increase in net charge-offs, while consumer loans saw a total net reduction of $65 million in nonperforming loans and leases; risk management for commercial portfolios involves monitoring credit quality and using tools like credit derivatives, whereas consumer loans are managed through risk ratings and monitoring of borrower or counterparty performance [p:finance_en-2904][p:finance_en-2907].\n",
+   "status": "answer",
+   "answer": "In 2024, commercial real estate office loans contributed to a $1.1 billion increase in net charge-offs, while consumer loans saw a total net reduction of $65 million in nonperforming loans and leases; risk management for commercial portfolios involves monitoring credit quality and using tools like credit derivatives, whereas consumer loans are managed through risk ratings and monitoring of borrower or counterparty performance.",
+   "citations": [
+    "finance_en-2904",
+    "finance_en-2907"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.45,
+   "answer_s": 15.36,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q91",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "sdg",
+   "shown": [
+    "finance_en-2885",
+    "finance_en-2738"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.4381,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.367,
+   "answer_s": 3.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q95",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2669",
+    "finance_en-2709"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5931,
+   "output": "In 2024, non-cash net transfers into loans held-for-sale (LHFS) were $0, while in 2023 they were $632 million [p:finance_en-2669].\n",
+   "status": "answer",
+   "answer": "In 2024, non-cash net transfers into loans held-for-sale (LHFS) were $0, while in 2023 they were $632 million.",
+   "citations": [
+    "finance_en-2669"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.439,
+   "answer_s": 11.52,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q97",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1453",
+    "finance_en-1935"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0013,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.43,
+   "answer_s": 3.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q102",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1226",
+    "finance_en-1121"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.026,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.443,
+   "answer_s": 3.8,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q103",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2847",
+    "finance_en-2848"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.974,
+   "output": "Yes, Bank of America sponsors the Bank of America Corporation Equity Plan (the \"Stock Plan\") [p:finance_en-2847].\n",
+   "status": "answer",
+   "answer": "Yes, Bank of America sponsors the Bank of America Corporation Equity Plan (the \"Stock Plan\").",
+   "citations": [
+    "finance_en-2847"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.38,
+   "answer_s": 10.34,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q104",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1985",
+    "finance_en-1185"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7775,
+   "output": "Citigroup's Other Real Estate Owned (OREO) assets decreased from $43 million in 2020 to $18 million in 2024, a deduction of $25 million [p:finance_en-1985].\n",
+   "status": "answer",
+   "answer": "Citigroup's Other Real Estate Owned (OREO) assets decreased from $43 million in 2020 to $18 million in 2024, a deduction of $25 million.",
+   "citations": [
+    "finance_en-1985"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.439,
+   "answer_s": 12.46,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q104",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-1185",
+    "finance_en-1215"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0047,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.466,
+   "answer_s": 3.82,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q106",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2805",
+    "finance_en-2906"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1483,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.411,
+   "answer_s": 3.81,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q106",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2906",
+    "finance_en-2904"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0025,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.404,
+   "answer_s": 4.1,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q107",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1064",
+    "finance_en-1718"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6515,
+   "output": "Citigroup's transformation-related expenses in 2024 increased 1% to approximately $2.9 billion, largely driven by increased spending on certain programs including the Transformation Bonus Program [p:finance_en-1064].\n",
+   "status": "answer",
+   "answer": "Citigroup's transformation-related expenses in 2024 increased 1% to approximately $2.9 billion, largely driven by increased spending on certain programs including the Transformation Bonus Program.",
+   "citations": [
+    "finance_en-1064"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.375,
+   "answer_s": 11.58,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q108",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2798",
+    "finance_en-2803"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9399,
+   "output": "Trust XIII must make distributions on Trust XIII HITS only to the extent it has received dividends on the Series F Preferred Stock, and these dividends are non-cumulative and payable in arrears if not declared by the Board on the quarterly payment dates [p:finance_en-2798].\n",
+   "status": "answer",
+   "answer": "Trust XIII must make distributions on Trust XIII HITS only to the extent it has received dividends on the Series F Preferred Stock, and these dividends are non-cumulative and payable in arrears if not declared by the Board on the quarterly payment dates.",
+   "citations": [
+    "finance_en-2798"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.45,
+   "answer_s": 12.56,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q115",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1213",
+    "finance_en-2492"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6794,
+   "output": "Citigroup's funded VIE commitments are categorized into debt investments, equity investments, and funding commitments [p:finance_en-1213].\n",
+   "status": "answer",
+   "answer": "Citigroup's funded VIE commitments are categorized into debt investments, equity investments, and funding commitments.",
+   "citations": [
+    "finance_en-1213"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.379,
+   "answer_s": 10.18,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q121",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1292",
+    "finance_en-1076"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0604,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 3.84,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q125",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2084",
+    "finance_en-615"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.4693,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.327,
+   "answer_s": 3.78,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q127",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2712",
+    "finance_en-2881"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.3489,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.41,
+   "answer_s": 3.79,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q127",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2712",
+    "finance_en-2651"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0374,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.37,
+   "answer_s": 3.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q129",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2482",
+    "finance_en-2485"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8809,
+   "output": "Level 3 valuations use significant unobservable inputs such as cost to service per loan, discount rate, prepayment rate, default rate, loss severity, conversion factor, weighted average life, correlation factor, volatility factor, and comparability adjustment [p:finance_en-2482][p:finance_en-2485].\n",
+   "status": "answer",
+   "answer": "Level 3 valuations use significant unobservable inputs such as cost to service per loan, discount rate, prepayment rate, default rate, loss severity, conversion factor, weighted average life, correlation factor, volatility factor, and comparability adjustment.",
+   "citations": [
+    "finance_en-2482",
+    "finance_en-2485"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.401,
+   "answer_s": 13.97,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q131",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2887",
+    "finance_en-2849"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0047,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.474,
+   "answer_s": 3.8,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q131",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2887",
+    "finance_en-2689"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0053,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.455,
+   "answer_s": 3.84,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q132",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2479",
+    "finance_en-2477"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9399,
+   "output": "Yes, Wells Fargo uses third-party vendor pricing to value certain Level 3 assets and liabilities, specifically in circumstances where internal models are not used or are insufficient. [p:finance_en-2479]\n",
+   "status": "answer",
+   "answer": "Yes, Wells Fargo uses third-party vendor pricing to value certain Level 3 assets and liabilities, specifically in circumstances where internal models are not used or are insufficient.",
+   "citations": [
+    "finance_en-2479"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.399,
+   "answer_s": 11.16,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q132",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2477",
+    "finance_en-2482"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.5928,
+   "output": "Yes, third-party vendor pricing is used for valuations of Level 3 assets and liabilities, as stated in the \"Available-for-Sale Debt Securities\" section on page [p:finance_en-2477].\n",
+   "status": "answer",
+   "answer": "Yes, third-party vendor pricing is used for valuations of Level 3 assets and liabilities, as stated in the \"Available-for-Sale Debt Securities\" section on page.",
+   "citations": [
+    "finance_en-2477"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.395,
+   "answer_s": 12.27,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q136",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2849",
+    "finance_en-2874"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0205,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.375,
+   "answer_s": 3.79,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q141",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1626",
+    "finance_en-1691"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6228,
+   "output": "\u201cBusiness Day\u201d means any weekday that is not a legal holiday in New York City and is not a day on which banking institutions in New York City are authorized or required by law or regulation to be closed [p:finance_en-1626].\n",
+   "status": "answer",
+   "answer": "\u201cBusiness Day\u201d means any weekday that is not a legal holiday in New York City and is not a day on which banking institutions in New York City are authorized or required by law or regulation to be closed.",
+   "citations": [
+    "finance_en-1626"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.416,
+   "answer_s": 11.94,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q141",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-1691",
+    "finance_en-618"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0143,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.408,
+   "answer_s": 3.77,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q148",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-931",
+    "finance_en-921"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.755,
+   "output": "Yes, if the General Partner elects to exercise its right to cause the Fund to purchase, redeem, or cause the transfer of the Limited Partner's vested interest following their death. [p:finance_en-921]\n",
+   "status": "answer",
+   "answer": "Yes, if the General Partner elects to exercise its right to cause the Fund to purchase, redeem, or cause the transfer of the Limited Partner's vested interest following their death.",
+   "citations": [
+    "finance_en-921"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.391,
+   "answer_s": 13.98,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q151",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2260",
+    "finance_en-2115"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1829,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.441,
+   "answer_s": 3.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q157",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-621",
+    "finance_en-631"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7061,
+   "output": "The term \"Required Unrestricted Capital Provisions\" means the terms that are, in the Company's judgment (after consultation with counsel of recognized standing), required for preferred stock to be treated as Allowable Capital or Tier 1 Capital Equivalent, as applicable, without any sublimit or other quantitative restriction on the inclusion of such preferred stock in Allowable Capital or Tier 1 Capital Equivalent [p:finance_en-621][p:finance_en-631].\n",
+   "status": "answer",
+   "answer": "The term \"Required Unrestricted Capital Provisions\" means the terms that are, in the Company's judgment (after consultation with counsel of recognized standing), required for preferred stock to be treated as Allowable Capital or Tier 1 Capital Equivalent, as applicable, without any sublimit or other quantitative restriction on the inclusion of such preferred stock in Allowable Capital or Tier 1 Capital Equivalent.",
+   "citations": [
+    "finance_en-621",
+    "finance_en-631"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.32,
+   "answer_s": 15.69,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q163",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1718",
+    "finance_en-1043"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2452,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.455,
+   "answer_s": 3.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q164",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1763",
+    "finance_en-1079"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7313,
+   "output": "The top 25 countries represent 31.7% of Citigroup's total exposure as of December 31, 2024 [p:finance_en-1079].\n",
+   "status": "answer",
+   "answer": "The top 25 countries represent 31.7% of Citigroup's total exposure as of December 31, 2024.",
+   "citations": [
+    "finance_en-1079"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.448,
+   "answer_s": 15.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q165",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2088",
+    "finance_en-2054"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9047,
+   "output": "The dividend rate for Morgan Stanley Series N Preferred Stock is 5.30% per annum from September 15, 2020, to March 15, 2023, and thereafter at a rate equal to the three-month CME Term SOFR Reference Rate plus a tenor spread adjustment of 0.2611% plus (2) 3.16% [p:finance_en-2088].\n",
+   "status": "answer",
+   "answer": "The dividend rate for Morgan Stanley Series N Preferred Stock is 5.30% per annum from September 15, 2020, to March 15, 2023, and thereafter at a rate equal to the three-month CME Term SOFR Reference Rate plus a tenor spread adjustment of 0.2611% plus (2) 3.16%.",
+   "citations": [
+    "finance_en-2088"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.36,
+   "answer_s": 25.63,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q177",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2741",
+    "finance_en-2779"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0333,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.349,
+   "answer_s": 3.56,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q178",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2211",
+    "finance_en-2065"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2454,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.398,
+   "answer_s": 3.53,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q179",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1969",
+    "finance_en-1968"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9242,
+   "output": "The standard does not require approval from the Board of Directors or subcommittees of the Board of Directors of Citigroup Inc. and Citibank N.A. [p:finance_en-1969].\n",
+   "status": "answer",
+   "answer": "The standard does not require approval from the Board of Directors or subcommittees of the Board of Directors of Citigroup Inc. and Citibank N.A..",
+   "citations": [
+    "finance_en-1969"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.315,
+   "answer_s": 15.98,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q179",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-1968",
+    "finance_en-1978"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1341,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.318,
+   "answer_s": 3.52,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q185",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1046",
+    "finance_en-1047"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0017,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.413,
+   "answer_s": 3.48,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q187",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2801",
+    "finance_en-2818"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.0426,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.424,
+   "answer_s": 3.5,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q191",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2687",
+    "finance_en-2731"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7059,
+   "output": "Series L is a 7.25% Non-Cumulative Perpetual Convertible Preferred Stock with a fixed rate of 7.25% [p:finance_en-2687].\n",
+   "status": "answer",
+   "answer": "Series L is a 7.25% Non-Cumulative Perpetual Convertible Preferred Stock with a fixed rate of 7.25%.",
+   "citations": [
+    "finance_en-2687"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.372,
+   "answer_s": 15.38,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q191",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2749",
+    "finance_en-2791"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0956,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.371,
+   "answer_s": 3.5,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q192",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2849",
+    "finance_en-2714"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.4078,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.474,
+   "answer_s": 3.48,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q194",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2203",
+    "finance_en-2065"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.469,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.357,
+   "answer_s": 3.44,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q200",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1873",
+    "finance_en-631"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1485,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.407,
+   "answer_s": 3.49,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q201",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2835",
+    "finance_en-2832"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8808,
+   "output": "Automatic acceleration of payment obligations on ICONs can be triggered by a default in the payment of interest for 30 days after a ten-year period following the commencement of an Optional Deferral Period, or by events of bankruptcy, insolvency, and reorganization involving the Company [p:finance_en-2835].\n",
+   "status": "answer",
+   "answer": "Automatic acceleration of payment obligations on ICONs can be triggered by a default in the payment of interest for 30 days after a ten-year period following the commencement of an Optional Deferral Period, or by events of bankruptcy, insolvency, and reorganization involving the Company.",
+   "citations": [
+    "finance_en-2835"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.384,
+   "answer_s": 18.97,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q203",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2895",
+    "finance_en-2720"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2945,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.386,
+   "answer_s": 3.55,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q208",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1969",
+    "finance_en-1973"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9047,
+   "output": "Notice of its issuance and any subsequent revisions may be reported to the Board at the request of the Board or Citi Management [p:finance_en-1969].\n",
+   "status": "answer",
+   "answer": "Notice of its issuance and any subsequent revisions may be reported to the Board at the request of the Board or Citi Management.",
+   "citations": [
+    "finance_en-1969"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.445,
+   "answer_s": 13.73,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q212",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2688",
+    "finance_en-2649"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7311,
+   "output": "The total Accumulated Other Comprehensive Income (Loss) for Bank of America decreased from $(21,156) million in 2022 to $(15,285) million in 2024, representing a decrease of $5,871 million [p:finance_en-2688].\n",
+   "status": "answer",
+   "answer": "The total Accumulated Other Comprehensive Income (Loss) for Bank of America decreased from $(21,156) million in 2022 to $(15,285) million in 2024, representing a decrease of $5,871 million.",
+   "citations": [
+    "finance_en-2688"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.465,
+   "answer_s": 19.47,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q214",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2932",
+    "finance_en-2796"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2945,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 3.47,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q219",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1982",
+    "finance_en-1983"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9241,
+   "output": "Yes, Citibank Berhad is listed with the jurisdiction name Malaysia in Exhibit 21.01 [p:finance_en-1982].\n",
+   "status": "answer",
+   "answer": "Yes, Citibank Berhad is listed with the jurisdiction name Malaysia in Exhibit 21.01.",
+   "citations": [
+    "finance_en-1982"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.461,
+   "answer_s": 12.94,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q223",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2203",
+    "finance_en-2072"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8355,
+   "output": "No, the average amount of deposits increased from $342,583 million in 2023 to $350,487 million in 2024 [p:finance_en-2072].\n",
+   "status": "answer",
+   "answer": "No, the average amount of deposits increased from $342,583 million in 2023 to $350,487 million in 2024.",
+   "citations": [
+    "finance_en-2072"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.376,
+   "answer_s": 16.31,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q225",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-560",
+    "finance_en-562"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.1651,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.404,
+   "answer_s": 3.5,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q232",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1091",
+    "finance_en-2698"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7312,
+   "output": "In 2024, Citigroup's deferred tax assets (DTAs) decreased by $0.2 billion to $29.8 billion, primarily due to the geographic mix of earnings, with a significant portion related to tax carry-forwards and temporary differences. The company concluded that it has the necessary positive evidence to support the realization of its net DTAs after considering valuation allowances [p:finance_en-1091]. Additionally, Citigroup has a Deferred Tax Asset of $7,519 million for net operating losses in the U.K., which are expected to be realized over an extended number of years [",
+   "status": "answer",
+   "answer": "In 2024, Citigroup's deferred tax assets (DTAs) decreased by $0.2 billion to $29.8 billion, primarily due to the geographic mix of earnings, with a significant portion related to tax carry-forwards and temporary differences. The company concluded that it has the necessary positive evidence to support the realization of its net DTAs after considering valuation allowances. Additionally, Citigroup has a Deferred Tax Asset of $7,519 million for net operating losses in the U.K., which are expected to be realized over an extended number of years [",
+   "citations": [
+    "finance_en-1091"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.412,
+   "answer_s": 31.12,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q234",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1058",
+    "finance_en-389"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0852,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.417,
+   "answer_s": 3.57,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q235",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-552",
+    "finance_en-1221"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7551,
+   "output": "Interests accounted for at fair value are primarily classified in level 2 of the fair value hierarchy [p:finance_en-552].\n",
+   "status": "answer",
+   "answer": "Interests accounted for at fair value are primarily classified in level 2 of the fair value hierarchy.",
+   "citations": [
+    "finance_en-552"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.359,
+   "answer_s": 12.98,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q242",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1308",
+    "finance_en-1292"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5315,
+   "output": "Citigroup's share repurchase program highlighted in the 2024 combined 10-K filing is $20 billion, authorized on January 13, 2025, and beginning in the first quarter of 2025 [p:finance_en-1308][p:finance_en-1292].\n",
+   "status": "answer",
+   "answer": "Citigroup's share repurchase program highlighted in the 2024 combined 10-K filing is $20 billion, authorized on January 13, 2025, and beginning in the first quarter of 2025.",
+   "citations": [
+    "finance_en-1308",
+    "finance_en-1292"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.443,
+   "answer_s": 21.64,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q245",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2202",
+    "finance_en-2246"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.2945,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.432,
+   "answer_s": 3.68,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q246",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2206",
+    "finance_en-2204"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.5624,
+   "output": "Morgan Stanley's Return on Tangible Common Equity (ROTCE) for 2024 is 37% [p:finance_en-2206].\n",
+   "status": "answer",
+   "answer": "Morgan Stanley's Return on Tangible Common Equity (ROTCE) for 2024 is 37%.",
+   "citations": [
+    "finance_en-2206"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.382,
+   "answer_s": 13.91,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q247",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1470",
+    "finance_en-1498"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.2693,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.394,
+   "answer_s": 3.55,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q249",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2021",
+    "finance_en-2022"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.706,
+   "output": "The business unit responsible for the risk management of borrowings at fair value is Equity. [p:finance_en-2021]\n",
+   "status": "answer",
+   "answer": "The business unit responsible for the risk management of borrowings at fair value is Equity.",
+   "citations": [
+    "finance_en-2021"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.387,
+   "answer_s": 12.35,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q249",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-2022",
+    "finance_en-2240"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.1334,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 3.6,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q251",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1935",
+    "finance_en-1803"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0019,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.377,
+   "answer_s": 3.44,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q253",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-160",
+    "finance_en-96"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.852,
+   "output": "Margin levels are initially established based on the counterparty, the type of underlying securities, and the permissible collateral, and are monitored on an ongoing basis [p:finance_en-160].\n",
+   "status": "answer",
+   "answer": "Margin levels are initially established based on the counterparty, the type of underlying securities, and the permissible collateral, and are monitored on an ongoing basis.",
+   "citations": [
+    "finance_en-160"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.402,
+   "answer_s": 14.44,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q262",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2550",
+    "finance_en-2572"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.706,
+   "output": "Computershare Trust Company, N.A. acts as the transfer agent, registrar, and paying agent for the Series Y depositary shares [p:finance_en-2550].\n",
+   "status": "answer",
+   "answer": "Computershare Trust Company, N.A. acts as the transfer agent, registrar, and paying agent for the Series Y depositary shares.",
+   "citations": [
+    "finance_en-2550"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.478,
+   "answer_s": 14.37,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q263",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2057",
+    "finance_en-348"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8808,
+   "output": "Yes, Morgan Stanley's PSUs are tied to ROTCE and TSR metrics, as one-half is based on the MS Average ROTCE and the other half on the MS Relative TSR [p:finance_en-2057].\n",
+   "status": "answer",
+   "answer": "Yes, Morgan Stanley's PSUs are tied to ROTCE and TSR metrics, as one-half is based on the MS Average ROTCE and the other half on the MS Relative TSR.",
+   "citations": [
+    "finance_en-2057"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.392,
+   "answer_s": 16.04,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q264",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1077",
+    "finance_en-1719"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6516,
+   "output": "Reputation risk is the risk of negative opinion held by stakeholders, while strategic risk is the risk of a sustained impact to core strategic objectives measured by impacts on anticipated earnings, market capitalization, or capital [p:finance_en-1077] [p:finance_en-1719].\n",
+   "status": "answer",
+   "answer": "Reputation risk is the risk of negative opinion held by stakeholders, while strategic risk is the risk of a sustained impact to core strategic objectives measured by impacts on anticipated earnings, market capitalization, or capital.",
+   "citations": [
+    "finance_en-1077",
+    "finance_en-1719"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.339,
+   "answer_s": 19.41,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q265",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2796",
+    "finance_en-273"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6227,
+   "output": "No, the depositary's removal will take effect only upon the appointment of a successor depositary and its acceptance of the appointment [p:finance_en-2796].\n",
+   "status": "answer",
+   "answer": "No, the depositary's removal will take effect only upon the appointment of a successor depositary and its acceptance of the appointment.",
+   "citations": [
+    "finance_en-2796"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.329,
+   "answer_s": 13.56,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q266",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1148",
+    "finance_en-1149"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9579,
+   "output": "Citigroup's allocation to real assets under U.S. pension assets at December 31, 2024, was 5% [p:finance_en-1148].\n",
+   "status": "answer",
+   "answer": "Citigroup's allocation to real assets under U.S. pension assets at December 31, 2024, was 5%.",
+   "citations": [
+    "finance_en-1148"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.441,
+   "answer_s": 15.79,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q279",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2672",
+    "finance_en-2911"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.011,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.305,
+   "answer_s": 3.66,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q281",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2887",
+    "finance_en-2689"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7983,
+   "output": "In 2024, Bank of America hired over 18,000 teammates and delivered approximately 7.6 million hours of training and development through its Bank of America Academy [p:finance_en-2887].\n",
+   "status": "answer",
+   "answer": "In 2024, Bank of America hired over 18,000 teammates and delivered approximately 7.6 million hours of training and development through its Bank of America Academy.",
+   "citations": [
+    "finance_en-2887"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.36,
+   "answer_s": 17.25,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q284",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1563",
+    "finance_en-1075"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.8809,
+   "output": "The adoption of generative AI could lead to unintended consequences like inaccurate datasets or fraud if not governed adequately, while control gaps from modernization projects may result in Citi operating outside its risk appetite [p:finance_en-1563].\n",
+   "status": "answer",
+   "answer": "The adoption of generative AI could lead to unintended consequences like inaccurate datasets or fraud if not governed adequately, while control gaps from modernization projects may result in Citi operating outside its risk appetite.",
+   "citations": [
+    "finance_en-1563"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 17.4,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q288",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-631",
+    "finance_en-621"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.7775,
+   "output": "As used in the description of the Series C Preferred Stock, \"voting preferred stock\" means any other class or series of preferred stock of the Company ranking equally with the Series C Preferred Stock either as to dividends or the distribution of assets upon liquidation, dissolution or winding up and upon which like voting rights have been conferred and are exercisable [p:finance_en-631]. As used in the description of the Series A Preferred Stock, \"voting preferred stock\" means any other class or series of preferred stock of the Company ranking equally with the Series A Preferred Stock either as to dividends or the distribution of assets upon liquidation",
+   "status": "answer",
+   "answer": "As used in the description of the Series C Preferred Stock, \"voting preferred stock\" means any other class or series of preferred stock of the Company ranking equally with the Series C Preferred Stock either as to dividends or the distribution of assets upon liquidation, dissolution or winding up and upon which like voting rights have been conferred and are exercisable. As used in the description of the Series A Preferred Stock, \"voting preferred stock\" means any other class or series of preferred stock of the Company ranking equally with the Series A Preferred Stock either as to dividends or the distribution of assets upon liquidation",
+   "citations": [
+    "finance_en-631"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.343,
+   "answer_s": 31.92,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q290",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-417",
+    "finance_en-143"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.755,
+   "output": "Investment banking fees were $6,519 million in 2023 and $6,686 million in 2022 [p:finance_en-143].\n",
+   "status": "answer",
+   "answer": "Investment banking fees were $6,519 million in 2023 and $6,686 million in 2022.",
+   "citations": [
+    "finance_en-143"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.39,
+   "answer_s": 15.44,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1752",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-400",
+    "finance_en-2416"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7552,
+   "output": "Deposits increased due to net inflows in Payments and growth in balances in new and existing client accounts, while short-term borrowings increased driven by Markets, reflecting net issuance of structured notes due to client demand and higher financing requirements [p:finance_en-400].\n",
+   "status": "answer",
+   "answer": "Deposits increased due to net inflows in Payments and growth in balances in new and existing client accounts, while short-term borrowings increased driven by Markets, reflecting net issuance of structured notes due to client demand and higher financing requirements.",
+   "citations": [
+    "finance_en-400"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.429,
+   "answer_s": 17.94,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1755",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-59",
+    "finance_en-521"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.0036,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.478,
+   "answer_s": 3.49,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1764",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-2188",
+    "finance_en-998"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6234,
+   "output": "Directors and employees may only transact in Morgan Stanley securities during a window period, as determined by the Board or CLO, and must obtain pre-clearance for all transactions through the Trade Pre-Clearance System [p:finance_en-2188].\n",
+   "status": "answer",
+   "answer": "Directors and employees may only transact in Morgan Stanley securities during a window period, as determined by the Board or CLO, and must obtain pre-clearance for all transactions through the Trade Pre-Clearance System.",
+   "citations": [
+    "finance_en-2188"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.397,
+   "answer_s": 16.53,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1765",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-1112",
+    "finance_en-1111"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.6227,
+   "output": "Foreign currency translation adjustments for net investment hedges are recorded in the cumulative translation adjustment (CTA) within other comprehensive income (AOCI), while changes in the fair value of certain hedges of foreign exchange risk are excluded from effectiveness assessments and recorded in other comprehensive income. [p:finance_en-1112][p:finance_en-1111]\n",
+   "status": "answer",
+   "answer": "Foreign currency translation adjustments for net investment hedges are recorded in the cumulative translation adjustment (CTA) within other comprehensive income (AOCI), while changes in the fair value of certain hedges of foreign exchange risk are excluded from effectiveness assessments and recorded in other comprehensive income.",
+   "citations": [
+    "finance_en-1112",
+    "finance_en-1111"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.44,
+   "answer_s": 22.27,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1765",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-1068",
+    "finance_en-1265"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.2022,
+   "output": "NOT_FOUND",
+   "status": "not_found",
+   "answer": "",
+   "citations": [],
+   "citations_gold": true,
+   "retrieve_s": 0.434,
+   "answer_s": 3.67,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1768",
+   "subset": "finance_en",
+   "kind": "answerable",
+   "generator": "human",
+   "shown": [
+    "finance_en-361",
+    "finance_en-360"
+   ],
+   "gold_shown": true,
+   "p_yes": 0.9707,
+   "output": "Window List Personnel and their Connected Persons are prohibited from trading in Firm Securities during any Closed Window Period. Window List Personnel may trade in Firm Securities during an Open Window Period after obtaining preapproval from the Compliance Department [p:finance_en-361].\n",
+   "status": "answer",
+   "answer": "Window List Personnel and their Connected Persons are prohibited from trading in Firm Securities during any Closed Window Period. Window List Personnel may trade in Firm Securities during an Open Window Period after obtaining preapproval from the Compliance Department.",
+   "citations": [
+    "finance_en-361"
+   ],
+   "citations_gold": true,
+   "retrieve_s": 0.412,
+   "answer_s": 17.26,
+   "retried_after_oom": false
+  },
+  {
+   "query": "finance_en-q1768",
+   "subset": "finance_en",
+   "kind": "abstain",
+   "generator": "human",
+   "shown": [
+    "finance_en-362",
+    "finance_en-998"
+   ],
+   "gold_shown": false,
+   "p_yes": 0.7061,
+   "output": "Non-Employee Directors are prohibited from entering into any transaction involving firm securities without first obtaining approval from the General Counsel [p:finance_en-998]. Window List Personnel may trade in firm securities during an Open Window Period, provided the transactions are not restricted and do not require pre-approval [p:finance_en-362].\n",
+   "status": "answer",
+   "answer": "Non-Employee Directors are prohibited from entering into any transaction involving firm securities without first obtaining approval from the General Counsel. Window List Personnel may trade in firm securities during an Open Window Period, provided the transactions are not restricted and do not require pre-approval.",
+   "citations": [
+    "finance_en-998",
+    "finance_en-362"
+   ],
+   "citations_gold": false,
+   "retrieve_s": 0.418,
+   "answer_s": 20.21,
+   "retried_after_oom": false
+  }
+ ]
+}
