@@ -31,7 +31,17 @@ docker compose --profile app up -d --build   # builds the app image, starts Qdra
 Then open http://127.0.0.1:7860. The image holds only code (`.dockerignore`); `data/` and `HF_HOME` are mounted.
 Both ports are published on 127.0.0.1 only: Qdrant has no authentication, and the app is not hardened for the internet.
 
-## 3. Hosted demo (Hugging Face ZeroGPU Space)
+Checked on 2026-10-05 (Windows 11, Docker Desktop 29.6.2, RTX 4060 Laptop): the container sees the GPU, is ready about
+3 minutes after start (models load from the mounted cache), and answered a finance question citing the same page as
+the native app (first answer 25.8 s, including Triton compiling its kernels). The image is 18.2 GB, almost all of it
+PyTorch's CUDA libraries. Answers can be worded differently from the native run: on Linux, torch runs some steps as
+Triton kernels, which round slightly differently, and greedy decoding can then take another path.
+
+## 3. Hosted demo (Hugging Face ZeroGPU Space) — not live yet
+
+Hosting a ZeroGPU Space needs a Hugging Face account older than 30 days (or PRO); the first attempt was refused for
+that reason (D-054). The demo index is already public:
+[kunalchandrakar2005/pagesight-demo-index](https://huggingface.co/datasets/kunalchandrakar2005/pagesight-demo-index).
 
 `space/app.py` runs the same UI on all 1,110 hr pages, searched in memory by exact MaxSim (no Qdrant, D-052), with
 the answer model in bfloat16 on a 48 GB GPU. `scripts/build_demo_index.py` builds the index dataset;

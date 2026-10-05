@@ -14,6 +14,9 @@ WORKDIR /app
 # dependencies first, so code changes reuse the cached layer (torch with CUDA 13.0, as pinned in uv.lock)
 COPY pyproject.toml uv.lock .python-version ./
 RUN uv sync --locked --no-dev --no-install-project
+# On Linux, torch 2.13 runs some eager ops (e.g. the language model's rotary embedding) as Triton kernels, which
+# need a C compiler; placed after the dependency layer so a rebuild reuses that 5 GB layer
+RUN apt-get update && apt-get install -y --no-install-recommends gcc libc6-dev && rm -rf /var/lib/apt/lists/*
 COPY README.md ./
 COPY src ./src
 COPY configs ./configs
