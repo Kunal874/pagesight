@@ -137,7 +137,17 @@ def build(svc: PageSight) -> gr.Blocks:
                     type="filepath",
                 )
             upload_status = gr.Markdown()
-            question = gr.Textbox(label="Question", lines=2)
+            question = gr.Textbox(
+                label="Question",
+                lines=2,
+                placeholder="Type a question, or click an example below",
+            )
+            # right under the box: below the page images they were easy to miss
+            gr.Examples(
+                example_questions(),
+                inputs=[question, source],
+                label="Example questions (click one, then Ask)",
+            )
             heat = gr.Checkbox(
                 label="Show where the question matched on the cited page (heatmap, ~1 s more)"
             )
@@ -148,7 +158,6 @@ def build(svc: PageSight) -> gr.Blocks:
                 hits = gr.Gallery(
                     label="Top 3 pages (MaxSim score)", columns=1, height=720
                 )
-            gr.Examples(example_questions(), inputs=[question, source])
             pdf.upload(upload, inputs=pdf, outputs=[source, upload_status])
             ask_button.click(ask, [question, source, heat], [answer, cited, hits])
             question.submit(ask, [question, source, heat], [answer, cited, hits])
@@ -163,6 +172,11 @@ def build(svc: PageSight) -> gr.Blocks:
                 c_source = gr.Dropdown(
                     choices(svc), value="hr", label="Documents", scale=1
                 )
+            gr.Examples(
+                example_questions(),
+                inputs=[c_question, c_source],
+                label="Example questions (click one, then Compare)",
+            )
             c_button = gr.Button("Compare", variant="primary")
             with gr.Row():
                 with gr.Column():
