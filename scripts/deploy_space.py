@@ -1,16 +1,15 @@
 """Task 9.3 (D-048, D-049): assemble the demo Space and, only with --push, publish it.
 
 Default (dry run): builds data/space_bundle/ — exactly what the Space repo will hold — and lists it.
---push <hf-user>: needs Kunal's OK and HF_TOKEN (a write token, set as an environment variable, never
-committed or typed into a file). Publishes:
+--push: needs Kunal's OK and his Hugging Face login with a write token, made by him in his own terminal
+(`uv run hf auth login`; the token is stored under HF_HOME, never in this repo). Publishes, under his user:
   1. dataset repo <user>/pagesight-demo-index <- data/demo/ (build it with scripts/build_demo_index.py)
   2. Space <user>/pagesight (Gradio, ZeroGPU) <- the bundle, with PAGESIGHT_INDEX_REPO pointing at 1.
 
-Usage: uv run python scripts/deploy_space.py [--push <hf-user>]
+Usage: uv run python scripts/deploy_space.py [--push]
 """
 
 import argparse
-import os
 import shutil
 
 from pagesight.config import DATA_DIR, ROOT
@@ -42,12 +41,13 @@ def bundle() -> None:
         print("  ", p.relative_to(BUNDLE).as_posix())
 
 
-def push(user: str) -> None:
+def push() -> None:
     from huggingface_hub import HfApi
 
     if not (DEMO / "hr" / "vectors.pt").is_file():
         raise SystemExit("data/demo is missing: run scripts/build_demo_index.py first")
-    api = HfApi(token=os.environ["HF_TOKEN"])
+    api = HfApi()  # the login saved by `hf auth login` (or HF_TOKEN)
+    user = api.whoami()["name"]  # fails clearly when not logged in
     index, space = f"{user}/pagesight-demo-index", f"{user}/pagesight"
     api.create_repo(index, repo_type="dataset", exist_ok=True)
     api.upload_folder(folder_path=DEMO, repo_id=index, repo_type="dataset")
@@ -67,11 +67,13 @@ def push(user: str) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--push", metavar="HF_USER")
+    parser.add_argument(
+        "--push", action="store_true", help="publish (needs Kunal's OK)"
+    )
     args = parser.parse_args()
     bundle()
     if args.push:
-        push(args.push)
+        push()
 
 
 if __name__ == "__main__":

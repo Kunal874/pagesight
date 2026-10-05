@@ -14,8 +14,8 @@ optional; the captions below can be added as on-screen text instead.
 | 72–85 s | **Results** tab: Retrieval, then Answers. | "Measured once on 439 held-out questions: visual search beats keyword search on finance tables, nDCG@10 0.599 vs 0.516; 58% of answers usable; it runs on an 8 GB laptop GPU." |
 | 85–90 s | Back to the Ask tab | "PageSight: visual RAG with citations and honest refusals. Code and report on GitHub." |
 
-Before recording: run each step once (the first question after start-up is slower), and check that the Apple question
-really returns NOT_FOUND — if it does not, pick another question the reports cannot answer.
+Before recording: run each step once (the first question after start-up is slower). The Apple question returned
+NOT_FOUND with p(YES) 0.005 when checked on 2026-10-05.
 
 After recording: share the video file; it is turned into a short README GIF (needs a converter such as ffmpeg,
 which is not installed yet — ask first).
