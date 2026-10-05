@@ -1,6 +1,7 @@
-"""Times the upload path on a heavy upload that the limits still allow (Task 7.3, D-040): 50 real
-finance_en page images (letter pages, evenly spaced over the corpus) in one image-only PDF — like a
-scanned report — ingested 3 times. The parse timeout is set to about 3x the slowest run.
+"""Times the upload path on the heaviest upload the limits allow (Task 7.3, D-040): 50 real
+finance_en page images in one image-only PDF — like a scanned report — chosen as the 50 pages with
+the largest images whose PDF still fits in 20 MB; ingested 3 times. The parse timeout is set to
+about 3x the slowest run.
 
 Usage: uv run python scripts/time_upload.py -> results/upload_timing.json
 """
@@ -19,21 +20,43 @@ from pagesight.security.upload import MAX_BYTES, MAX_PAGES, ingest
 REPEATS = 3
 
 
-def build(path: Path) -> None:
-    pages = load_pages("finance_en")
+def build(path: Path, images: list[Path]) -> None:
     doc = pymupdf.open()
-    for p in pages[:: len(pages) // MAX_PAGES][:MAX_PAGES]:
+    for image in images:
         page = doc.new_page(width=612, height=792)  # US letter, like the source pages
-        page.insert_image(page.rect, filename=str(p.image))
-    doc.save(path)
+        page.insert_image(page.rect, filename=str(image))
+    doc.save(
+        path, deflate=True
+    )  # without deflate the images are stored uncompressed (~28x)
     doc.close()
+
+
+def heaviest_allowed(path: Path) -> None:
+    """Pages sorted by image size; the 50-page window with the largest images whose PDF fits.
+    The PDF re-encodes the images, so its size is checked after building and the budget shrinks
+    by 5% until it fits."""
+    images = sorted(
+        (p.image for p in load_pages("finance_en")), key=lambda i: i.stat().st_size
+    )
+    sizes = [i.stat().st_size for i in images]
+    budget = MAX_BYTES
+    while True:
+        start = max(
+            i
+            for i in range(len(sizes) - MAX_PAGES + 1)
+            if sum(sizes[i : i + MAX_PAGES]) <= budget
+        )
+        build(path, images[start : start + MAX_PAGES])
+        if path.stat().st_size <= MAX_BYTES:
+            return
+        budget = int(budget * 0.95)
 
 
 def main() -> None:
     git = git_state()
     with tempfile.TemporaryDirectory() as tmp:
         pdf = Path(tmp) / "heavy.pdf"
-        build(pdf)
+        heaviest_allowed(pdf)
         data = pdf.read_bytes()
         seconds = []
         for i in range(REPEATS):
