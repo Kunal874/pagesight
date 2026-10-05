@@ -453,3 +453,24 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Why:** ₹0 budget; a grant is uncertain and would need a CPU-only mode meanwhile.
 - **Consequences:** Group 9 closes on the fallback. The Space code stays in space/ (smoke-tested locally); the public
   dataset stays up. The README links the demo video now and the Space when it exists.
+
+## D-055 · GitHub repo · 2026-10-05 · Group 10
+- **Question:** Final repo name, visibility, description and topics; anything to exclude?
+- **Options:** pagesight public · pagesight private first · pagesight-visual-rag public; full or short description; exclude
+  nothing / Kunal's 50 grades / the Space code
+- **Choice:** `pagesight`, **private first** (Kunal switches it to public himself after checking it). Description: "Visual-document
+  RAG: finds the right PDF page from page images (ColSmol + MaxSim in Qdrant), answers with a 4-bit VLM and cites the page.
+  Evaluated on ViDoRe V3 on an 8 GB laptop GPU." Topics: rag, visual-rag, colpali, qdrant, late-interaction,
+  vision-language-model, document-ai, information-retrieval, vidore, gradio, fastapi, pytorch. Nothing extra excluded.
+- **Why:** Kunal checks the rendered repo before anyone else can see it; everything tracked today is meant to be shown.
+- **Consequences:** Kunal logs in to `gh` himself (account action). GitHub Free shows no Insights graphs for private repos, so
+  "only Kunal contributes" is checked through the API (`gh api repos/<owner>/pagesight/contributors`). Actions minutes count
+  against the private free quota until the repo is public.
+
+## D-056 · README visuals · 2026-10-05 · Group 10
+- **Question:** The demo video is not recorded yet. What does the README show?
+- **Options:** screenshots now, GIF later · wait for the recording (needs ffmpeg) · no visuals
+- **Choice:** 2–3 screenshots of the local app taken now (an answer with its cited page; the Compare tab); the GIF replaces or
+  joins them once Kunal records the video
+- **Why:** The README is useful today without waiting on the recording or a new tool.
+- **Consequences:** Screenshots are small PNG/JPG files under docs/images/ (each well under 5 MB), taken from a live run.
