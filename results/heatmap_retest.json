@@ -1,0 +1,150 @@
+{
+ "git": {
+  "commit": "783ee41",
+  "dirty": false
+ },
+ "word": "Pelican",
+ "rule": "overlaps on at least 5 of 6 pages",
+ "passed": 6,
+ "pass": true,
+ "pages": [
+  {
+   "position": "top-right",
+   "word_box": [
+    0.621,
+    0.09,
+    0.827,
+    0.153
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    3,
+    21
+   ],
+   "cell_centre": [
+    0.672,
+    0.109
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  },
+  {
+   "position": "upper-left",
+   "word_box": [
+    0.147,
+    0.28,
+    0.353,
+    0.342
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    9,
+    6
+   ],
+   "cell_centre": [
+    0.203,
+    0.297
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  },
+  {
+   "position": "middle-right",
+   "word_box": [
+    0.588,
+    0.406,
+    0.794,
+    0.469
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    13,
+    20
+   ],
+   "cell_centre": [
+    0.641,
+    0.422
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  },
+  {
+   "position": "lower-left",
+   "word_box": [
+    0.118,
+    0.658,
+    0.324,
+    0.721
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    21,
+    5
+   ],
+   "cell_centre": [
+    0.172,
+    0.672
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  },
+  {
+   "position": "lower-middle",
+   "word_box": [
+    0.376,
+    0.759,
+    0.582,
+    0.822
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    25,
+    13
+   ],
+   "cell_centre": [
+    0.422,
+    0.797
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  },
+  {
+   "position": "bottom-left",
+   "word_box": [
+    0.163,
+    0.911,
+    0.369,
+    0.974
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    30,
+    6
+   ],
+   "cell_centre": [
+    0.203,
+    0.953
+   ],
+   "centre_inside": true,
+   "overlaps": true
+  }
+ ]
+}
