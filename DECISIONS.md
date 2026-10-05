@@ -368,3 +368,14 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Consequences:** The margin is small: GPU work runs one request at a time behind a lock, the CUDA cache is emptied
   after each request, and an out-of-memory error is retried once after emptying it (the Group 6 pattern). Another program
   holding VRAM can still push it over; the app then reports the error instead of hanging.
+
+## D-047 · Heatmap re-test · 2026-10-05 · Group 8
+- **Question:** The D-044 check failed (results/heatmap_check.json): the strongest cell's centre fell inside the word's box
+  on 2 of 3 pages; on the third it missed by 0.001 of the page height (~1 pt), on a cell that overlaps the word. The overlays
+  show the hot spot on the word on all 3. Ship, re-test or drop? Refines D-044.
+- **Options:** fresh re-test with a rule fixed first · accept now (post-hoc) · drop heatmaps
+- **Choice:** A fresh re-test, rule fixed before running: a new word ("Pelican") at 6 new positions; the strongest cell's
+  rectangle must overlap the word's box on at least 5 of 6 pages. Pass: heatmaps ship. Fail: they are dropped.
+- **Why:** The first rule (cell centre inside the box) was stricter than the cell size allows (a cell is 1/32 of the page);
+  re-scoring the same 3 pages with a looser rule would be fitting the rule to the result, so the new rule gets new pages.
+- **Consequences:** Both checks are reported; the first failure stays on record (1b9497a).
