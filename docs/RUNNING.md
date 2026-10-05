@@ -11,7 +11,8 @@ Prerequisites: [uv](https://docs.astral.sh/uv/), an NVIDIA driver supporting CUD
 uv sync                                      # Python 3.11 + pinned packages (torch 2.13.0 with CUDA 13.0)
 docker compose up -d                         # Qdrant v1.19.1 on 127.0.0.1:6333/6334
 uv run python scripts/prepare_data.py        # ViDoRe V3 hr + finance_en into data/ (~1.7 GB download)
-uv run python -m pagesight.index.qdrant_store  # index the cached page vectors (embed them first, see AGENTS.md)
+uv run python -m pagesight.eval.runner configs/colsmol_500m.yaml --split dev  # embeds all pages (~40 min)
+uv run python -m pagesight.index.qdrant_store  # loads those cached page vectors into Qdrant
 uv run python -m pagesight.ui.app            # UI + API at http://127.0.0.1:7860
 ```
 
