@@ -356,3 +356,15 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Why:** A classic text-RAG pipeline beside ours, so the tab contrasts text and images end to end with the model fixed.
 - **Consequences:** A live demo comparison, not a measured result: no text-reading answer numbers exist, and the tab says
   so. The answer prompt gains a text-page variant.
+
+## D-046 · Models on the GPU in the app · 2026-10-05 · Group 8
+- **Question:** Can the app keep the query encoder and the answer model on the GPU together (the evaluation runs never
+  did, Task 6.1)? Settled by measurement (results/app_vram.json), not asked.
+- **Measured:** ColSmol-500M + Qwen3.5-4B NF4 loaded: 4.18 GB allocated; answering 6 dev questions (top 2 pages, gate,
+  answer): peak allocated 6.34 GB, peak reserved 7.93 GB of 8.0 GB (no other GPU process running), 3.3–13.6 s per question —
+  the same speed as the Group 6 runs.
+- **Choice:** Both models stay loaded for the app's lifetime.
+- **Why:** Reloading a model per request would add seconds to every answer; the measured peak fits.
+- **Consequences:** The margin is small: GPU work runs one request at a time behind a lock, the CUDA cache is emptied
+  after each request, and an out-of-memory error is retried once after emptying it (the Group 6 pattern). Another program
+  holding VRAM can still push it over; the app then reports the error instead of hanging.

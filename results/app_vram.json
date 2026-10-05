@@ -1,0 +1,51 @@
+{
+ "git": {
+  "commit": "8b18385",
+  "dirty": false
+ },
+ "both_loaded": {
+  "allocated_gb": 4.18,
+  "free_gb": 2.7
+ },
+ "peak_allocated_gb": 6.34,
+ "peak_reserved_gb": 7.93,
+ "total_gb": 8.0,
+ "questions": [
+  {
+   "query": "hr-q1",
+   "seconds": 8.92,
+   "p_yes": 0.054,
+   "output": "NOT_FOUND"
+  },
+  {
+   "query": "hr-q12",
+   "seconds": 3.31,
+   "p_yes": 0.005,
+   "output": "NOT_FOUND"
+  },
+  {
+   "query": "hr-q14",
+   "seconds": 13.59,
+   "p_yes": 0.905,
+   "output": "Gender disparities in EU jobs focused on digital and green transitions are exacerbated by the underrepresentation of women in high-digital-intensity occupations, their overrepresentation in care work, and the risk of gender imbalance in green-task jobs due to automation and task content [p:hr-876]. Additionally, the digital transition can hinder individuals with disabilities from performing tasks effectively, further complicating their employment situation [p:hr-929].\n"
+  },
+  {
+   "query": "finance_en-q1",
+   "seconds": 10.07,
+   "p_yes": 0.002,
+   "output": "NOT_FOUND"
+  },
+  {
+   "query": "finance_en-q3",
+   "seconds": 12.96,
+   "p_yes": 0.836,
+   "output": "In 2024, Citigroup's Banking segment reported $1,529 million in income from continuing operations, while the Wealth segment reported $1,002 million [p:finance_en-1119].\n"
+  },
+  {
+   "query": "finance_en-q7",
+   "seconds": 12.79,
+   "p_yes": 0.798,
+   "output": "The provision for credit losses in Global Banking increased by $1.5 billion to $883 million in 2024, primarily driven by the commercial real estate office portfolio [p:finance_en-2879].\n"
+  }
+ ]
+}
