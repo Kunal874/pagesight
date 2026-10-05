@@ -1,0 +1,12 @@
+{
+ "git": {
+  "commit": "b691f42",
+  "dirty": false
+ },
+ "subset": "hr",
+ "pages": 1110,
+ "queries": 318,
+ "vectors": 971196,
+ "dtype": "torch.bfloat16",
+ "size_mb": 665.9
+}

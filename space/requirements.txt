@@ -1,0 +1,18 @@
+# Versions from the project's uv.lock (gradio comes from sdk_version in README.md)
+torch==2.13.0
+torchvision==0.28.0
+transformers==5.18.0
+accelerate==1.15.0
+peft==0.20.0
+colpali-engine==0.3.18
+qdrant-client==1.19.1
+pymupdf==1.28.2
+bm25s==0.3.12
+pillow==12.3.0
+numpy==2.4.6
+pyyaml==6.0.3
+huggingface-hub==1.33.0
+spaces==0.51.3
+fastapi==0.142.2
+uvicorn==0.54.0
+tqdm==4.70.1
