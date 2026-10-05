@@ -67,6 +67,54 @@ def embed_query(model, processor, query: str) -> torch.Tensor:
     return e[e.norm(dim=-1) > 0]
 
 
+def tile_grid(
+    input_ids: list[int],
+    scores: torch.Tensor,
+    tags: dict[int, tuple[int, int]],
+    seq_len: int,
+) -> torch.Tensor:
+    """Per-token scores laid out on the page (D-044). Idefics3 cuts the page into tiles and emits
+    each tile's seq_len image tokens, row by row, right after its <row_i_col_j> tag; the downscaled
+    global tile at the end has no tag and is left out."""
+    side = round(seq_len**0.5)
+    found = [(p, tags[t]) for p, t in enumerate(input_ids) if t in tags]
+    rows, cols = max(i for _, (i, _) in found), max(j for _, (_, j) in found)
+    grid = torch.zeros(rows * side, cols * side)
+    for p, (i, j) in found:
+        block = scores[p + 1 : p + 1 + seq_len].reshape(side, side)
+        grid[(i - 1) * side : i * side, (j - 1) * side : j * side] = block
+    return grid
+
+
+@torch.inference_mode()
+def heatmap(model, processor, image: Image.Image, query: str) -> torch.Tensor:
+    """How well each page region matches the question's best-matching word: for every image token,
+    the highest similarity to any word token of the query (the 10 padding tokens are left out)."""
+    batch = processor.process_images([image]).to(model.device)
+    page = model(**batch)[0].float()
+    words = len(processor.tokenizer(query, add_special_tokens=False).input_ids)
+    q = embed_query(model, processor, query).float()[:words]
+    scores = (q @ page.T).max(dim=0).values.cpu()
+    tok = processor.tokenizer
+    tags = {
+        tok.convert_tokens_to_ids(f"<row_{i}_col_{j}>"): (i, j)
+        for i in range(1, 7)
+        for j in range(1, 7)
+    }
+    return tile_grid(
+        batch["input_ids"][0].tolist(), scores, tags, processor.image_seq_len
+    )
+
+
+def overlay(image: Image.Image, grid: torch.Tensor) -> Image.Image:
+    """The page with the heatmap in red: transparent where the match is weakest."""
+    g = grid - grid.min()
+    g = (255 * g / g.max().clamp(min=1e-6)).to(torch.uint8).numpy()
+    alpha = Image.fromarray(g).resize(image.size, Image.BILINEAR)
+    red = Image.new("RGB", image.size, (230, 30, 30))
+    return Image.composite(red, image.convert("RGB"), alpha.point(lambda a: a * 0.6))
+
+
 class ColSmolRetriever:
     def __init__(self, pages: list[Page], model: str, batch_size: int):
         self.ids = [p.id for p in pages]
