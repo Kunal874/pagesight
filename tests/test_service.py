@@ -126,3 +126,38 @@ def test_memory_mode_searches_a_prebuilt_subset_without_qdrant(tmp_path):
     )
 
     assert [h.page_id for h in svc.search("beta", "hr", k=2)] == ["hr-1", "hr-0"]
+
+
+def test_gpu_work_takes_and_returns_only_picklable_values(tmp_path, make_pdf):
+    # ZeroGPU runs GPU functions in a forked worker and pickles their arguments and results
+    import pickle
+
+    from conftest import FakeEncoder, FakeVLM
+
+    from pagesight.service import PageSight
+
+    calls = []
+
+    def gpu(f):
+        def run(*args, **kwargs):
+            calls.append(f.__name__)
+            args, kwargs = pickle.loads(pickle.dumps((args, kwargs)))
+            return pickle.loads(pickle.dumps(f(*args, **kwargs)))
+
+        return run
+
+    svc = PageSight(
+        client=None,
+        encoder=FakeEncoder(),
+        vlm=FakeVLM(),
+        subsets=[],
+        upload_dir=tmp_path,
+        index="memory",
+        gpu=gpu,
+    )
+    doc = svc.index_pdf(make_pdf("alpha revenue", "beta costs"), "r.pdf")
+    answer = svc.ask("beta", doc)
+    svc.heatmap("beta", f"{doc}-1", doc)
+
+    assert answer.citations == [f"{doc}-1"]
+    assert calls == ["pages", "query", "generate_answer", "heatmap"]

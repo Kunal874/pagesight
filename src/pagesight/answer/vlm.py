@@ -33,7 +33,10 @@ def load_image(path: Path, max_pixels: int = MAX_PIXELS) -> Image.Image:
 
 
 class AnswerModel:
-    def __init__(self):
+    def __init__(self, quantize: bool = True):
+        # 4-bit is what fits the 8 GB laptop and what was evaluated (D-032); the 48 GB demo GPU runs
+        # bf16, because bitsandbytes quantizes while loading and ZeroGPU loads without a real GPU
+        self.quantize = quantize
         self.model = self.processor = None
 
     def load(self) -> None:
@@ -44,10 +47,14 @@ class AnswerModel:
             BitsAndBytesConfig,
         )
 
-        quant = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_compute_dtype=torch.bfloat16,
+        quant = (
+            BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch.bfloat16,
+            )
+            if self.quantize
+            else None
         )
         self.model = AutoModelForImageTextToText.from_pretrained(
             MODEL,

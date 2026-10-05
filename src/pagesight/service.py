@@ -69,10 +69,16 @@ class Encoder:
 
     @torch.inference_mode()
     def pages(self, pages: list[Page]) -> list[torch.Tensor]:
-        return embed_pages(self.model, self.processor, pages, 1)  # batch 1 (D-022)
+        try:
+            return embed_pages(self.model, self.processor, pages, 1)  # batch 1 (D-022)
+        finally:
+            torch.cuda.empty_cache()
 
     def heatmap(self, image: Image.Image, question: str) -> Image.Image:
-        return overlay(image, heatmap(self.model, self.processor, image, question))
+        try:
+            return overlay(image, heatmap(self.model, self.processor, image, question))
+        finally:
+            torch.cuda.empty_cache()
 
 
 class MemoryIndex:
@@ -100,6 +106,7 @@ class PageSight:
         upload_dir: Path = DATA_DIR / "uploads",
         data_dir: Path = DATA_DIR,
         index: str = "qdrant",
+        gpu=None,
     ):
         if index not in ("qdrant", "memory"):
             raise ValueError(f"index must be 'qdrant' or 'memory', got {index!r}")
@@ -109,6 +116,14 @@ class PageSight:
             vlm = AnswerModel()
             vlm.load()  # both models stay loaded (D-046)
         self.vlm = vlm
+        # The four model calls. On ZeroGPU `gpu` is spaces.GPU, which runs them in a forked worker that
+        # may be reused (D-048): they take everything as arguments and return picklable results, and
+        # the app's state changes only here in the main process.
+        wrap = gpu or (lambda f: f)
+        self.gpu_query = wrap(self.encoder.query)
+        self.gpu_pages = wrap(self.encoder.pages)
+        self.gpu_heatmap = wrap(self.encoder.heatmap)
+        self.gpu_answer = wrap(self.generate_answer)
         self.upload_dir = upload_dir
         self.lock = threading.Lock()  # one GPU request at a time (D-046)
         self.data_dir = data_dir
@@ -138,7 +153,7 @@ class PageSight:
     def search(self, question: str, source: str, k: int = TOP_K) -> list[Hit]:
         pages = self.source_pages(source)
         with self.lock:
-            vec = self.encoder.query(question)
+            vec = self.gpu_query(question)
         if self.client is None:
             found = self.memory[source].search(vec, k)
         else:
@@ -168,10 +183,7 @@ class PageSight:
     def answer(self, mode, question, read, hits, pages, start) -> Answer:
         shown = [h.page_id for h in read]
         with self.lock:
-            try:
-                p_yes, output, _ = respond_retrying(self.vlm, question, shown, pages)
-            finally:
-                torch.cuda.empty_cache()  # the margin is small (D-046)
+            p_yes, output = self.gpu_answer(question, shown, pages)
         parsed = parse(output, shown)
         return Answer(
             mode,
@@ -184,6 +196,16 @@ class PageSight:
             round(time.perf_counter() - start, 2),
         )
 
+    def generate_answer(
+        self, question: str, shown: list[str], pages: list
+    ) -> tuple[float, str]:
+        """The answer model's share of a request: the YES/NO gate, then the answer (D-036)."""
+        try:
+            p_yes, output, _ = respond_retrying(self.vlm, question, shown, pages)
+            return p_yes, output
+        finally:
+            torch.cuda.empty_cache()  # the margin is small (D-046)
+
     def heatmap(self, question: str, pid: str, source: str) -> Image.Image:
         """The page with the regions that best match the question in red (D-044, D-047)."""
         page = self.source_pages(source).get(pid)
@@ -191,10 +213,7 @@ class PageSight:
             raise ValueError(f"unknown page: {pid!r}")
         image = Image.open(page.image).convert("RGB")
         with self.lock:
-            try:
-                return self.encoder.heatmap(image, question)
-            finally:
-                torch.cuda.empty_cache()
+            return self.gpu_heatmap(image, question)
 
     def index_pdf(self, data: bytes, name: str) -> str:
         """Checks (Group 7), renders, embeds and indexes an upload; returns its source id. The id is a
@@ -205,10 +224,7 @@ class PageSight:
         pages = ingest(data, doc, self.upload_dir / doc)  # raises UploadError
         pages = [replace(p, text=p.text[:MAX_TEXT_CHARS].strip()) for p in pages]
         with self.lock:
-            try:
-                vectors = self.encoder.pages(pages)
-            finally:
-                torch.cuda.empty_cache()
+            vectors = self.gpu_pages(pages)
         vectors = dict(zip([p.id for p in pages], vectors, strict=True))
         if self.client is None:
             self.memory[doc] = MemoryIndex(vectors)
