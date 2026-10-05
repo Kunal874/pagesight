@@ -7,6 +7,7 @@ Usage: docker compose up -d, then uv run python -m pagesight.index.qdrant_store
 
 import argparse
 import json
+import os
 import subprocess
 import time
 
@@ -22,7 +23,9 @@ from pagesight.retrieval.colsmol import cache_path
 
 def connect() -> QdrantClient:
     # gRPC has no message-size cap (REST bodies stop at 32 MB; a finance page is ~0.6 MB of floats)
-    return QdrantClient(host="127.0.0.1", grpc_port=6334, prefer_grpc=True, timeout=300)
+    # QDRANT_HOST: the compose service name when the app runs in Docker (Task 9.1)
+    host = os.environ.get("QDRANT_HOST", "127.0.0.1")
+    return QdrantClient(host=host, grpc_port=6334, prefer_grpc=True, timeout=300)
 
 
 def create_collection(client: QdrantClient, name: str, binary: bool) -> None:

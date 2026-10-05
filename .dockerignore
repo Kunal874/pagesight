@@ -1,0 +1,9 @@
+# Only code, configs and small results go into the image; data and models are mounted at run time.
+*
+!pyproject.toml
+!uv.lock
+!.python-version
+!src/
+!configs/
+!results/
+**/__pycache__

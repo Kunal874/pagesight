@@ -209,7 +209,9 @@ def main() -> None:
         allowed_paths=[str(DATA_DIR)],  # page images; uploads live under data/uploads
         max_file_size=MAX_BYTES,
     )
-    uvicorn.run(app, host="127.0.0.1", port=7860)  # this laptop only
+    # this laptop only; in Docker 0.0.0.0, with the port published on the host's 127.0.0.1 only
+    host = os.environ.get("PAGESIGHT_HOST", "127.0.0.1")
+    uvicorn.run(app, host=host, port=7860)
 
 
 if __name__ == "__main__":

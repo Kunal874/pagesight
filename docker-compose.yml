@@ -13,5 +13,29 @@ services:
     volumes:
       - qdrant_storage:/qdrant/storage
 
+  # The app in Docker (Task 9.1): `docker compose --profile app up -d --build`. Needs Docker Desktop with the
+  # WSL2 backend and GPU support; the native path (`uv run python -m pagesight.ui.app`) needs neither.
+  app:
+    profiles: [app]
+    build: .
+    ports:
+      - "127.0.0.1:7860:7860" # UI + API, this machine only
+    environment:
+      QDRANT_HOST: qdrant
+    volumes:
+      # page images and texts (prepare_data.py; uploads are written here too) and the model cache;
+      # bind mounts are fine for these files, unlike for Qdrant's storage (D-026)
+      - ./data:/app/data
+      - ${HF_HOME:-./hf-cache}:/hf-cache
+    depends_on:
+      - qdrant
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
 volumes:
   qdrant_storage:
