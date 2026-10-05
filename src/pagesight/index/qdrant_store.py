@@ -66,8 +66,13 @@ def to_point(subset: str, page: Page, patches: torch.Tensor) -> models.PointStru
             "subset": subset,
             "doc_id": page.doc_id,
             "page_number": page.page_number,
-            # relative POSIX path, so the index also works from Linux (Docker, Space)
-            "image": page.image.relative_to(ROOT).as_posix(),
+            # relative POSIX path, so the index also works from Linux (Docker, Space); uploads may
+            # live outside the repo, then the path is kept as it is
+            "image": (
+                page.image.relative_to(ROOT)
+                if page.image.is_relative_to(ROOT)
+                else page.image
+            ).as_posix(),
         },
     )
 

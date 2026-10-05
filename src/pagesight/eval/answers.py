@@ -114,6 +114,21 @@ def respond(vlm: AnswerModel, question: str, shown: list[str], images: list) -> 
     return p_yes, vlm.generate(build_messages(question, shown, images))
 
 
+def respond_retrying(
+    vlm: AnswerModel, question: str, shown: list[str], images: list
+) -> tuple[float, str, bool]:
+    """respond(), retried once after emptying the CUDA cache if it runs out of memory. One dev check
+    ran out of VRAM at job 43 although that input alone peaks at 5.5 GB: cached blocks fragment over
+    a long run. A second failure is raised."""
+    try:
+        return (*respond(vlm, question, shown, images), False)
+    except (torch.OutOfMemoryError, torch.AcceleratorError) as e:
+        if "out of memory" not in str(e):
+            raise
+        torch.cuda.empty_cache()
+        return (*respond(vlm, question, shown, images), True)
+
+
 def answer(jobs: list[dict]) -> list[dict]:
     """Phase 2: the VLM reads the shown pages and answers."""
     pages = {p.id: p for s in SUBSETS for p in load_pages(s)}
@@ -122,17 +137,8 @@ def answer(jobs: list[dict]) -> list[dict]:
     for n, job in enumerate(jobs, start=1):
         q, shown = job["query"], job["shown"]
         images = [load_image(pages[pid].image) for pid in shown]
-        start, retried = time.perf_counter(), False
-        try:
-            p_yes, output = respond(vlm, q.text, shown, images)
-        except (torch.OutOfMemoryError, torch.AcceleratorError) as e:
-            # One dev check ran out of VRAM at job 43 although that input alone peaks at 5.5 GB:
-            # cached blocks fragment over a long run. Free them and retry once; a 2nd failure stops.
-            if "out of memory" not in str(e):
-                raise
-            torch.cuda.empty_cache()
-            p_yes, output = respond(vlm, q.text, shown, images)
-            retried = True
+        start = time.perf_counter()
+        p_yes, output, retried = respond_retrying(vlm, q.text, shown, images)
         answer_s = time.perf_counter() - start
         torch.cuda.empty_cache()  # return cached blocks between queries
         parsed = parse(output, shown)
