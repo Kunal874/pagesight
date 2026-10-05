@@ -30,6 +30,9 @@ class FakeEncoder:
         self.pages_embedded += len(pages)
         return [torch.stack([word_vector(w) for w in p.text.split()]) for p in pages]
 
+    def heatmap(self, image, question: str):
+        return image.convert("L")  # a visibly different image of the same size
+
 
 class FakeVLM:
     """Says YES with p_yes, then answers citing the first page it was shown."""

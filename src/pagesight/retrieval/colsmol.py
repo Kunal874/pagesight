@@ -107,12 +107,14 @@ def heatmap(model, processor, image: Image.Image, query: str) -> torch.Tensor:
 
 
 def overlay(image: Image.Image, grid: torch.Tensor) -> Image.Image:
-    """The page with the heatmap in red: transparent where the match is weakest."""
+    """The page with the heatmap in red. Cubing the 0-1 scores keeps weak matches almost
+    transparent, so only the strongest regions stand out."""
     g = grid - grid.min()
-    g = (255 * g / g.max().clamp(min=1e-6)).to(torch.uint8).numpy()
-    alpha = Image.fromarray(g).resize(image.size, Image.BILINEAR)
+    g = (g / g.max().clamp(min=1e-6)) ** 3
+    alpha = Image.fromarray((200 * g).to(torch.uint8).numpy())
+    alpha = alpha.resize(image.size, Image.BILINEAR)
     red = Image.new("RGB", image.size, (230, 30, 30))
-    return Image.composite(red, image.convert("RGB"), alpha.point(lambda a: a * 0.6))
+    return Image.composite(red, image.convert("RGB"), alpha)
 
 
 class ColSmolRetriever:

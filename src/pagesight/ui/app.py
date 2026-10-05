@@ -85,18 +85,21 @@ def gallery(a: Answer) -> list[tuple[str, str]]:
     ]
 
 
-def cited_page(a: Answer) -> str:
+def cited_page(a: Answer) -> tuple[str, str]:
     """The cited page, else the best hit: with NOT_FOUND the user still sees the closest page."""
     pid = a.citations[0] if a.citations else a.hits[0].page_id
-    return str(next(h.image for h in a.hits if h.page_id == pid))
+    return pid, str(next(h.image for h in a.hits if h.page_id == pid))
 
 
 def build(svc: PageSight) -> gr.Blocks:
-    def ask(question: str, source: str):
+    def ask(question: str, source: str, heat: bool):
         if not question.strip():
             raise gr.Error("Type a question first.")
         a = svc.ask(question.strip(), source)
-        return answer_markdown(a), cited_page(a), gallery(a)
+        pid, image = cited_page(a)
+        if heat:  # D-044, D-047: placement verified on synthetic pages
+            image = svc.heatmap(question.strip(), pid, source)
+        return answer_markdown(a), image, gallery(a)
 
     def upload(path: str | None):
         if path is None:
@@ -135,6 +138,9 @@ def build(svc: PageSight) -> gr.Blocks:
                 )
             upload_status = gr.Markdown()
             question = gr.Textbox(label="Question", lines=2)
+            heat = gr.Checkbox(
+                label="Show where the question matched on the cited page (heatmap, ~1 s more)"
+            )
             ask_button = gr.Button("Ask", variant="primary")
             answer = gr.Markdown()
             with gr.Row():
@@ -144,8 +150,8 @@ def build(svc: PageSight) -> gr.Blocks:
                 )
             gr.Examples(example_questions(), inputs=[question, source])
             pdf.upload(upload, inputs=pdf, outputs=[source, upload_status])
-            ask_button.click(ask, [question, source], [answer, cited, hits])
-            question.submit(ask, [question, source], [answer, cited, hits])
+            ask_button.click(ask, [question, source, heat], [answer, cited, hits])
+            question.submit(ask, [question, source, heat], [answer, cited, hits])
         with gr.Tab("Compare"):
             gr.Markdown(
                 "Same question, same answer model: **visual RAG** (ColSmol search, the model reads "

@@ -10,6 +10,7 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 
 import torch
+from PIL import Image
 from qdrant_client import QdrantClient
 
 from pagesight.answer.prompt import parse
@@ -19,7 +20,13 @@ from pagesight.data.vidore import Page, load_pages, page_id
 from pagesight.eval.answers import PAGES_PER_ANSWER, respond_retrying
 from pagesight.index.qdrant_store import connect, create_collection, index_pages
 from pagesight.retrieval.bm25 import BM25Retriever
-from pagesight.retrieval.colsmol import embed_pages, embed_query, load_model
+from pagesight.retrieval.colsmol import (
+    embed_pages,
+    embed_query,
+    heatmap,
+    load_model,
+    overlay,
+)
 from pagesight.search.two_stage import EXACT
 from pagesight.security.upload import ingest
 
@@ -61,6 +68,9 @@ class Encoder:
     @torch.inference_mode()
     def pages(self, pages: list[Page]) -> list[torch.Tensor]:
         return embed_pages(self.model, self.processor, pages, 1)  # batch 1 (D-022)
+
+    def heatmap(self, image: Image.Image, question: str) -> Image.Image:
+        return overlay(image, heatmap(self.model, self.processor, image, question))
 
 
 class PageSight:
@@ -142,6 +152,18 @@ class PageSight:
             p_yes,
             round(time.perf_counter() - start, 2),
         )
+
+    def heatmap(self, question: str, pid: str, source: str) -> Image.Image:
+        """The page with the regions that best match the question in red (D-044, D-047)."""
+        page = self.source_pages(source).get(pid)
+        if page is None:
+            raise ValueError(f"unknown page: {pid!r}")
+        image = Image.open(page.image).convert("RGB")
+        with self.lock:
+            try:
+                return self.encoder.heatmap(image, question)
+            finally:
+                torch.cuda.empty_cache()
 
     def index_pdf(self, data: bytes, name: str) -> str:
         """Checks (Group 7), renders, embeds and indexes an upload; returns its source id. The id is a

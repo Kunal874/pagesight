@@ -73,3 +73,18 @@ def test_upload_text_is_capped(service, monkeypatch, make_pdf):
 def test_unknown_sources_are_rejected(service):
     with pytest.raises(ValueError, match="unknown source"):
         service.search("beta", "nope", k=1)
+
+
+def test_heatmap_is_drawn_on_the_requested_page(service, make_pdf):
+    doc = service.index_pdf(make_pdf("alpha revenue", "beta costs"), "r.pdf")
+
+    image = service.heatmap("beta", f"{doc}-1", doc)
+
+    assert image.mode == "L" and image.size == (1700, 2200)  # letter page at 200 dpi
+
+
+def test_heatmap_of_an_unknown_page_is_rejected(service, make_pdf):
+    doc = service.index_pdf(make_pdf("alpha revenue"), "r.pdf")
+
+    with pytest.raises(ValueError, match="unknown page"):
+        service.heatmap("beta", f"{doc}-7", doc)
