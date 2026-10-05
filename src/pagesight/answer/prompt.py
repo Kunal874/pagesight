@@ -43,11 +43,14 @@ def page_messages(
     system: str = SYSTEM,
 ) -> list[dict]:
     """Chat messages with each page image preceded by its id (so the model can cite it), then the
-    question and the instruction. `system` is replaced only by the injection ladder (D-041)."""
+    question and the instruction. Pages are images or page texts. `system` is replaced only by the
+    injection ladder (D-041)."""
     content = []
     for pid, image in zip(page_ids, images, strict=True):
         content.append({"type": "text", "text": f"Page [p:{pid}]:"})
-        content.append({"type": "image", "image": image})
+        # a page is an image, or its text for the Compare tab's text-RAG side (D-045)
+        kind = "text" if isinstance(image, str) else "image"
+        content.append({"type": kind, kind: image})
     content.append({"type": "text", "text": f"Question: {question}\n\n{instruction}"})
     return [
         {"role": "system", "content": [{"type": "text", "text": system}]},
