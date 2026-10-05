@@ -441,3 +441,15 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
   (data/space_bundle, 0.2 MB) are published to his Hugging Face account before the GitHub push. Kunal logs in himself
   (`uv run hf auth login`, write token stored under HF_HOME, never in the repo or the chat). The image build downloads
   ~4–6 GB into Docker's disk on C: (like Qdrant's volume, D-026).
+
+## D-054 · Space refused: fallback now, Space later · 2026-10-05 · Group 9
+- **Question:** Creating the ZeroGPU Space failed with HTTP 402: "You must be subscribed to PRO to host Spaces with ZeroGPU.
+  If you recently created your account, please wait 30 days or request a community grant." The demo index dataset was
+  already published (kunalchandrakar2005/pagesight-demo-index, public, 1,115 files). What now? Changes D-048's outcome.
+- **Options:** fallback now, Space when the account is eligible · request a community grant (CPU Space meanwhile) · PRO
+  ($9/month, breaks the ₹0 budget)
+- **Choice:** The brief's fallback now — local app + recorded demo video — and the Space once Kunal's account is
+  eligible: one command, `uv run python scripts/deploy_space.py --push`
+- **Why:** ₹0 budget; a grant is uncertain and would need a CPU-only mode meanwhile.
+- **Consequences:** Group 9 closes on the fallback. The Space code stays in space/ (smoke-tested locally); the public
+  dataset stays up. The README links the demo video now and the Space when it exists.
