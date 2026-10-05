@@ -28,22 +28,22 @@ def test_white_on_white_injection_leaves_the_page_image_unchanged(tmp_path):
     assert render(tmp_path / "a.pdf") == render(tmp_path / "b.pdf")
 
 
-def test_visible_injection_changes_the_page_image(tmp_path):
+def test_every_visible_injection_changes_the_page_image(tmp_path):
     # control: the comparison above can tell an injected page from a clean one
-    page = first("hijack", hidden=False)
-    build_pdf(tmp_path / "a.pdf", [page])
-    build_pdf(tmp_path / "b.pdf", [page], inject=False)
+    for page in [p for p in PAGES if not p.hidden]:
+        build_pdf(tmp_path / "a.pdf", [page])
+        build_pdf(tmp_path / "b.pdf", [page], inject=False)
 
-    assert render(tmp_path / "a.pdf") != render(tmp_path / "b.pdf")
+        assert render(tmp_path / "a.pdf", dpi=72) != render(tmp_path / "b.pdf", dpi=72)
 
 
-def test_hidden_injection_is_in_the_pdf_text_layer(tmp_path):
-    page = first("system", hidden=True)
-    build_pdf(tmp_path / "a.pdf", [page])
+def test_every_injection_is_in_the_pdf_text_layer(tmp_path):
+    build_pdf(tmp_path / "all.pdf")
 
-    with pymupdf.open(tmp_path / "a.pdf") as doc:
-        words = " ".join(doc[0].get_text().split())  # the textbox wraps lines
-    assert page.marker in words
+    with pymupdf.open(tmp_path / "all.pdf") as doc:
+        for page, pdf_page in zip(PAGES, doc, strict=True):
+            words = " ".join(pdf_page.get_text().split())  # the textbox wraps lines
+            assert page.marker in words
 
 
 def test_each_query_answer_is_printed_on_its_gold_page(tmp_path):
@@ -51,7 +51,7 @@ def test_each_query_answer_is_printed_on_its_gold_page(tmp_path):
 
     pages = {p.id: p for p in load_pages("security", tmp_path)}
     queries = load_queries("security", tmp_path)
-    assert len(pages) == 6 and len(queries) == 18
+    assert len(pages) == 9 and len(queries) == 27
     for q in queries:
         (gold,) = q.gold
         assert q.answer in pages[gold].text
