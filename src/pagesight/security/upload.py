@@ -14,7 +14,7 @@ from pagesight.data.vidore import Page
 
 MAX_BYTES = 20 * 2**20  # 20 MB (D-040)
 MAX_PAGES = 50  # D-040
-# ~3x the slowest of 3 runs on the heaviest allowed upload: 6.74 s (results/upload_timing.json).
+# ~3x the slowest of 3 runs on the heaviest allowed upload: 6.57 s (results/upload_timing.json).
 # Re-measure on the deployed hardware (Group 9): a small CPU host may be several times slower.
 PARSE_TIMEOUT_S = 20.0
 SAFE_ID = re.compile(r"[a-z0-9_]{1,64}")
