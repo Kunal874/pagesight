@@ -430,3 +430,14 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
   GPU seconds against each visitor's daily quota).
 - **Consequences:** The service gets an in-memory search mode next to Qdrant; the local app keeps Qdrant (Groups 4–5). Uploads
   in the demo are searched the same way. The demo index = hr's pages.jsonl, queries.jsonl, page images and bf16 vectors.
+
+## D-053 · Deploy now and build the image · 2026-10-05 · Group 9
+- **Question:** Publish the demo Space now, and build the Docker image now?
+- **Options:** deploy now (after Kunal logs in himself) · later with the GitHub push · fallback to local + video;
+  build the image now · skip the build
+- **Choice:** Deploy now, and build and test the Docker image now
+- **Why:** Interviewers get a working link; the Docker path is only claimed once it has run.
+- **Consequences:** An exception to D-006, confirmed by Kunal: the demo index (CC BY 4.0 data) and the app code
+  (data/space_bundle, 0.2 MB) are published to his Hugging Face account before the GitHub push. Kunal logs in himself
+  (`uv run hf auth login`, write token stored under HF_HOME, never in the repo or the chat). The image build downloads
+  ~4–6 GB into Docker's disk on C: (like Qdrant's volume, D-026).
