@@ -69,6 +69,7 @@ def agreement(judge: dict[str, str | None], human: dict[str, str]) -> dict:
 
 
 def judge_run(run: dict) -> dict:
+    git = git_state()  # before grading, like answers.py
     queries = {q.id: q for s in SUBSETS for q in load_queries(s)}
     to_grade = [
         r
@@ -91,7 +92,7 @@ def judge_run(run: dict) -> dict:
         "answers_run": run["run_id"],
         "model": MODEL,
         "revision": REVISION,
-        "git": git_state(),
+        "git": git,
         "accuracy": {
             "all": accuracy(run["records"], grades),
             **{

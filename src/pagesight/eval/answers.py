@@ -190,7 +190,8 @@ def main(argv: list[str] | None = None) -> None:
 
     split = set(load_split()[args.split])
     abstain = set(abstention_set(sorted(split), ABSTAIN_PER_SUBSET, SEED))
-    started = datetime.now(UTC)
+    # read before the run: a commit made during a long run must not be stamped on its results
+    git, started = git_state(), datetime.now(UTC)
     torch.cuda.reset_peak_memory_stats()
     records = answer(retrieve(split, abstain, args.limit))
     result = {
@@ -205,7 +206,7 @@ def main(argv: list[str] | None = None) -> None:
             "abstain_per_subset": ABSTAIN_PER_SUBSET,
             "seed": SEED,
         },
-        "git": git_state(),
+        "git": git,
         "started_utc": started.isoformat(timespec="seconds"),
         "peak_vram_gb": round(torch.cuda.max_memory_allocated() / 2**30, 2),
         "summary": summary(records),

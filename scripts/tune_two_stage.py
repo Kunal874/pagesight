@@ -70,6 +70,7 @@ def measure(client, subset, queries, exact, search) -> dict[str, float]:
 
 
 def main() -> None:
+    git = git_state()  # before the run, so a commit made meanwhile is not stamped on it
     dev = set(load_split()["dev"])
     model, processor = load_model(MODEL)
     queries = {
@@ -142,7 +143,6 @@ def main() -> None:
         chosen = "no setting met the rule; the collections keep the last encoding tried"
     client.close()
 
-    git = git_state()
     lines = [
         "# Two-stage tuning (dev only)",
         "",
