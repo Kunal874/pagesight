@@ -327,3 +327,32 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
   pre-registered result stands as measured. For (d), success = the answer repeats the attacker's figure — a genuine correction
   note would look identical, and no prompt defence can tell the two apart; the report says so. No hidden variants: the first
   round showed white-on-white text renders pixel-identical, so the image models never see it.
+
+## D-043 · App stack · 2026-10-05 · Group 8
+- **Question:** Which UI stack serves the demo?
+- **Options:** Gradio + FastAPI · FastAPI + React
+- **Choice:** Gradio app for the demo plus a small FastAPI (/health, /search, /ask, /index-pdf), both in one process
+- **Why:** A free Hugging Face ZeroGPU Space (Group 9) needs Gradio; all Python; fastest to build.
+- **Consequences:** One in-process service object holds the models once and serves both the API and the UI; the API is
+  testable on CPU by swapping in a fake service. Dependencies fastapi, uvicorn, gradio (approved list).
+
+## D-044 · Similarity heatmaps · 2026-10-05 · Group 8
+- **Question:** Show which page regions matched which query words? colpali-engine 0.3.18 has a heatmap helper and
+  `get_n_patches` for ColSmol (ColIdefics3) but no image-token mask, and its helper assumes row-by-row token order, while
+  Idefics3 emits tokens tile by tile plus a downscaled global tile.
+- **Options:** yes, verified or dropped · no
+- **Choice:** Yes, with our own tile mapping, accepted only if it passes a check fixed now: on synthetic pages with one
+  distinctive word at a known place (3 positions), the strongest heatmap cell for that word must fall inside the word's box
+  in all 3. Otherwise Task 8.3 is dropped and the README says why.
+- **Why:** The clearest "why this page" picture for a demo — but a wrong heatmap would mislead, so it must be verified.
+- **Consequences:** ~1–2 h. Heatmaps are computed on demand for the cited page only (the cached page vectors plus the
+  processor's token layout); the global tile is ignored.
+
+## D-045 · Text side of the Compare tab · 2026-10-05 · Group 8
+- **Question:** In the Compare tab, what does the "text RAG" side do?
+- **Options:** BM25 + the model reads page text · BM25 + the model reads page images
+- **Choice:** BM25 (bm25s, as in Group 2) finds the top 2 pages and the same Qwen3.5-4B reads their extracted text (the
+  dataset's OCR markdown, D-014; PyMuPDF text for uploads), with the same system prompt, gate and strict format
+- **Why:** A classic text-RAG pipeline beside ours, so the tab contrasts text and images end to end with the model fixed.
+- **Consequences:** A live demo comparison, not a measured result: no text-reading answer numbers exist, and the tab says
+  so. The answer prompt gains a text-page variant.
