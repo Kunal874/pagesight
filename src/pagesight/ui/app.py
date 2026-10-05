@@ -54,13 +54,14 @@ def choices(svc: PageSight) -> list[tuple[str, str]]:
     return [(name, sid) for sid, name in svc.sources().items()]
 
 
-def example_questions() -> list[list[str]]:
-    """Two dev questions per subset (dev, never test: the test split stays an exam, D-013)."""
+def example_questions(svc: PageSight) -> list[list[str]]:
+    """Two dev questions per loaded subset (dev, never test: the test split stays an exam, D-013)."""
     dev = set(load_split()["dev"])
     return [
         [q.text, s]
         for s in SUBSETS
-        for q in [q for q in load_queries(s) if q.id in dev][:2]
+        if s in svc.pages
+        for q in [q for q in load_queries(s, svc.data_dir) if q.id in dev][:2]
     ]
 
 
@@ -144,7 +145,7 @@ def build(svc: PageSight) -> gr.Blocks:
             )
             # right under the box: below the page images they were easy to miss
             gr.Examples(
-                example_questions(),
+                example_questions(svc),
                 inputs=[question, source],
                 label="Example questions (click one, then Ask)",
             )
@@ -173,7 +174,7 @@ def build(svc: PageSight) -> gr.Blocks:
                     choices(svc), value="hr", label="Documents", scale=1
                 )
             gr.Examples(
-                example_questions(),
+                example_questions(svc),
                 inputs=[c_question, c_source],
                 label="Example questions (click one, then Compare)",
             )

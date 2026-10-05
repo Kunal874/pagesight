@@ -62,12 +62,15 @@ def make_pdf():
     return pdf
 
 
-@pytest.fixture
-def service(tmp_path):
+@pytest.fixture(params=["qdrant", "memory"])
+def service(request, tmp_path):
+    """Every service and API test runs against both search backends (D-052)."""
+    client = QdrantClient(":memory:") if request.param == "qdrant" else None
     return PageSight(
-        client=QdrantClient(":memory:"),
+        client=client,
         encoder=FakeEncoder(),
         vlm=FakeVLM(),
         subsets=[],
         upload_dir=tmp_path,
+        index=request.param,
     )

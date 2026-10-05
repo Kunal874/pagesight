@@ -1,7 +1,8 @@
 """The app's in-process service (D-043, D-046), shared by the API and the Gradio UI: both models stay
 loaded, GPU work runs one request at a time behind a lock, and the CUDA cache is emptied after each
-request. Sources are the benchmark subsets (Qdrant collections `hr`, `finance_en`) and uploaded PDFs
-(one collection each, named by a hash of the file)."""
+request. Sources are the benchmark subsets and uploaded PDFs (named by a hash of the file). Search runs
+in Qdrant (the local app: one collection per source) or, for the demo, by brute-force MaxSim over page
+vectors held in memory (D-052): no server, data_dir/<subset>/vectors.pt."""
 
 import hashlib
 import threading
@@ -27,6 +28,7 @@ from pagesight.retrieval.colsmol import (
     load_model,
     overlay,
 )
+from pagesight.retrieval.maxsim import maxsim, pad
 from pagesight.search.two_stage import EXACT
 from pagesight.security.upload import ingest
 
@@ -73,6 +75,21 @@ class Encoder:
         return overlay(image, heatmap(self.model, self.processor, image, question))
 
 
+class MemoryIndex:
+    """Exact MaxSim over page vectors held in RAM, scored in float32 on the CPU (D-052)."""
+
+    def __init__(self, vectors: dict[str, torch.Tensor]):
+        self.ids = list(vectors)
+        self.pages, self.mask = pad([vectors[i].float() for i in self.ids])
+
+    def search(self, query: torch.Tensor, k: int) -> list[tuple[str, float]]:
+        top = maxsim(query.float(), self.pages, self.mask).topk(min(k, len(self.ids)))
+        return [
+            (self.ids[i], s)
+            for i, s in zip(top.indices.tolist(), top.values.tolist(), strict=True)
+        ]
+
+
 class PageSight:
     def __init__(
         self,
@@ -81,8 +98,12 @@ class PageSight:
         vlm=None,
         subsets=tuple(SUBSETS),
         upload_dir: Path = DATA_DIR / "uploads",
+        data_dir: Path = DATA_DIR,
+        index: str = "qdrant",
     ):
-        self.client = client or connect()
+        if index not in ("qdrant", "memory"):
+            raise ValueError(f"index must be 'qdrant' or 'memory', got {index!r}")
+        self.client = None if index == "memory" else client or connect()
         self.encoder = encoder or Encoder()
         if vlm is None:
             vlm = AnswerModel()
@@ -90,7 +111,16 @@ class PageSight:
         self.vlm = vlm
         self.upload_dir = upload_dir
         self.lock = threading.Lock()  # one GPU request at a time (D-046)
-        self.pages = {s: {p.id: p for p in load_pages(s)} for s in subsets}
+        self.data_dir = data_dir
+        self.pages = {s: {p.id: p for p in load_pages(s, data_dir)} for s in subsets}
+        self.memory = {}
+        if index == "memory":
+            self.memory = {
+                s: MemoryIndex(
+                    torch.load(data_dir / s / "vectors.pt", weights_only=True)
+                )
+                for s in subsets
+            }
         self.bm25 = {
             s: BM25Retriever(list(ps.values())) for s, ps in self.pages.items()
         }
@@ -109,13 +139,14 @@ class PageSight:
         pages = self.source_pages(source)
         with self.lock:
             vec = self.encoder.query(question)
-        points = self.client.query_points(
-            source, vec.tolist(), using="patches", limit=k, search_params=EXACT
-        ).points
-        ids = [page_id(source, p.id) for p in points]
-        return [
-            Hit(i, p.score, pages[i].image) for i, p in zip(ids, points, strict=True)
-        ]
+        if self.client is None:
+            found = self.memory[source].search(vec, k)
+        else:
+            points = self.client.query_points(
+                source, vec.tolist(), using="patches", limit=k, search_params=EXACT
+            ).points
+            found = [(page_id(source, p.id), p.score) for p in points]
+        return [Hit(i, score, pages[i].image) for i, score in found]
 
     def ask(self, question: str, source: str) -> Answer:
         """Visual RAG: the top pages of the exact MaxSim search, read as images."""
@@ -178,9 +209,12 @@ class PageSight:
                 vectors = self.encoder.pages(pages)
             finally:
                 torch.cuda.empty_cache()
-        create_collection(self.client, doc, binary=False)
         vectors = dict(zip([p.id for p in pages], vectors, strict=True))
-        index_pages(self.client, doc, pages, vectors, batch_size=16)
+        if self.client is None:
+            self.memory[doc] = MemoryIndex(vectors)
+        else:
+            create_collection(self.client, doc, binary=False)
+            index_pages(self.client, doc, pages, vectors, batch_size=16)
         self.pages[doc] = {p.id: p for p in pages}
         self.bm25[doc] = BM25Retriever(pages)
         self.names[doc] = name

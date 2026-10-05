@@ -1,6 +1,10 @@
 """The app service on CPU, with fake models (tests/conftest.py)."""
 
+from pathlib import Path
+
 import pytest
+import torch
+from PIL import Image
 
 from pagesight.security.upload import UploadError
 
@@ -88,3 +92,37 @@ def test_heatmap_of_an_unknown_page_is_rejected(service, make_pdf):
 
     with pytest.raises(ValueError, match="unknown page"):
         service.heatmap("beta", f"{doc}-7", doc)
+
+
+def test_memory_mode_searches_a_prebuilt_subset_without_qdrant(tmp_path):
+    from conftest import FakeEncoder, FakeVLM, word_vector
+
+    from pagesight.data.vidore import Page, write_jsonl
+    from pagesight.service import PageSight
+
+    root = tmp_path / "demo" / "hr"
+    (root / "pages").mkdir(parents=True)
+    texts = ["alpha revenue", "beta costs"]
+    pages = [
+        Page(f"hr-{i}", Path(f"pages/{i}.png"), t, "doc", i)
+        for i, t in enumerate(texts)
+    ]
+    for p in pages:
+        Image.new("RGB", (8, 8)).save(root / p.image)
+    write_jsonl(root / "pages.jsonl", pages)
+    vectors = {
+        p.id: torch.stack([word_vector(w) for w in p.text.split()]) for p in pages
+    }
+    torch.save(vectors, root / "vectors.pt")
+
+    svc = PageSight(
+        client=None,
+        encoder=FakeEncoder(),
+        vlm=FakeVLM(),
+        subsets=["hr"],
+        upload_dir=tmp_path / "up",
+        data_dir=tmp_path / "demo",
+        index="memory",
+    )
+
+    assert [h.page_id for h in svc.search("beta", "hr", k=2)] == ["hr-1", "hr-0"]
