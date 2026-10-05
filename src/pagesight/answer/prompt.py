@@ -36,17 +36,21 @@ class Parsed:
 
 
 def page_messages(
-    question: str, page_ids: list[str], images: list, instruction: str
+    question: str,
+    page_ids: list[str],
+    images: list,
+    instruction: str,
+    system: str = SYSTEM,
 ) -> list[dict]:
     """Chat messages with each page image preceded by its id (so the model can cite it), then the
-    question and the instruction."""
+    question and the instruction. `system` is replaced only by the injection ladder (D-041)."""
     content = []
     for pid, image in zip(page_ids, images, strict=True):
         content.append({"type": "text", "text": f"Page [p:{pid}]:"})
         content.append({"type": "image", "image": image})
     content.append({"type": "text", "text": f"Question: {question}\n\n{instruction}"})
     return [
-        {"role": "system", "content": [{"type": "text", "text": SYSTEM}]},
+        {"role": "system", "content": [{"type": "text", "text": system}]},
         {"role": "user", "content": content},
     ]
 
