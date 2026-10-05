@@ -14,6 +14,7 @@ WORKDIR /app
 # dependencies first, so code changes reuse the cached layer (torch with CUDA 13.0, as pinned in uv.lock)
 COPY pyproject.toml uv.lock .python-version ./
 RUN uv sync --locked --no-dev --no-install-project
+COPY README.md ./
 COPY src ./src
 COPY configs ./configs
 COPY results ./results
