@@ -10,6 +10,7 @@ from pagesight.eval.metrics import (
     ndcg_at_k,
     query_metrics,
     recall_at_k,
+    wilson_interval,
 )
 
 GOLD = {"a": 2, "b": 1}  # page -> grade
@@ -96,3 +97,13 @@ def test_cohen_kappa_by_hand():
 
 def test_cohen_kappa_is_one_for_identical_single_label_grades():
     assert cohen_kappa(["c", "c"], ["c", "c"]) == 1.0
+
+
+def test_wilson_interval_by_hand():
+    # 5 of 10: centre 0.5, half-width 1.96 * sqrt(0.025 + 1.96**2 / 400) / (1 + 1.96**2 / 10)
+    assert wilson_interval(5, 10) == pytest.approx((0.2366, 0.7634), abs=1e-4)
+
+
+def test_wilson_interval_for_zero_successes_has_upper_bound_z2_over_n_plus_z2():
+    # 0 of 17: the upper bound is 1.96**2 / (17 + 1.96**2) = 0.1843, not 0 as p +- z*se would say
+    assert wilson_interval(0, 17) == pytest.approx((0.0, 0.1843), abs=1e-4)

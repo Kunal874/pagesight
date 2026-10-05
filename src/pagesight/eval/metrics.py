@@ -58,3 +58,13 @@ def cohen_kappa(a: list[str], b: list[str]) -> float:
     p_o = sum(x == y for x, y in zip(a, b, strict=True)) / n
     p_e = sum((a.count(label) / n) * (b.count(label) / n) for label in set(a) | set(b))
     return 1.0 if p_e == 1 else (p_o - p_e) / (1 - p_e)
+
+
+def wilson_interval(successes: int, n: int, z: float = 1.96) -> tuple[float, float]:
+    """95% Wilson score interval for a proportion. Unlike p +- z * standard error it stays inside
+    [0, 1] and is not zero-width at 0 of n — the case for small attack-success counts."""
+    p = successes / n
+    denominator = 1 + z**2 / n
+    centre = (p + z**2 / (2 * n)) / denominator
+    half = z * math.sqrt(p * (1 - p) / n + z**2 / (4 * n**2)) / denominator
+    return max(0.0, centre - half), min(1.0, centre + half)
