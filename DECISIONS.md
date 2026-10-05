@@ -418,3 +418,15 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Why:** Free for public repos; automatic proof that the code still passes.
 - **Consequences:** CI must install a CPU build of PyTorch and must not need data/, models or a GPU; the workflow is checked
   locally now and runs for real only after the Group 10 push (D-006).
+
+## D-052 · Demo search without a Qdrant server · 2026-10-05 · Group 9
+- **Question:** How does the demo (all of hr, D-050) search inside the app process? Settled by measurement
+  (results/demo_index_probe.json, 20 hr dev queries, query embedding excluded), not asked.
+- **Measured:** Qdrant local mode in memory: 18.1 s to build, 0.40 s per query (median); PyTorch brute-force MaxSim over the
+  cached vectors on the CPU: 0.7 s to build, 0.069 s per query, 0.46 GB of float32 in RAM; on the GPU: 0.009 s. All three
+  return identical top-10 lists for 20/20 queries.
+- **Choice:** Brute-force MaxSim in PyTorch on the CPU, over the cached ColSmol page vectors (stored bf16, scored float32)
+- **Why:** Exact like the other two, 6× faster than Qdrant local mode and with no GPU time spent on search (ZeroGPU counts
+  GPU seconds against each visitor's daily quota).
+- **Consequences:** The service gets an in-memory search mode next to Qdrant; the local app keeps Qdrant (Groups 4–5). Uploads
+  in the demo are searched the same way. The demo index = hr's pages.jsonl, queries.jsonl, page images and bf16 vectors.

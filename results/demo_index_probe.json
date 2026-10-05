@@ -1,0 +1,26 @@
+{
+ "git": {
+  "commit": "92dedbf",
+  "dirty": false
+ },
+ "subset": "hr",
+ "pages": 1110,
+ "queries": 20,
+ "qdrant local mode (CPU)": {
+  "build_s": 18.1159,
+  "p50_s": 0.3977,
+  "top10_same_as_gpu": "20/20"
+ },
+ "torch brute force (cpu)": {
+  "build_s": 0.6749,
+  "p50_s": 0.0685,
+  "gb": 0.4631,
+  "top10_same_as_gpu": "20/20"
+ },
+ "torch brute force (cuda)": {
+  "build_s": 0.8672,
+  "p50_s": 0.0087,
+  "gb": 0.4631,
+  "top10_same_as_gpu": "20/20"
+ }
+}
