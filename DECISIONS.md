@@ -379,3 +379,42 @@ Append-only. A recorded decision changes only with Kunal's explicit OK — add a
 - **Why:** The first rule (cell centre inside the box) was stricter than the cell size allows (a cell is 1/32 of the page);
   re-scoring the same 3 pages with a looser rule would be fitting the rule to the result, so the new rule gets new pages.
 - **Consequences:** Both checks are reported; the first failure stays on record (1b9497a).
+
+## D-048 · Public demo · 2026-10-05 · Group 9
+- **Question:** Where does the demo run for interviewers?
+- **Facts (huggingface.co/docs/hub/spaces-zerogpu, read 2026-10-05):** free personal accounts in good standing (verified
+  email, account older than 30 days) may host up to 2 ZeroGPU Spaces at no cost; GPU = half an RTX Pro 6000 Blackwell, 48 GB;
+  visitors' daily GPU quota 5 min (free account) / 2 min (anonymous); Gradio SDK only; Python 3.12.12 or 3.10.13; PyTorch
+  2.8–2.13; models are placed on `cuda` at module level and GPU work runs inside `@spaces.GPU` functions.
+- **Options:** ZeroGPU Gradio Space · local only + recorded video
+- **Choice:** A ZeroGPU Gradio Space on Kunal's free account
+- **Why:** Interviewers can try it from a link, at ₹0.
+- **Consequences:** Python 3.12 for the Space (the project uses 3.11: the code must run on both). No Qdrant server and maybe
+  no bitsandbytes there: the demo searches an in-process index (Task 9.2), and the answer model's precision on the Space is
+  settled by measurement and stated in the README if it differs from the evaluated 4-bit setup. Deploying (9.3) needs
+  Kunal's explicit OK and his HF token as an environment variable, never committed — and it is the first time code leaves
+  the laptop, an exception to D-006 that Kunal confirms at that step.
+
+## D-049 · Where the demo index lives · 2026-10-05 · Group 9
+- **Question:** Where does the prebuilt demo index (page images + page vectors) live?
+- **Options:** an HF dataset repo · inside the Space repo
+- **Choice:** A separate Hugging Face dataset repo, downloaded by the Space at startup
+- **Why:** Keeps the Space repo to code; the dataset card carries the licences and attribution.
+- **Consequences:** The card states hr's CC BY 4.0 (with attribution to the ViDoRe V3 authors and the source documents) and
+  that the vectors are derived data. Created only at deploy time, with Kunal's token and OK.
+
+## D-050 · Pages in the demo index · 2026-10-05 · Group 9
+- **Question:** Which pages go into the demo (brief: ~500–2,000)?
+- **Options:** all of hr · hr + 500 finance pages · 500 of each
+- **Choice:** All of hr: 1,110 pages
+- **Why:** One complete benchmark subset, so its questions keep all their gold pages; chart-heavy; CC BY 4.0.
+- **Consequences:** The online demo has no finance tables (the local app keeps both subsets). Size: 971,196 vectors
+  (~0.25 GB in float16) + 1,110 page images (~0.4 GB).
+
+## D-051 · Continuous integration · 2026-10-05 · Group 9
+- **Question:** Run checks automatically on every push?
+- **Options:** GitHub Actions with ruff + the CPU tests · none
+- **Choice:** GitHub Actions: ruff check, ruff format --check, pytest (CPU)
+- **Why:** Free for public repos; automatic proof that the code still passes.
+- **Consequences:** CI must install a CPU build of PyTorch and must not need data/, models or a GPU; the workflow is checked
+  locally now and runs for real only after the Group 10 push (D-006).
