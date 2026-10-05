@@ -1,0 +1,76 @@
+{
+ "git": {
+  "commit": "a13da2c",
+  "dirty": false
+ },
+ "word": "Kangaroo",
+ "pages": [
+  {
+   "position": "top-left",
+   "word_box": [
+    0.118,
+    0.116,
+    0.392,
+    0.178
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    4,
+    10
+   ],
+   "cell_centre": [
+    0.328,
+    0.141
+   ],
+   "inside": true
+  },
+  {
+   "position": "centre",
+   "word_box": [
+    0.376,
+    0.469,
+    0.65,
+    0.532
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    16,
+    17
+   ],
+   "cell_centre": [
+    0.547,
+    0.516
+   ],
+   "inside": true
+  },
+  {
+   "position": "bottom-right",
+   "word_box": [
+    0.621,
+    0.86,
+    0.895,
+    0.923
+   ],
+   "grid": [
+    32,
+    32
+   ],
+   "strongest_cell": [
+    27,
+    27
+   ],
+   "cell_centre": [
+    0.859,
+    0.859
+   ],
+   "inside": false
+  }
+ ],
+ "pass": false
+}
